@@ -13,6 +13,8 @@
 		301CED8A29F0FB8500996726 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8829F0FB8500996726 /* Main.storyboard */; };
 		301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8B29F0FB8700996726 /* Assets.xcassets */; };
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
+		308CB49C29F837040072D97D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308CB49B29F837040072D97D /* CoreBluetooth.framework */; };
+		308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */; };
 		951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		301CED8B29F0FB8700996726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		301CED8E29F0FB8700996726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		308CB49B29F837040072D97D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBluetoothCTL.swift; sourceTree = "<group>"; };
 		3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.release.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.release.xcconfig"; sourceTree = "<group>"; };
 		64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ninox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.debug.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308CB49C29F837040072D97D /* CoreBluetooth.framework in Frameworks */,
 				951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +75,7 @@
 				301CED8B29F0FB8700996726 /* Assets.xcassets */,
 				301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */,
 				301CED9029F0FB8700996726 /* Info.plist */,
+				308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */,
 			);
 			path = Ninox;
 			sourceTree = "<group>";
@@ -80,13 +86,13 @@
 				A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */,
 				3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		EEAC63FC48B20CDF4226B4EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308CB49B29F837040072D97D /* CoreBluetooth.framework */,
 				64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */,
 			);
 			name = Frameworks;
@@ -103,6 +109,7 @@
 				301CED7B29F0FB8500996726 /* Sources */,
 				301CED7C29F0FB8500996726 /* Frameworks */,
 				301CED7D29F0FB8500996726 /* Resources */,
+				9A2AE7EC5CB042BFB1D605CB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +189,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9A2AE7EC5CB042BFB1D605CB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ninox/Pods-Ninox-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ninox/Pods-Ninox-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ninox/Pods-Ninox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -191,6 +215,7 @@
 			files = (
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
+				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
 				301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 26VP882AF6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ninox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -346,6 +372,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -367,6 +394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 26VP882AF6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ninox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -374,6 +402,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

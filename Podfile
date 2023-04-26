@@ -6,5 +6,6 @@ target 'Ninox' do
   use_frameworks!
 
   # Pods for Ninox
+  pod 'SnapKit', '~> 5.0.0'
 
 end
