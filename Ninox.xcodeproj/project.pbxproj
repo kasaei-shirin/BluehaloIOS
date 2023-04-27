@@ -15,6 +15,9 @@
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
 		308CB49C29F837040072D97D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308CB49B29F837040072D97D /* CoreBluetooth.framework */; };
 		308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */; };
+		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
+		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
+		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
 		951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +32,9 @@
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		308CB49B29F837040072D97D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBluetoothCTL.swift; sourceTree = "<group>"; };
+		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
+		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
+		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
 		3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.release.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.release.xcconfig"; sourceTree = "<group>"; };
 		64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ninox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.debug.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -50,6 +56,7 @@
 		301CED7629F0FB8500996726 = {
 			isa = PBXGroup;
 			children = (
+				30B7663329F986EA00A86C06 /* components */,
 				301CED8129F0FB8500996726 /* Ninox */,
 				301CED8029F0FB8500996726 /* Products */,
 				C96C0DEA5881114EF8CD54F9 /* Pods */,
@@ -76,8 +83,18 @@
 				301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */,
 				301CED9029F0FB8700996726 /* Info.plist */,
 				308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */,
+				30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */,
+				30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */,
 			);
 			path = Ninox;
+			sourceTree = "<group>";
+		};
+		30B7663329F986EA00A86C06 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				30B7663429F9872600A86C06 /* HeaderLabel.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		C96C0DEA5881114EF8CD54F9 /* Pods */ = {
@@ -161,6 +178,8 @@
 				301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */,
 				301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */,
 				301CED8A29F0FB8500996726 /* Main.storyboard in Resources */,
+				30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */,
+				30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +234,7 @@
 			files = (
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
+				30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */,
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
 				301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */,
 			);
