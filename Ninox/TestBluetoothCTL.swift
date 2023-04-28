@@ -11,6 +11,7 @@ import CoreBluetooth
 class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     var peripherals:[CBPeripheral] = []
+    var ADs : [[String:Any]] = []
     var manager:CBCentralManager? = nil
     
     
@@ -79,6 +80,7 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         
         if(!peripherals.contains(peripheral)) {
             peripherals.append(peripheral)
+            ADs.append(advertisementData)
             
             print("----------------------------")
             
@@ -125,12 +127,16 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
         let peripheral = peripherals[indexPath.row]
     
         
+        let AD = ADs[indexPath.row]
         
+        let data = AD["kCBAdvDataManufacturerData"] as? Data ?? Data()
         
-        cell.textLabel?.text = peripheral.identifier.uuidString
+        var dataString = data.hexEncodedString()
+        
+        cell.textLabel?.text = "\(peripheral.name)  - \(dataString)"
         
     
-        cell.textLabel?.numberOfLines = 8
+//        cell.textLabel?.numberOfLines = 8
         
         return cell
         
@@ -143,4 +149,17 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     
+}
+
+
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return self.map { String(format: format, $0) }.joined()
+    }
 }
