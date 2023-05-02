@@ -9,5 +9,6 @@ target 'Ninox' do
   
   pod 'iOSDropDown'
 #  pod 'MBRadioCheckboxButton'
+  pod 'SQLite.swift', '~> 0.14.0'
 
 end
