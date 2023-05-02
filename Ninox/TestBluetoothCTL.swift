@@ -11,12 +11,16 @@ import CoreBluetooth
 class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     var peripherals:[CBPeripheral] = []
-    var ADs : [[String:Any]] = []
+//    var ADs : [[String:Any]] = []
+    var PPPs : [PeripheralWithRssiAndData] = []
     var manager:CBCentralManager? = nil
+    
+    var inScanMode: Bool = false
     
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var btnScan: UIButton!
     
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -39,7 +43,11 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     
     @IBAction func scanAction(_ sender: Any) {
-        scanBLEDevices()
+        if(inScanMode){
+            stopScanForBLEDevices()
+        }else{
+            scanBLEDevices()
+        }
         
     }
     
@@ -47,30 +55,34 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         //manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
         
         //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
+        inScanMode = true
         manager?.scanForPeripherals(withServices: nil, options: nil)
+        btnScan.setTitle("Stop", for: .normal)
         
         //stop scanning after 3 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.stopScanForBLEDevices()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//            self.stopScanForBLEDevices()
+//        }
     }
     
     func stopScanForBLEDevices() {
+        inScanMode = false
         manager?.stopScan()
+        btnScan.setTitle("Start", for: .normal)
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        
-        print("-------------------------")
-        
-        print(" in service : ")
-    
-        print(service.characteristics)
-        
-        print(service.description)
-        
-        print("-------------------------")
-    }
+//    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+//
+//        print("-------------------------")
+//
+//        print(" in service : ")
+//
+//        print(service.characteristics)
+//
+//        print(service.description)
+//
+//        print("-------------------------")
+//    }
     
     
     
@@ -79,8 +91,11 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         
         
         if(!peripherals.contains(peripheral)) {
+            
+            //add peripheral 2 list
+            
             peripherals.append(peripheral)
-            ADs.append(advertisementData)
+            PPPs.append(PeripheralWithRssiAndData(periPheral: peripheral, rssi: Int(RSSI), data: advertisementData))
             
             print("----------------------------")
             
@@ -96,6 +111,12 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
             
             self.tableView.reloadData()
             
+        }else{
+            let indexP = peripherals.firstIndex(of: peripheral)!
+            PPPs[indexP].rssi = Int(RSSI)
+            self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
+            
+            // update rssi
         }
         
     }
@@ -127,13 +148,13 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
         let peripheral = peripherals[indexPath.row]
     
         
-        let AD = ADs[indexPath.row]
+        let PFH = PPPs[indexPath.row]
         
-        let data = AD["kCBAdvDataManufacturerData"] as? Data ?? Data()
+        let data = PFH.data["kCBAdvDataManufacturerData"] as? Data ?? Data()
         
         var dataString = data.hexEncodedString()
         
-        cell.textLabel?.text = "\(peripheral.name)  - \(dataString)"
+        cell.textLabel?.text = "\(PFH.periPheral.name)  - \(dataString) - \(PFH.rssi)"
         
     
 //        cell.textLabel?.numberOfLines = 8
@@ -161,5 +182,19 @@ extension Data {
     func hexEncodedString(options: HexEncodingOptions = []) -> String {
         let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
         return self.map { String(format: format, $0) }.joined()
+    }
+}
+
+
+class PeripheralWithRssiAndData{
+    
+    var periPheral: CBPeripheral
+    var rssi: Int
+    var data: [String:Any]
+    
+    init(periPheral: CBPeripheral, rssi: Int, data: [String:Any]) {
+        self.periPheral = periPheral
+        self.rssi = rssi
+        self.data = data
     }
 }
