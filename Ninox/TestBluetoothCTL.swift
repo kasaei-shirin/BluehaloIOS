@@ -163,6 +163,7 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
             if(indexP != -1){
                 print("before \(PPPs[indexP].rssi)")
                 PPPs[indexP].rssi = Int(RSSI)
+                PPPs[indexP].data = advertisementData
                 print("after \(PPPs[indexP].rssi)")
                 let visibles = self.tableView.indexPathsForVisibleRows
                 //            for item in visibles!{
@@ -221,7 +222,7 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
         print("update indexPath \(indexPath.row)")
         
 //        - \(dataString) -
-        cell.textLabel?.text = "\(PFH.periPheral.name)  + \(PFH.rssi)"
+        cell.textLabel?.text = "\(PFH.periPheral.name) + \(dataString)  + \(PFH.rssi)"
         
         labels[indexPath.row] = cell.textLabel
     
