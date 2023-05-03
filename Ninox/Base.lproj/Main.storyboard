@@ -476,7 +476,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8EX-0t-J7a">
-                                <rect key="frame" x="0.0" y="59" width="393" height="709"/>
+                                <rect key="frame" x="0.0" y="119" width="393" height="649"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="scanTableCell" textLabel="iwv-Uq-GgQ" imageView="iup-pH-rck" style="IBUITableViewCellStyleDefault" id="LxK-Pu-GlZ">
@@ -511,15 +511,27 @@
                                     <action selector="scanAction:" destination="YIW-8d-7mb" eventType="touchUpInside" id="85x-3y-fxe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSO-ns-xHx">
+                                <rect key="frame" x="0.0" y="59" width="393" height="60"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="clear"/>
+                                <connections>
+                                    <action selector="clearAction:" destination="YIW-8d-7mb" eventType="touchUpInside" id="hXc-rJ-Dyb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Stf-Mq-U6c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8EX-0t-J7a" firstAttribute="top" secondItem="Stf-Mq-U6c" secondAttribute="top" id="08H-qa-W3P"/>
+                            <constraint firstItem="8EX-0t-J7a" firstAttribute="top" secondItem="Stf-Mq-U6c" secondAttribute="top" constant="60" id="08H-qa-W3P"/>
                             <constraint firstItem="N92-8p-NMD" firstAttribute="leading" secondItem="Stf-Mq-U6c" secondAttribute="leading" id="25W-uf-tph"/>
                             <constraint firstItem="Stf-Mq-U6c" firstAttribute="bottom" secondItem="8EX-0t-J7a" secondAttribute="bottom" constant="50" id="3PG-ci-SDr"/>
+                            <constraint firstItem="8EX-0t-J7a" firstAttribute="top" secondItem="hSO-ns-xHx" secondAttribute="bottom" id="Ii2-e1-9Rd"/>
+                            <constraint firstItem="Stf-Mq-U6c" firstAttribute="trailing" secondItem="hSO-ns-xHx" secondAttribute="trailing" id="K5A-eG-jNB"/>
                             <constraint firstItem="8EX-0t-J7a" firstAttribute="leading" secondItem="Stf-Mq-U6c" secondAttribute="leading" id="Psw-QH-IYU"/>
                             <constraint firstItem="Stf-Mq-U6c" firstAttribute="trailing" secondItem="8EX-0t-J7a" secondAttribute="trailing" id="cfN-dZ-Cea"/>
+                            <constraint firstItem="hSO-ns-xHx" firstAttribute="leading" secondItem="Stf-Mq-U6c" secondAttribute="leading" id="k9p-fQ-D1U"/>
+                            <constraint firstItem="hSO-ns-xHx" firstAttribute="top" secondItem="Stf-Mq-U6c" secondAttribute="top" id="pVx-Io-LDT"/>
                             <constraint firstItem="Stf-Mq-U6c" firstAttribute="trailing" secondItem="N92-8p-NMD" secondAttribute="trailing" id="rib-j1-7Ay"/>
                             <constraint firstItem="N92-8p-NMD" firstAttribute="top" secondItem="8EX-0t-J7a" secondAttribute="bottom" id="tes-9P-xOA"/>
                             <constraint firstItem="Stf-Mq-U6c" firstAttribute="bottom" secondItem="N92-8p-NMD" secondAttribute="bottom" id="vzk-P8-W5M"/>

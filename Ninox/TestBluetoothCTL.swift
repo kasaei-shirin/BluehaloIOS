@@ -54,6 +54,9 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         //manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
         
         //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
+        PPPs.removeAll()
+        peripherals.removeAll()
+        
         inScanMode = true
         
         btnScan.setTitle("Stop", for: .normal)
@@ -66,7 +69,7 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     func startForContinue(){
         if(inScanMode){
             manager?.scanForPeripherals(withServices: nil, options: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
                 self.stopForContinue()
             }
         }
@@ -74,7 +77,7 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     func stopForContinue(){
         if(inScanMode){
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.startForContinue()
             }
         }
@@ -99,6 +102,13 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
 //        print("-------------------------")
 //    }
     
+    @IBAction func clearAction(_ sender: Any) {
+        
+        peripherals.removeAll()
+    //    var ADs : [[String:Any]] = []
+        PPPs.removeAll()
+        self.tableView.reloadData()
+    }
     
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {

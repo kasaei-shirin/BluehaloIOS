@@ -1,16 +1,22 @@
 PODS:
-  - SnapKit (5.0.1)
+  - iOSDropDown (0.4.0)
+  - SQLite.swift (0.14.1):
+    - SQLite.swift/standard (= 0.14.1)
+  - SQLite.swift/standard (0.14.1)
 
 DEPENDENCIES:
-  - SnapKit (~> 5.0.0)
+  - iOSDropDown
+  - SQLite.swift (~> 0.14.0)
 
 SPEC REPOS:
   trunk:
-    - SnapKit
+    - iOSDropDown
+    - SQLite.swift
 
 SPEC CHECKSUMS:
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
+  SQLite.swift: 2992550ebf3c5b268bf4352603e3df87d2a4ed72
 
-PODFILE CHECKSUM: a740dfa87a69f0c637143cb4acac415c4957e48a
+PODFILE CHECKSUM: b2cb3d19027f74b53d8e49749626114395fd2043
 
 COCOAPODS: 1.12.1

@@ -13,11 +13,16 @@
 		301CED8A29F0FB8500996726 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8829F0FB8500996726 /* Main.storyboard */; };
 		301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8B29F0FB8700996726 /* Assets.xcassets */; };
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
+		30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30418EAA2A02176F003DD55D /* SearchItem.swift */; };
+		30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30418EAB2A02176F003DD55D /* SearchItem.xib */; };
 		308CB49C29F837040072D97D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308CB49B29F837040072D97D /* CoreBluetooth.framework */; };
 		308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */; };
 		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
 		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
 		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
+		30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CEC62A0203C900DB70C4 /* DBManager.swift */; };
+		30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CECB2A020D9C00DB70C4 /* DataModels.swift */; };
+		30E5CED22A02145700DB70C4 /* LocationCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CED12A02145700DB70C4 /* LocationCTL.swift */; };
 		951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,11 +35,17 @@
 		301CED8B29F0FB8700996726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		301CED8E29F0FB8700996726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30418EAA2A02176F003DD55D /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
+		30418EAB2A02176F003DD55D /* SearchItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchItem.xib; sourceTree = "<group>"; };
 		308CB49B29F837040072D97D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBluetoothCTL.swift; sourceTree = "<group>"; };
 		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
 		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
+		30E5CEC62A0203C900DB70C4 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		30E5CEC82A02041900DB70C4 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30E5CECB2A020D9C00DB70C4 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		30E5CED12A02145700DB70C4 /* LocationCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCTL.swift; sourceTree = "<group>"; };
 		3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.release.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.release.xcconfig"; sourceTree = "<group>"; };
 		64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ninox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.debug.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +67,10 @@
 		301CED7629F0FB8500996726 = {
 			isa = PBXGroup;
 			children = (
+				30418EA92A021746003DD55D /* Cells */,
+				30E5CECD2A0213F400DB70C4 /* ViewControllers */,
+				30E5CECA2A020D8C00DB70C4 /* DataModels */,
+				30E5CEC52A0203A800DB70C4 /* DBManager */,
 				30B7663329F986EA00A86C06 /* components */,
 				301CED8129F0FB8500996726 /* Ninox */,
 				301CED8029F0FB8500996726 /* Products */,
@@ -89,12 +104,45 @@
 			path = Ninox;
 			sourceTree = "<group>";
 		};
+		30418EA92A021746003DD55D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				30418EAA2A02176F003DD55D /* SearchItem.swift */,
+				30418EAB2A02176F003DD55D /* SearchItem.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		30B7663329F986EA00A86C06 /* components */ = {
 			isa = PBXGroup;
 			children = (
 				30B7663429F9872600A86C06 /* HeaderLabel.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		30E5CEC52A0203A800DB70C4 /* DBManager */ = {
+			isa = PBXGroup;
+			children = (
+				30E5CEC62A0203C900DB70C4 /* DBManager.swift */,
+			);
+			path = DBManager;
+			sourceTree = "<group>";
+		};
+		30E5CECA2A020D8C00DB70C4 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				30E5CECB2A020D9C00DB70C4 /* DataModels.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		30E5CECD2A0213F400DB70C4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				30E5CED12A02145700DB70C4 /* LocationCTL.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		C96C0DEA5881114EF8CD54F9 /* Pods */ = {
@@ -109,6 +157,7 @@
 		EEAC63FC48B20CDF4226B4EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30E5CEC82A02041900DB70C4 /* SQLite.framework */,
 				308CB49B29F837040072D97D /* CoreBluetooth.framework */,
 				64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */,
 			);
@@ -149,6 +198,7 @@
 				TargetAttributes = {
 					301CED7E29F0FB8500996726 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -179,6 +229,7 @@
 				301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */,
 				301CED8A29F0FB8500996726 /* Main.storyboard in Resources */,
 				30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */,
+				30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */,
 				30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +283,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E5CED22A02145700DB70C4 /* LocationCTL.swift in Sources */,
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
+				30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */,
+				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
+				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
 				30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */,
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
@@ -382,6 +437,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 26VP882AF6;
@@ -401,6 +457,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.saai.Ninox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -412,6 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 26VP882AF6;
