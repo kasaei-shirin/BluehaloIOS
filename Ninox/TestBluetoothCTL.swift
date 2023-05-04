@@ -56,6 +56,7 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
         PPPs.removeAll()
         peripherals.removeAll()
+        tableView.reloadData()
         
         inScanMode = true
         
@@ -113,11 +114,13 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        
+//        print("\(peripheral) + central : \(central.description)")
         var indexP = -1
-        var i = -1
-        print("indexP before : \(indexP)")
+        var i = 0
+//        print("indexP before : \(indexP)")
+        print("\(PPPs.count) p ")
         for item in PPPs{
+            print("\(item.periPheral.identifier.uuidString) == \(peripheral.identifier.uuidString)")
             if item.periPheral.identifier.uuidString == peripheral.identifier.uuidString{
                 indexP = i
             }
@@ -126,10 +129,11 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         
         if(indexP == -1) {
             
+            print("manfie 1 + \(PPPs.count)")
+            
             //add peripheral 2 list
             
-            peripherals.append(peripheral)
-            PPPs.append(PeripheralWithRssiAndData(periPheral: peripheral, rssi: Int(RSSI), data: advertisementData))
+            PPPs.append(PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData))
             
             
             
@@ -149,36 +153,28 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
 //            DispatchQueue.main.async {
 //
 //            }
-            self.tableView.beginUpdates()
             self.tableView.insertRows(at: [IndexPath(row: self.PPPs.count-1, section: 0)], with: .none)
-            self.tableView.endUpdates()
             
         }else{
 //            let indexP = peripherals.firstIndex(of: peripheral)!
             
-            
-            
-            print("indexP update : \(indexP)")
-            
-            if(indexP != -1){
-                print("before \(PPPs[indexP].rssi)")
-                PPPs[indexP].rssi = Int(RSSI)
-                PPPs[indexP].data = advertisementData
-                print("after \(PPPs[indexP].rssi)")
-                let visibles = self.tableView.indexPathsForVisibleRows
-                //            for item in visibles!{
-                //
-                //            }
-                
-                self.tableView.beginUpdates()
-                
-                self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
-                self.tableView.endUpdates()
+//            print("indexP update : \(indexP)")
+            print("before \(PPPs[indexP].rssi)")
+            PPPs[indexP].rssi = RSSI.intValue
+            PPPs[indexP].data = advertisementData
+//                print("after \(PPPs[indexP].rssi)")
+//                let visibles = self.tableView.indexPathsForVisibleRows
+          //            for item in visibles!{
+          //
+          //            }
+          
+            self.tableView.beginUpdates()
+          
+            self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
+            self.tableView.endUpdates()
 //                DispatchQueue.main.async {
 //
 //                }
-            }
-            
             
             // update rssi
         }
@@ -203,13 +199,13 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
 extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return peripherals.count
+        return PPPs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scanTableCell", for: indexPath)
-        let peripheral = peripherals[indexPath.row]
+        
     
         
         
