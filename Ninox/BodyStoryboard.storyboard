@@ -426,10 +426,21 @@
                                             <constraint firstItem="2kK-cL-frU" firstAttribute="leading" secondItem="CDQ-0u-BG5" secondAttribute="leading" id="yXo-oe-D5D"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ji4-7f-ojA">
+                                        <rect key="frame" x="10" y="280" width="333" height="34.333333333333314"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="logout"/>
+                                        <connections>
+                                            <action selector="logout:" destination="Qm0-i4-9xj" eventType="touchUpInside" id="OtY-cr-Sey"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="dhF-V1-LKt" firstAttribute="trailing" secondItem="Ji4-7f-ojA" secondAttribute="trailing" constant="10" id="Bhp-Ae-jF3"/>
                                     <constraint firstItem="CDQ-0u-BG5" firstAttribute="leading" secondItem="RuV-Wh-xt8" secondAttribute="leading" id="GHg-Z7-1xo"/>
                                     <constraint firstItem="CDQ-0u-BG5" firstAttribute="bottom" secondItem="RuV-Wh-xt8" secondAttribute="bottom" id="IB9-qd-E5g"/>
+                                    <constraint firstItem="Ji4-7f-ojA" firstAttribute="leading" secondItem="dhF-V1-LKt" secondAttribute="leading" constant="10" id="Phd-ge-aei"/>
+                                    <constraint firstItem="Ji4-7f-ojA" firstAttribute="top" secondItem="CDQ-0u-BG5" secondAttribute="bottom" constant="10" id="UPX-3K-Oss"/>
                                     <constraint firstItem="CDQ-0u-BG5" firstAttribute="top" secondItem="RuV-Wh-xt8" secondAttribute="top" id="WRI-5E-atO"/>
                                     <constraint firstItem="CDQ-0u-BG5" firstAttribute="trailing" secondItem="RuV-Wh-xt8" secondAttribute="trailing" id="z5m-Sd-CTu"/>
                                     <constraint firstItem="CDQ-0u-BG5" firstAttribute="width" secondItem="dhF-V1-LKt" secondAttribute="width" id="zfm-96-ZBa"/>
@@ -454,11 +465,22 @@
                     </view>
                     <connections>
                         <outlet property="lblEmail" destination="pMk-Kw-A00" id="KEI-5D-ics"/>
+                        <segue destination="hDv-j1-8yE" kind="show" identifier="home2spalsh" id="keC-Ey-WKe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEo-ud-7CS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1515" y="223"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="MJr-eT-aEc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="hDv-j1-8yE" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="HBC-7N-FsZ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MFP-mW-ZON" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2268" y="444"/>
         </scene>
         <!--Search FilterCTL-->
         <scene sceneID="Dh2-zY-8tt">

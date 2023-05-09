@@ -148,13 +148,14 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
 //        cell.textLabel?.text = "\(PFH.periPheral.name) + \(dataString)  + \(PFH.rssi)"
         
         var header = Dictionary<String, String>()
-        header["Publicaddress"] = dataString
+        header["Publicaddress"] = theString
         
         HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             
             if let j = json as? [String:Any]{
+                print(j)
                 if let success = j["success"] as? String{
                     if(success == "true"){
                         if let t = j["tag"] as? [String:Any]{

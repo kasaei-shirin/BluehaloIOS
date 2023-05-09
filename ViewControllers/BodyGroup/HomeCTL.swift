@@ -30,6 +30,10 @@ class HomeCTL: UIViewController {
         performSegue(withIdentifier: "home2search", sender: self)
     }
     
+    @IBAction func logout(_ sender: Any) {
+        DBManager().deleteUser()
+        performSegue(withIdentifier: "home2spalsh", sender: self)
+    }
     /*
     // MARK: - Navigation
 
