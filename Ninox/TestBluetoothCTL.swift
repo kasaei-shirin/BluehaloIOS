@@ -135,24 +135,6 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
             
             PPPs.append(PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData))
             
-            
-            
-//            print("----------------------------")
-//
-//
-//            print("\(peripheral.identifier) --- \(RSSI)")
-//
-//            print(advertisementData["kCBAdvDataManufacturerData"])
-//
-//
-//
-//
-//            print("----------------------------")
-            
-//            self.tableView.insertRows(at: [IndexPath()], with: <#T##UITableView.RowAnimation#>)
-//            DispatchQueue.main.async {
-//
-//            }
             self.tableView.insertRows(at: [IndexPath(row: self.PPPs.count-1, section: 0)], with: .none)
             
         }else{
@@ -162,21 +144,13 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
             print("before \(PPPs[indexP].rssi)")
             PPPs[indexP].rssi = RSSI.intValue
             PPPs[indexP].data = advertisementData
-//                print("after \(PPPs[indexP].rssi)")
-//                let visibles = self.tableView.indexPathsForVisibleRows
-          //            for item in visibles!{
-          //
-          //            }
+
           
             self.tableView.beginUpdates()
           
             self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
             self.tableView.endUpdates()
-//                DispatchQueue.main.async {
-//
-//                }
-            
-            // update rssi
+
         }
         
     }
