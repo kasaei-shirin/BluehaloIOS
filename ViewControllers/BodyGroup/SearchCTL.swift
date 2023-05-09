@@ -23,12 +23,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     
     var peripherals:[CBPeripheral] = []
-//    var ADs : [[String:Any]] = []
+
     var PPPs : [PeripheralWithRssiAndData] = []
     var manager:CBCentralManager? = nil
     
     
-    
+    var tags = [TagModel]()
     
     var inScanMode: Bool = false
     
@@ -46,6 +46,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        manager = CBCentralManager(delegate: self, queue: nil);
         
         
     }
@@ -76,26 +78,90 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
             print("manfie 1 + \(PPPs.count)")
             
             //add peripheral 2 list
+            let PPP = PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData)
+            PPPs.append(PPP)
             
-            PPPs.append(PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData))
-            
-            self.tableView.insertRows(at: [IndexPath(row: self.PPPs.count-1, section: 0)], with: .none)
+            getFromWebThenInsertIntoList(PPP)
+//            self.tableView.insertRows(at: [IndexPath(row: self.PPPs.count-1, section: 0)], with: .none)
             
         }else{
-//            let indexP = peripherals.firstIndex(of: peripheral)!
-            
-//            print("indexP update : \(indexP)")
+
             print("before \(PPPs[indexP].rssi)")
             PPPs[indexP].rssi = RSSI.intValue
             PPPs[indexP].data = advertisementData
-
-          
+            
+            
             self.tableView.beginUpdates()
-          
             self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
             self.tableView.endUpdates()
 
         }
+        
+    }
+    
+    func getFromWebThenInsertIntoList(_ ppp: PeripheralWithRssiAndData){
+        
+//        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: nil, method: .GET, success: { (data, response, error) in
+//
+//            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+//
+//
+//
+//        }) { (data, response, error) in
+//            DispatchQueue.main.async {
+//                if let WD = self.waitingDialog{
+//                    WD.dismiss(animated: true)
+//                }
+//            }
+//            print(data)
+//            print(response)
+//            print(error)
+//        }
+        
+        let data = ppp.data["kCBAdvDataManufacturerData"] as? Data ?? Data()
+        
+        var dataString = data.hexEncodedString()
+        if(dataString.count > 5){
+            dataString.removeFirst(4)
+        }
+        if(!dataString.starts(with: "06")){
+            return
+        }
+//        print(dataString)
+        
+        
+        
+//        dataString.remove(at: <#T##String.Index#>)
+        
+//        - \(dataString) -
+//        cell.textLabel?.text = "\(PFH.periPheral.name) + \(dataString)  + \(PFH.rssi)"
+        
+        var header = Dictionary<String, String>()
+        header["Publicaddress"] = dataString
+        
+        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
+            
+            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+            
+            if let j = json as? [String:Any]{
+                if let success = j["success"] as? String{
+                    if(success == "true"){
+                        if let t = j["tag"] as? [String:Any]{
+                            self.tags.append(TagModel(json: t,rssi: ppp.rssi))
+                            DispatchQueue.main.async {
+                                self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+
         
     }
     
@@ -143,7 +209,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     
     @IBAction func scanAction(_ sender: Any) {
-        
+        self.scanBLEDevices()
     }
     
     
@@ -153,15 +219,21 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return tags.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 124
+        return 144
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
+        cell.topParent.layer.masksToBounds = true
+        cell.topParent.layer.cornerRadius = 10.0
+        
+        let tag = tags[indexPath.row]
+        cell.lblDeviceName.text = tag.deviceName
+        cell.lblAlias.text = tag.alias
         
         return cell
     }

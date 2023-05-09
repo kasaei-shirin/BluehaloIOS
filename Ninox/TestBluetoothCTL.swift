@@ -90,18 +90,6 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
         btnScan.setTitle("Start", for: .normal)
     }
     
-//    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-//
-//        print("-------------------------")
-//
-//        print(" in service : ")
-//
-//        print(service.characteristics)
-//
-//        print(service.description)
-//
-//        print("-------------------------")
-//    }
     
     @IBAction func clearAction(_ sender: Any) {
         
@@ -188,6 +176,13 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
         let data = PFH.data["kCBAdvDataManufacturerData"] as? Data ?? Data()
         
         var dataString = data.hexEncodedString()
+        
+        if(dataString.count > 5){
+            dataString.removeFirst(4)
+        }
+        print("strings : \(dataString)")
+        
+        
         
         print("update indexPath \(indexPath.row)")
         
