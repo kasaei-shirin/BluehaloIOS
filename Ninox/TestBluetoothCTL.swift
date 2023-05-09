@@ -180,6 +180,19 @@ extension TestBluetoothCTL: UITableViewDelegate, UITableViewDataSource{
         if(dataString.count > 5){
             dataString.removeFirst(4)
         }
+        dataString = dataString.uppercased()
+        var i = 0
+        var theString = ""
+        for char in dataString{
+            if( i % 2 == 0 && i != 0){
+                theString += ":"
+            }
+            theString += String(char)
+            i += 1
+        }
+        print(theString)
+                
+        
         print("strings : \(dataString)")
         
         
