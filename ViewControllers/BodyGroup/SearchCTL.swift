@@ -184,6 +184,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
         PPPs.removeAll()
         peripherals.removeAll()
+        tags.removeAll()
         tableView.reloadData()
         
         inScanMode = true
