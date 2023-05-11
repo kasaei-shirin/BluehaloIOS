@@ -20,6 +20,15 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     @IBOutlet weak var btnScan: UIButton!
     
+    @IBOutlet weak var imgViewShowMore: UIImageView!
+    @IBOutlet weak var imgViewShowLess: UIImageView!
+    @IBOutlet weak var imgViewSetting: UIImageView!
+    @IBOutlet weak var imgViewRefresh: UIImageView!
+    @IBOutlet weak var imgViewInfo: UIImageView!
+    @IBOutlet weak var imgViewSearchFilter: UIImageView!
+    
+    
+//    var cellHeight
     
     
     var peripherals:[CBPeripheral] = []
@@ -49,6 +58,56 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         manager = CBCentralManager(delegate: self, queue: nil);
         
+        
+        setClickListenersForTopItems()
+        
+    }
+    
+    func setClickListenersForTopItems(){
+        
+        imgViewShowLess.isUserInteractionEnabled = true
+        imgViewShowMore.isUserInteractionEnabled = true
+        imgViewInfo.isUserInteractionEnabled = true
+        imgViewRefresh.isUserInteractionEnabled = true
+        imgViewSetting.isUserInteractionEnabled = true
+        imgViewSearchFilter.isUserInteractionEnabled = true
+        
+        var tap = UITapGestureRecognizer(target: self, action: #selector(collapseTap(_:)))
+        imgViewShowLess.addGestureRecognizer(tap)
+        
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(expandAllTap(_:)))
+        imgViewShowMore.addGestureRecognizer(tap);
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(settingsTap(_:)))
+        imgViewSetting.addGestureRecognizer(tap)
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
+        imgViewRefresh.addGestureRecognizer(tap)
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(infoTap(_:)))
+        imgViewInfo.addGestureRecognizer(tap)
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(searchFilter(_:)))
+        imgViewSearchFilter.addGestureRecognizer(tap)
+    }
+    
+    @objc func searchFilter(_ tap: UITapGestureRecognizer){
+        
+    }
+    @objc func infoTap(_ tap: UITapGestureRecognizer){
+        
+    }
+    @objc func refreshTap(_ tap: UITapGestureRecognizer){
+        
+    }
+    @objc func collapseTap(_ tap: UITapGestureRecognizer){
+        
+    }
+    @objc func expandAllTap(_ tap: UITapGestureRecognizer){
+        
+    }
+    @objc func settingsTap(_ tap: UITapGestureRecognizer){
         
     }
     
@@ -90,10 +149,22 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
             PPPs[indexP].rssi = RSSI.intValue
             PPPs[indexP].data = advertisementData
             
+            indexP = -1
+            i = 0
+            for item in tags{
+                
+                if item.uuid == peripheral.identifier.uuidString{
+                    indexP = i
+                }
+                i+=1
+            }
             
-            self.tableView.beginUpdates()
-            self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
-            self.tableView.endUpdates()
+            if indexP != -1{
+                tags[indexP].rssi = RSSI.intValue
+                self.tableView.beginUpdates()
+                self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
+                self.tableView.endUpdates()
+            }
 
         }
         
@@ -159,7 +230,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
                 if let success = j["success"] as? String{
                     if(success == "true"){
                         if let t = j["tag"] as? [String:Any]{
-                            self.tags.append(TagModel(json: t,rssi: ppp.rssi))
+                            self.tags.append(TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString))
                             DispatchQueue.main.async {
                                 self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
                             }
@@ -222,7 +293,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     
     @IBAction func scanAction(_ sender: Any) {
-        self.scanBLEDevices()
+        if(inScanMode){
+            stopScanForBLEDevices()
+        }else{
+            scanBLEDevices()
+        }
     }
     
     
@@ -236,7 +311,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 144
+        return 124 + 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -247,6 +322,19 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
         let tag = tags[indexPath.row]
         cell.lblDeviceName.text = tag.deviceName
         cell.lblAlias.text = tag.alias
+        cell.lblRSSI.text = "\(tag.rssi)"
+        
+        if tag.rssi <= -10 && tag.rssi >= -50{
+            cell.sliderRSSI.setValue(100, animated: false)
+        }else if tag.rssi <= -51 && tag.rssi >= -62{
+            cell.sliderRSSI.setValue(75, animated: false)
+        }else if tag.rssi <= -63 && tag.rssi >= -70{
+            cell.sliderRSSI.setValue(50, animated: false)
+        }else if tag.rssi <= -71 && tag.rssi >= -80{
+            cell.sliderRSSI.setValue(25, animated: false)
+        }else{
+            cell.sliderRSSI.setValue(0, animated: false)
+        }
         
         return cell
     }

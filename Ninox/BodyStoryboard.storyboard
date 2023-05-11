@@ -872,6 +872,12 @@
                     <connections>
                         <outlet property="backView" destination="JPm-fN-TaK" id="sdf-oA-xtD"/>
                         <outlet property="btnScan" destination="Em3-xu-mI6" id="as5-m0-XLd"/>
+                        <outlet property="imgViewInfo" destination="5nt-1j-VKm" id="HEk-gd-rOr"/>
+                        <outlet property="imgViewRefresh" destination="drc-4o-1KA" id="PWY-Lg-oaS"/>
+                        <outlet property="imgViewSearchFilter" destination="Vhz-PE-xcD" id="wqq-pu-GCh"/>
+                        <outlet property="imgViewSetting" destination="Jin-k3-5ck" id="Vz4-sB-Oua"/>
+                        <outlet property="imgViewShowLess" destination="46i-eW-RvN" id="pGK-tb-PAB"/>
+                        <outlet property="imgViewShowMore" destination="Olc-di-haZ" id="hdY-Rv-uSX"/>
                         <outlet property="tableView" destination="8Gc-k3-jER" id="Zit-E2-txi"/>
                     </connections>
                 </viewController>

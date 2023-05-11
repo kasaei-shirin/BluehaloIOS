@@ -88,9 +88,11 @@ class TagModel{
     var targetServiceDates: [TargetServiceDate]
     var targetCustomInfos: [TargetCustomInfo]
     
+    var uuid: String
+    
     var rssi: Int
     
-    init(flagType: Int, flagNote: String, project: String, area: String, _id: String, decryptionCode: String, publicAddress: String, productName: String, deviceName: String, alias: String, email: String, manufactureID: String, tagBatteryExpireDate: String, activationDate: String, targetExpireDate: String, isOnGoing: Bool, cte: Bool, update: Bool, lastBatteryAmount: Float, lastFindingDate: String, advertisementInterval: Int, iconType: Int, batteryReplacementLimit: Int, txPower: Int, previousTagAssignments: [String], tempratureEachConnection: [Temprature], targetServiceDates: [TargetServiceDate], targetCustomInfos: [TargetCustomInfo]) {
+    init(flagType: Int, flagNote: String, project: String, area: String, _id: String, decryptionCode: String, publicAddress: String, productName: String, deviceName: String, alias: String, email: String, manufactureID: String, tagBatteryExpireDate: String, activationDate: String, targetExpireDate: String, isOnGoing: Bool, cte: Bool, update: Bool, lastBatteryAmount: Float, lastFindingDate: String, advertisementInterval: Int, iconType: Int, batteryReplacementLimit: Int, txPower: Int, previousTagAssignments: [String], tempratureEachConnection: [Temprature], targetServiceDates: [TargetServiceDate], targetCustomInfos: [TargetCustomInfo], uuid: String) {
         self.flagType = flagType
         self.flagNote = flagNote
         self.project = project
@@ -120,10 +122,11 @@ class TagModel{
         self.targetServiceDates = targetServiceDates
         self.targetCustomInfos = targetCustomInfos
         self.rssi = 0
+        self.uuid = uuid
     }
     
     
-    init(json: [String:Any], rssi: Int){
+    init(json: [String:Any], rssi: Int, uuidString: String){
         self.project = json["project"] as? String ?? ""
         self.area = json["area"] as? String ?? ""
         self._id = json["_id"] as? String ?? ""
@@ -169,6 +172,7 @@ class TagModel{
             self.targetCustomInfos.append(TargetCustomInfo(json: item))
         }
         self.rssi = rssi
+        self.uuid = uuidString
     }
     
     
