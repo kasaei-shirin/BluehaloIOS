@@ -123,9 +123,9 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         var indexP = -1
         var i = 0
 //        print("indexP before : \(indexP)")
-        print("\(PPPs.count) p ")
+//        print("\(PPPs.count) p ")
         for item in PPPs{
-            print("\(item.periPheral.identifier.uuidString) == \(peripheral.identifier.uuidString)")
+//            print("\(item.periPheral.identifier.uuidString) == \(peripheral.identifier.uuidString)")
             if item.periPheral.identifier.uuidString == peripheral.identifier.uuidString{
                 indexP = i
             }
@@ -134,7 +134,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         if(indexP == -1) {
             
-            print("manfie 1 + \(PPPs.count)")
+//            print("manfie 1 + \(PPPs.count)")
             
             //add peripheral 2 list
             let PPP = PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData)

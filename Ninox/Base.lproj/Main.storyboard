@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="13" y="-34"/>
         </scene>
-        <!--View Controller-->
+        <!--Test Every Thing-->
         <scene sceneID="HVS-Hh-KH1">
             <objects>
-                <viewController id="7vP-iA-Lxh" sceneMemberID="viewController">
+                <viewController id="7vP-iA-Lxh" customClass="TestEveryThing" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zth-bA-nR1">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,7 +66,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <segue destination="4xR-O9-G8B" kind="show" id="uTJ-LQ-dkX"/>
+                                    <action selector="buttonAction:" destination="7vP-iA-Lxh" eventType="touchUpInside" id="lo4-tD-sfy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -82,15 +82,15 @@
             </objects>
             <point key="canvasLocation" x="13" y="-739"/>
         </scene>
-        <!--BodyStoryboard-->
+        <!--dialogDataPicker-->
         <scene sceneID="7aL-jh-zQM">
             <objects>
-                <viewControllerPlaceholder storyboardName="BodyStoryboard" id="4xR-O9-G8B" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="dialogStoryboard" referencedIdentifier="dialogDataPicker" id="4xR-O9-G8B" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="LHt-PT-OPP"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMB-QY-Aqm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529" y="-719"/>
+            <point key="canvasLocation" x="764" y="-722"/>
         </scene>
         <!--SigninCTL-->
         <scene sceneID="a8W-yy-AEH">

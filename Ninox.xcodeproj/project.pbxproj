@@ -15,12 +15,27 @@
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
 		30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30418EAA2A02176F003DD55D /* SearchItem.swift */; };
 		30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30418EAB2A02176F003DD55D /* SearchItem.xib */; };
+		30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */; };
+		30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B642A0F9413005A7F29 /* CustomInfoCell.swift */; };
+		30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B662A0F9435005A7F29 /* ServiceDateCell.swift */; };
 		30675BE52A07D36000515238 /* SigninCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE42A07D36000515238 /* SigninCTL.swift */; };
 		30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */; };
 		30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE82A07D9E200515238 /* SingupCTL.swift */; };
 		30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */; };
+		308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308237182A0CD4B60054A64A /* ScanQRCTL.swift */; };
+		3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082371A2A0CDBA80054A64A /* GifLoading.swift */; };
+		3082371D2A0CDFD20054A64A /* dialogStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */; };
+		308237202A0CE07D0054A64A /* qr_code_scan_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3082371F2A0CE07D0054A64A /* qr_code_scan_gif.gif */; };
+		308237222A0D274B0054A64A /* SetupEditCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308237212A0D274B0054A64A /* SetupEditCTL.swift */; };
 		308CB49C29F837040072D97D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308CB49B29F837040072D97D /* CoreBluetooth.framework */; };
 		308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */; };
+		308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7372A0D519300535557 /* DatePickerDialog.swift */; };
+		308DC73A2A0E633900535557 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7392A0E633900535557 /* RoundedCornerView.swift */; };
+		308DC73C2A0E70DD00535557 /* IconTypeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC73B2A0E70DD00535557 /* IconTypeDialog.swift */; };
+		308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC73E2A0E799700535557 /* DialogProtocols.swift */; };
+		308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7402A0E7ABA00535557 /* TestEveryThing.swift */; };
+		308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7422A0E948100535557 /* MyDateFormatter.swift */; };
+		308DC7452A0E9DC800535557 /* DataPickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7442A0E9DC800535557 /* DataPickerDialog.swift */; };
 		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
 		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
 		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
@@ -46,12 +61,28 @@
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30418EAA2A02176F003DD55D /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		30418EAB2A02176F003DD55D /* SearchItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchItem.xib; sourceTree = "<group>"; };
+		30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoDialog.swift; sourceTree = "<group>"; };
+		30507B642A0F9413005A7F29 /* CustomInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoCell.swift; sourceTree = "<group>"; };
+		30507B662A0F9435005A7F29 /* ServiceDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDateCell.swift; sourceTree = "<group>"; };
 		30675BE42A07D36000515238 /* SigninCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninCTL.swift; sourceTree = "<group>"; };
 		30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTypeCTL.swift; sourceTree = "<group>"; };
 		30675BE82A07D9E200515238 /* SingupCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupCTL.swift; sourceTree = "<group>"; };
 		30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPatternMethods.swift; sourceTree = "<group>"; };
+		308237182A0CD4B60054A64A /* ScanQRCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCTL.swift; sourceTree = "<group>"; };
+		3082371A2A0CDBA80054A64A /* GifLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifLoading.swift; sourceTree = "<group>"; };
+		3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = dialogStoryboard.storyboard; sourceTree = "<group>"; };
+		3082371F2A0CE07D0054A64A /* qr_code_scan_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = qr_code_scan_gif.gif; sourceTree = "<group>"; };
+		308237212A0D274B0054A64A /* SetupEditCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupEditCTL.swift; sourceTree = "<group>"; };
+		308237232A0D32200054A64A /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		308CB49B29F837040072D97D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		308CB49D29F8376B0072D97D /* TestBluetoothCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBluetoothCTL.swift; sourceTree = "<group>"; };
+		308DC7372A0D519300535557 /* DatePickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
+		308DC7392A0E633900535557 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
+		308DC73B2A0E70DD00535557 /* IconTypeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTypeDialog.swift; sourceTree = "<group>"; };
+		308DC73E2A0E799700535557 /* DialogProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogProtocols.swift; sourceTree = "<group>"; };
+		308DC7402A0E7ABA00535557 /* TestEveryThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEveryThing.swift; sourceTree = "<group>"; };
+		308DC7422A0E948100535557 /* MyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDateFormatter.swift; sourceTree = "<group>"; };
+		308DC7442A0E9DC800535557 /* DataPickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPickerDialog.swift; sourceTree = "<group>"; };
 		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
 		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
@@ -85,6 +116,9 @@
 		301CED7629F0FB8500996726 = {
 			isa = PBXGroup;
 			children = (
+				308DC73D2A0E797000535557 /* protocols */,
+				308DC7362A0D517400535557 /* Dialogs */,
+				3082371E2A0CE06A0054A64A /* Resource */,
 				30C59AE82A0892A600D675A5 /* Statics */,
 				30675BEA2A08089700515238 /* ViewPatternMethods */,
 				30418EA92A021746003DD55D /* Cells */,
@@ -121,6 +155,8 @@
 				30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */,
 				30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */,
 				30C59AE62A08902D00D675A5 /* HttpClientAPI.swift */,
+				3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */,
+				308DC7402A0E7ABA00535557 /* TestEveryThing.swift */,
 			);
 			path = Ninox;
 			sourceTree = "<group>";
@@ -130,6 +166,8 @@
 			children = (
 				30418EAA2A02176F003DD55D /* SearchItem.swift */,
 				30418EAB2A02176F003DD55D /* SearchItem.xib */,
+				30507B642A0F9413005A7F29 /* CustomInfoCell.swift */,
+				30507B662A0F9435005A7F29 /* ServiceDateCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -138,8 +176,37 @@
 			isa = PBXGroup;
 			children = (
 				30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */,
+				3082371A2A0CDBA80054A64A /* GifLoading.swift */,
+				308DC7392A0E633900535557 /* RoundedCornerView.swift */,
 			);
 			path = ViewPatternMethods;
+			sourceTree = "<group>";
+		};
+		3082371E2A0CE06A0054A64A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				3082371F2A0CE07D0054A64A /* qr_code_scan_gif.gif */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		308DC7362A0D517400535557 /* Dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				308DC7372A0D519300535557 /* DatePickerDialog.swift */,
+				308DC73B2A0E70DD00535557 /* IconTypeDialog.swift */,
+				308DC7442A0E9DC800535557 /* DataPickerDialog.swift */,
+				30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */,
+			);
+			path = Dialogs;
+			sourceTree = "<group>";
+		};
+		308DC73D2A0E797000535557 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				308DC73E2A0E799700535557 /* DialogProtocols.swift */,
+			);
+			path = protocols;
 			sourceTree = "<group>";
 		};
 		30B7663329F986EA00A86C06 /* components */ = {
@@ -165,6 +232,8 @@
 				30D6B9832A09E14E0058A91F /* HomeCTL.swift */,
 				30D6B9852A09ECCF0058A91F /* SearchCTL.swift */,
 				30D6B9872A09ECDF0058A91F /* SearchFilterCTL.swift */,
+				308237182A0CD4B60054A64A /* ScanQRCTL.swift */,
+				308237212A0D274B0054A64A /* SetupEditCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -181,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				30E5CECB2A020D9C00DB70C4 /* DataModels.swift */,
+				308DC7422A0E948100535557 /* MyDateFormatter.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -208,6 +278,7 @@
 		EEAC63FC48B20CDF4226B4EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308237232A0D32200054A64A /* iOSDropDown.framework */,
 				30E5CEC82A02041900DB70C4 /* SQLite.framework */,
 				308CB49B29F837040072D97D /* CoreBluetooth.framework */,
 				64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */,
@@ -278,9 +349,11 @@
 			files = (
 				301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */,
 				301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */,
+				3082371D2A0CDFD20054A64A /* dialogStoryboard.storyboard in Resources */,
 				301CED8A29F0FB8500996726 /* Main.storyboard in Resources */,
 				30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */,
 				30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */,
+				308237202A0CE07D0054A64A /* qr_code_scan_gif.gif in Resources */,
 				30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,22 +409,35 @@
 			files = (
 				30E5CED22A02145700DB70C4 /* LocationCTL.swift in Sources */,
 				30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */,
+				308DC73C2A0E70DD00535557 /* IconTypeDialog.swift in Sources */,
 				30675BE52A07D36000515238 /* SigninCTL.swift in Sources */,
+				308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */,
+				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,
 				30D6B9842A09E14E0058A91F /* HomeCTL.swift in Sources */,
 				30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */,
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
+				308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */,
+				308DC73A2A0E633900535557 /* RoundedCornerView.swift in Sources */,
 				30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */,
 				30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */,
+				30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */,
+				308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */,
+				30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */,
 				30C59AE72A08902E00D675A5 /* HttpClientAPI.swift in Sources */,
+				308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */,
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
+				308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
 				30D6B9862A09ECCF0058A91F /* SearchCTL.swift in Sources */,
+				308237222A0D274B0054A64A /* SetupEditCTL.swift in Sources */,
 				30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */,
+				308DC7452A0E9DC800535557 /* DataPickerDialog.swift in Sources */,
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
 				301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */,
+				30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

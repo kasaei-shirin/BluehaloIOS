@@ -12,7 +12,7 @@ class HomeCTL: UIViewController {
     
     @IBOutlet weak var lblEmail: UILabel!
     
-    
+    var targetJob: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,19 @@ class HomeCTL: UIViewController {
     @IBAction func logout(_ sender: Any) {
         DBManager().deleteUser()
         performSegue(withIdentifier: "home2spalsh", sender: self)
+    }
+    
+    @IBAction func setupAction(_ sender: Any) {
+        targetJob = "setup"
+        performSegue(withIdentifier: "home2scanQR", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "home2scanQR"{
+            let dest = segue.destination as? ScanQRCTL
+            dest?.fromWhere = "home"
+            dest?.targetJob = targetJob
+        }
     }
     /*
     // MARK: - Navigation

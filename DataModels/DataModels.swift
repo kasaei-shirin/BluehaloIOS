@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserModel{
     var email: String
@@ -37,25 +38,6 @@ class SearchHistoryModel{
     }
     
 }
-
-
-
-
-//int flagType;
-//String flagNote;
-//String project;
-//String area;
-//String _id;
-//String decryptionCode, publicAddress, productName, deviceName, alias, email,
-//        manufactureID, tagBatteryExpireDate, activationDate, targetExpireDate;
-//boolean isOnGoing, cte, update;
-//float lastBatteryAmount;
-//String lastFindingDate;
-//int advertismenetInterval, iconType, batteryReplacementLimit, txPower;
-//List<String> previousTagAssignments;
-//List<Temprature> tempratureEachConnection;
-//List<TargetServiceDate> targetServiceDates;
-//List<TargetCustomInfo> targetCustomInfos;
 
 
 class TagModel{
@@ -198,25 +180,33 @@ class Temprature{
 
 class TargetServiceDate{
     var title: String
-    var date: String
+    var date: Date
     var _id: String
     
-    init(title: String, date: String, _id: String) {
+    init(title: String, date: Date, _id: String) {
         self.title = title
         self.date = date
         self._id = _id
     }
     
     init(json: [String:Any]){
+        
+        let dateString = json["date"] as? String ?? ""
+        if dateString != ""{
+            let formatter = DateFormatter()
+            self.date = MyDateFormatter().getDateFromString(dateString: dateString)
+        }else{
+            self.date = Date()
+        }
+        
         self.title = json["title"] as? String ?? ""
-        self.date = json["date"] as? String ?? ""
         self._id = json["_id"] as? String ?? ""
     }
     
     func getJSON()->[String:Any]{
         var params = [String:Any]()
         params["title"] = self.title
-        params["date"] = self.date
+        params["date"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.date)
         return params
     }
     
@@ -247,4 +237,48 @@ class TargetCustomInfo{
         return params
     }
 
+}
+
+
+class IconTypeModel{
+    
+    var code: Int
+    var title: String
+    var resourceName: String
+    
+    init(code: Int, title: String, resourceName: String) {
+        self.code = code
+        self.title = title
+        self.resourceName = resourceName
+    }
+    
+    func getImage()->UIImage?{
+        return UIImage(named: self.resourceName)
+    }
+    
+    func getIconByCode(code: Int)->IconTypeModel{
+        let ITs = IconTypeModel.getIconTypes()
+        for item in ITs{
+            if item.code == code{
+                return item
+            }
+        }
+        return ITs[0]
+    }
+    
+    class func getIconTypes() -> [IconTypeModel]{
+        var iconTypes = [IconTypeModel]()
+        iconTypes.append(IconTypeModel(code: 0, title: "VacuumCleaner", resourceName: "icontype_vacuum"))
+        iconTypes.append(IconTypeModel(code: 1, title: "Bag", resourceName: "icontype_bag"))
+        iconTypes.append(IconTypeModel(code: 2, title: "Fan", resourceName: "icontype_fan"))
+        iconTypes.append(IconTypeModel(code: 3, title: "Guitar", resourceName: "icontype_guitar"))
+        iconTypes.append(IconTypeModel(code: 4, title: "Laptop", resourceName: "icontype_laptop"))
+        iconTypes.append(IconTypeModel(code: 5, title: "Monitor", resourceName: "icontype_monitor"))
+        iconTypes.append(IconTypeModel(code: 6, title: "Mouse", resourceName: "icontype_mouse"))
+        iconTypes.append(IconTypeModel(code: 7, title: "PC", resourceName: "icontype_pc"))
+        iconTypes.append(IconTypeModel(code: 8, title: "TV", resourceName: "icontype_tv"))
+        iconTypes.append(IconTypeModel(code: 9, title: "Watch", resourceName: "icontype_watch"))
+        return iconTypes
+    }
+    
 }

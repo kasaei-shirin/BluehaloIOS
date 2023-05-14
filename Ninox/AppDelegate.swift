@@ -7,6 +7,16 @@
 
 import UIKit
 
+
+func going2SplashFrom(controller: UIViewController, withClearingDB: Bool){
+    if(withClearingDB){
+        DBManager().deleteUser()
+    }
+    let storyboard = UIStoryboard(name: "main", bundle: nil)
+    guard let splashCTL = storyboard.instantiateInitialViewController() else { return }
+    controller.present(splashCTL, animated: true)
+}
+
  @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
