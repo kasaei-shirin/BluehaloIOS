@@ -36,6 +36,10 @@
 		308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7402A0E7ABA00535557 /* TestEveryThing.swift */; };
 		308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7422A0E948100535557 /* MyDateFormatter.swift */; };
 		308DC7452A0E9DC800535557 /* DataPickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DC7442A0E9DC800535557 /* DataPickerDialog.swift */; };
+		3094DBC72A125D5F00ACAFFB /* ServiceDateSPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3094DBC52A125D5F00ACAFFB /* ServiceDateSPCell.swift */; };
+		3094DBC82A125D5F00ACAFFB /* ServiceDateSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */; };
+		3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */; };
+		3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */; };
 		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
 		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
 		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
@@ -83,6 +87,10 @@
 		308DC7402A0E7ABA00535557 /* TestEveryThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEveryThing.swift; sourceTree = "<group>"; };
 		308DC7422A0E948100535557 /* MyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDateFormatter.swift; sourceTree = "<group>"; };
 		308DC7442A0E9DC800535557 /* DataPickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPickerDialog.swift; sourceTree = "<group>"; };
+		3094DBC52A125D5F00ACAFFB /* ServiceDateSPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDateSPCell.swift; sourceTree = "<group>"; };
+		3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceDateSPCell.xib; sourceTree = "<group>"; };
+		3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoSPCell.swift; sourceTree = "<group>"; };
+		3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoSPCell.xib; sourceTree = "<group>"; };
 		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
 		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
@@ -168,6 +176,10 @@
 				30418EAB2A02176F003DD55D /* SearchItem.xib */,
 				30507B642A0F9413005A7F29 /* CustomInfoCell.swift */,
 				30507B662A0F9435005A7F29 /* ServiceDateCell.swift */,
+				3094DBC52A125D5F00ACAFFB /* ServiceDateSPCell.swift */,
+				3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */,
+				3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */,
+				3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -347,6 +359,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3094DBC82A125D5F00ACAFFB /* ServiceDateSPCell.xib in Resources */,
+				3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */,
 				301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */,
 				301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */,
 				3082371D2A0CDFD20054A64A /* dialogStoryboard.storyboard in Resources */,
@@ -411,6 +425,8 @@
 				30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */,
 				308DC73C2A0E70DD00535557 /* IconTypeDialog.swift in Sources */,
 				30675BE52A07D36000515238 /* SigninCTL.swift in Sources */,
+				3094DBC72A125D5F00ACAFFB /* ServiceDateSPCell.swift in Sources */,
+				3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */,
 				308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */,
 				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,

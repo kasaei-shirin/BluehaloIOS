@@ -30,6 +30,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
 //    var cellHeight
     
+    var searchItemExpand = Dictionary<String,Bool>()
+    
     
     var peripherals:[CBPeripheral] = []
 
@@ -311,15 +313,96 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 124 + 20
+        
+        //20 is destination to bottom view
+        //124 is top view height
+        //bottom view must calculate with a method
+        
+        return CGFloat(getRowheight(tag: tags[indexPath.row]))
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
+    func getRowheight(tag: TagModel)->Int{
+        if let _ = self.searchItemExpand[tag.publicAddress]{
+            return 144+calculateBottomViewHeight(tag: tag)
+        }else{
+            return 144
+        }
+    }
+    
+    func calculateBottomViewHeight(tag: TagModel)->Int{
+        //350 is minimum height of bottom view height
+        var theBottomHeight = 350
+        
+        //1 is top border
+        //20 is (Service Date) Title
+        //35 is every row height
+        //20 is more> height
+        //24 is vertical stack view space 4*8
+//        1+20+tag.targetServiceDates.count * 35 + 20 + 32
+        
+        //the numbers of above formula will be 73
+        
+        
+        if tag.targetServiceDates.count > 0{
+            theBottomHeight += 73 + (tag.targetServiceDates.count*35)
+        }
+        if tag.targetCustomInfos.count > 0{
+            theBottomHeight += 73 + (tag.targetCustomInfos.count*35)
+        }
+        return theBottomHeight
+    }
+    
+    
+    func manageSearchItem(cell: SearchItem, tag: TagModel, indexPath: IndexPath)-> SearchItem{
+        
+        
+        
+        if tag.targetServiceDates.count > 0{
+            cell.serviceDateTopBorderHeight.constant = 0
+            cell.serviceDateTitleHeight.constant = 0
+            cell.serviceDateTableHeight.constant = 0
+            cell.serviceDateMoreHeight.constant = 0
+            cell.serviceDateTopBorder.isHidden = true
+        }
+        else{
+            cell.serviceDateTopBorderHeight.constant = 17
+            cell.serviceDateTitleHeight.constant = 20
+            cell.serviceDateTableHeight.constant = CGFloat(tag.targetServiceDates.count*35)
+            cell.serviceDateMoreHeight.constant = 20
+            cell.serviceDateTopBorder.isHidden = false
+        }
+        if tag.targetCustomInfos.count > 0{
+            cell.customInfoTopBorderHeight.constant = 0
+            cell.customInfoTitleHeight.constant = 0
+            cell.tableViewCustomInfoHeight.constant = 0
+            cell.customInfoMoreheight.constant = 0
+            cell.customInfoTopBorder.isHidden = true
+        }else{
+            cell.customInfoTopBorderHeight.constant = 17
+            cell.customInfoTitleHeight.constant = 20
+            cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*35)
+            cell.customInfoMoreheight.constant = 20
+            cell.customInfoTopBorder.isHidden = false
+        }
+        
+        
+        
+        
+        if let _ = self.searchItemExpand[tag.publicAddress]{
+            cell.viewParentOfExpandination.isHidden = false
+        }else{
+            cell.viewParentOfExpandination.isHidden = true
+        }
+        
+        cell.viewExpandParent.isUserInteractionEnabled = true
+        let expandTap = UITapGestureRecognizer(target: self, action: #selector(expandClicked(_:)))
+        expandTap.view?.tag = indexPath.row
+        cell.viewExpandParent.addGestureRecognizer(expandTap)
+        
         cell.topParent.layer.masksToBounds = true
         cell.topParent.layer.cornerRadius = 10.0
         
-        let tag = tags[indexPath.row]
+        
         cell.lblDeviceName.text = tag.deviceName
         cell.lblAlias.text = tag.alias
         cell.lblRSSI.text = "\(tag.rssi)"
@@ -335,8 +418,25 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.sliderRSSI.setValue(0, animated: false)
         }
-        
         return cell
+    }
+    
+    @objc func expandClicked(_ sender: UITapGestureRecognizer){
+        let row = sender.view?.tag
+        if let r = row{
+            self.searchItemExpand[self.tags[r].publicAddress] = true
+            self.tableView.beginUpdates()
+            self.tableView.reloadRows(at: [IndexPath(row: r, section: 0)], with: .none)
+            self.tableView.endUpdates()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
+        let tag = tags[indexPath.row]
+        
+        return manageSearchItem(cell: cell, tag: tag, indexPath: indexPath)
     }
     
 }
