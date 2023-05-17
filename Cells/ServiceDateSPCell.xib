@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydH-f8-RlE">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="35"/>
+                        <rect key="frame" x="24" y="0.0" width="160" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjb-65-L6G">
-                        <rect key="frame" x="160" y="0.0" width="160" height="35"/>
+                        <rect key="frame" x="136" y="0.0" width="160" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,10 +34,10 @@
                     <constraint firstAttribute="bottom" secondItem="ydH-f8-RlE" secondAttribute="bottom" id="5Td-r0-gfb"/>
                     <constraint firstAttribute="bottom" secondItem="Kjb-65-L6G" secondAttribute="bottom" id="5rl-YS-3Hu"/>
                     <constraint firstItem="ydH-f8-RlE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="A1I-38-bsu"/>
-                    <constraint firstItem="ydH-f8-RlE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DuO-NQ-ic7"/>
+                    <constraint firstItem="ydH-f8-RlE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="DuO-NQ-ic7"/>
                     <constraint firstItem="Kjb-65-L6G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LoV-lH-cU1"/>
                     <constraint firstItem="Kjb-65-L6G" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="Mil-E9-dtt"/>
-                    <constraint firstAttribute="trailing" secondItem="Kjb-65-L6G" secondAttribute="trailing" id="rIl-hp-rrv"/>
+                    <constraint firstAttribute="trailing" secondItem="Kjb-65-L6G" secondAttribute="trailing" constant="24" id="rIl-hp-rrv"/>
                     <constraint firstItem="ydH-f8-RlE" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="vCz-Jk-dU4"/>
                 </constraints>
             </tableViewCellContentView>

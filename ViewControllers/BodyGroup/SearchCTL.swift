@@ -402,7 +402,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     
     func manageSearchItem(cell: SearchItem, tag: TagModel, indexPath: IndexPath)-> SearchItem{
         
-        if tag.targetServiceDates.count > 0{
+        if tag.targetServiceDates.count == 0{
             cell.serviceDateTopBorderHeight.constant = 0
             cell.serviceDateTitleHeight.constant = 0
             cell.serviceDateTableHeight.constant = 0
@@ -416,7 +416,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
             cell.serviceDateMoreHeight.constant = 20
             cell.serviceDateTopBorder.isHidden = false
         }
-        if tag.targetCustomInfos.count > 0{
+        if tag.targetCustomInfos.count == 0{
             cell.customInfoTopBorderHeight.constant = 0
             cell.customInfoTitleHeight.constant = 0
             cell.tableViewCustomInfoHeight.constant = 0
@@ -467,6 +467,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
         
         cell.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
         cell.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
+        
+        self.customTables.append(CustomInfoTableModel(tableView: cell.tableViewCustomInfo, data: tag.targetCustomInfos))
+        self.serviceTables.append(ServiceDateTableModel(tableView: cell.taviewViewServiceDate, data: tag.targetServiceDates))
+        
+        cell.taviewViewServiceDate.separatorColor = UIColor.white
+        cell.tableViewCustomInfo.separatorColor = UIColor.white
         
         cell.taviewViewServiceDate.delegate = self
         cell.taviewViewServiceDate.dataSource = self

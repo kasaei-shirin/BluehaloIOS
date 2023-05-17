@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNU-YK-h36">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="35"/>
+                        <rect key="frame" x="24" y="0.0" width="160" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3T-4K-w5h">
-                        <rect key="frame" x="160" y="0.0" width="160" height="35"/>
+                        <rect key="frame" x="136" y="0.0" width="160" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -34,9 +34,9 @@
                     <constraint firstItem="g3T-4K-w5h" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="8J8-cK-nOm"/>
                     <constraint firstItem="DNU-YK-h36" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AbK-jo-6S7"/>
                     <constraint firstAttribute="bottom" secondItem="DNU-YK-h36" secondAttribute="bottom" id="DrJ-yn-HO2"/>
-                    <constraint firstItem="DNU-YK-h36" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Xxu-L2-TfI"/>
+                    <constraint firstItem="DNU-YK-h36" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="Xxu-L2-TfI"/>
                     <constraint firstItem="DNU-YK-h36" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="Y8W-ao-01M"/>
-                    <constraint firstAttribute="trailing" secondItem="g3T-4K-w5h" secondAttribute="trailing" id="hLZ-MF-Uo6"/>
+                    <constraint firstAttribute="trailing" secondItem="g3T-4K-w5h" secondAttribute="trailing" constant="24" id="hLZ-MF-Uo6"/>
                     <constraint firstItem="g3T-4K-w5h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="o8j-in-ShD"/>
                     <constraint firstAttribute="bottom" secondItem="g3T-4K-w5h" secondAttribute="bottom" id="xPo-F4-rUi"/>
                 </constraints>
