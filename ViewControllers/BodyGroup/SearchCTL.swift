@@ -38,6 +38,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var PPPs : [PeripheralWithRssiAndData] = []
     var manager:CBCentralManager? = nil
     
+    var customTables = [CustomInfoTableModel]()
+    var serviceTables = [ServiceDateTableModel]()
     
     var tags = [TagModel]()
     
@@ -95,19 +97,30 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     }
     
     @objc func searchFilter(_ tap: UITapGestureRecognizer){
-        
+         
     }
     @objc func infoTap(_ tap: UITapGestureRecognizer){
         
     }
     @objc func refreshTap(_ tap: UITapGestureRecognizer){
+        PPPs.removeAll()
+        peripherals.removeAll()
+        tags.removeAll()
+        searchItemExpand.removeAll()
+        tableView.reloadData()
         
     }
     @objc func collapseTap(_ tap: UITapGestureRecognizer){
-        
+        for item in self.tags{
+            self.searchItemExpand.removeValue(forKey: item.publicAddress)
+        }
+        self.tableView.reloadData()
     }
     @objc func expandAllTap(_ tap: UITapGestureRecognizer){
-        
+        for item in self.tags{
+            self.searchItemExpand[item.publicAddress] = true
+        }
+        self.tableView.reloadData()
     }
     @objc func settingsTap(_ tap: UITapGestureRecognizer){
         
@@ -309,16 +322,50 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tags.count
+        
+        if tableView == self.tableView{
+            return tags.count
+        }
+        
+        if tableView.tag == 1{
+            
+            for item in self.serviceTables{
+                if item.tableView == tableView{
+                    return item.data.count
+                }
+            }
+            return 0
+        }//tag 2 = tableview customInfo
+        else {
+            for item in self.customTables{
+                if item.tableView == tableView{
+                    return item.data.count
+                }
+            }
+            return 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        //20 is destination to bottom view
-        //124 is top view height
-        //bottom view must calculate with a method
-        
-        return CGFloat(getRowheight(tag: tags[indexPath.row]))
+        if tableView == self.tableView{
+            
+            //20 is destination to bottom view
+            //124 is top view height
+            //bottom view must calculate with a method
+            
+            return CGFloat(getRowheight(tag: tags[indexPath.row]))
+        }
+        return 35
+        //tag1 = tableView service dates
+//        if tableView.tag == 1{
+//            return 35
+//        }
+//        //tag 2 = tableview customInfo
+//        else tableView.tag == 2{
+//
+//        }
     }
     
     func getRowheight(tag: TagModel)->Int{
@@ -355,8 +402,6 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     
     func manageSearchItem(cell: SearchItem, tag: TagModel, indexPath: IndexPath)-> SearchItem{
         
-        
-        
         if tag.targetServiceDates.count > 0{
             cell.serviceDateTopBorderHeight.constant = 0
             cell.serviceDateTitleHeight.constant = 0
@@ -384,8 +429,6 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
             cell.customInfoMoreheight.constant = 20
             cell.customInfoTopBorder.isHidden = false
         }
-        
-        
         
         
         if let _ = self.searchItemExpand[tag.publicAddress]{
@@ -418,13 +461,33 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.sliderRSSI.setValue(0, animated: false)
         }
+        
+        cell.taviewViewServiceDate.tag = 1
+        cell.tableViewCustomInfo.tag = 2
+        
+        cell.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
+        cell.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
+        
+        cell.taviewViewServiceDate.delegate = self
+        cell.taviewViewServiceDate.dataSource = self
+        
+        cell.tableViewCustomInfo.delegate = self
+        cell.tableViewCustomInfo.dataSource = self
+        
         return cell
     }
     
     @objc func expandClicked(_ sender: UITapGestureRecognizer){
         let row = sender.view?.tag
         if let r = row{
-            self.searchItemExpand[self.tags[r].publicAddress] = true
+            let isTagExpanded = self.searchItemExpand[self.tags[r].publicAddress] ?? false
+            
+            if !isTagExpanded{
+                self.searchItemExpand[self.tags[r].publicAddress] = true
+            }else{
+                self.searchItemExpand.removeValue(forKey: self.tags[r].publicAddress)
+            }
+            
             self.tableView.beginUpdates()
             self.tableView.reloadRows(at: [IndexPath(row: r, section: 0)], with: .none)
             self.tableView.endUpdates()
@@ -433,10 +496,81 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
-        let tag = tags[indexPath.row]
+        if tableView == self.tableView{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
+            let tag = tags[indexPath.row]
+            
+            return manageSearchItem(cell: cell, tag: tag, indexPath: indexPath)
+        }
         
-        return manageSearchItem(cell: cell, tag: tag, indexPath: indexPath)
+        //tag1 = tableView service dates
+        
+        if tableView.tag == 1{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "serviceDateCell", for: indexPath) as! ServiceDateSPCell
+            
+            for item in self.serviceTables{
+                if item.tableView == tableView{
+                    let itemData = item.data[indexPath.row]
+                    cell.lblTitle.text = itemData.title
+                    cell.lblDate.text = MyDateFormatter().getDateByCompleteMonthName(date: itemData.date)
+                }
+            }
+            
+            return cell
+        }//tag 2 = tableview customInfo
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "customInfoCell", for: indexPath) as! CustomInfoSPCell
+            for item in self.customTables{
+                if item.tableView == tableView{
+                    let itemData = item.data[indexPath.row]
+                    cell.lblTitle.text = itemData.headerName
+                    cell.lblServiceDate.text = itemData.info
+                }
+            }
+            return cell
+        }
+        
     }
     
 }
+
+class CustomInfoTableModel{
+    let tableView: UITableView
+    let data: [TargetCustomInfo]
+    
+    init(tableView: UITableView, data: [TargetCustomInfo]){
+        self.tableView = tableView
+        self.data = data
+    }
+}
+
+class ServiceDateTableModel{
+    let tableView: UITableView
+    let data: [TargetServiceDate]
+    
+    init(tableView: UITableView, data: [TargetServiceDate]){
+        self.tableView = tableView
+        self.data = data
+    }
+}
+
+
+//
+//class ManageServiceDateTV{
+//    let tableView: UITableView
+//    let data: [TargetServiceDate]
+//    init(tableView: UITableView, data: [TargetServiceDate]){
+//        self.tableView = tableView
+//        self.data = data
+//    }
+//}
+//
+//class ManageCustInfoTV{
+//    let tableView: UITableView
+//    let data: [TargetCustomInfo]
+//    init(tableView: UITableView, data: [TargetCustomInfo]){
+//        self.tableView = tableView
+//        self.data = data
+//    }
+//}

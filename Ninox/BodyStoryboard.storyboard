@@ -556,7 +556,7 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5bp-0E-C7L" customClass="JRDropDown">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5bp-0E-C7L">
                                                         <rect key="frame" x="20" y="55" width="313" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="Vmz-6Z-ETJ"/>
@@ -588,7 +588,7 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EX5-kU-9Vp" customClass="JRDropDown">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EX5-kU-9Vp">
                                                         <rect key="frame" x="20" y="55" width="313" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="4ei-xq-21a"/>
@@ -710,6 +710,9 @@
                     <navigationItem key="navigationItem" id="Xw2-L4-nx9"/>
                     <connections>
                         <outlet property="backView" destination="Fl1-Hr-z6D" id="lyD-pA-FXt"/>
+                        <outlet property="historyTableView" destination="pnp-I3-Rfj" id="EJ3-7I-llb"/>
+                        <outlet property="txtFldArea" destination="EX5-kU-9Vp" id="YxZ-St-b5R"/>
+                        <outlet property="txtFldProject" destination="5bp-0E-C7L" id="sdR-Xs-rdW"/>
                         <segue destination="zu2-lK-AST" kind="show" identifier="location2search" id="CuP-z2-soK"/>
                     </connections>
                 </viewController>

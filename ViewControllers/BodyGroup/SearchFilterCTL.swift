@@ -11,6 +11,16 @@ class SearchFilterCTL: UIViewController {
 
     @IBOutlet weak var backView: UIView!
     
+    var allAreas = [String]()
+    var allProjects = [String]()
+    
+    @IBOutlet weak var historyTableView: UITableView!
+    
+    @IBOutlet weak var txtFldProject: UITextField!
+    
+    @IBOutlet weak var txtFldArea: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
