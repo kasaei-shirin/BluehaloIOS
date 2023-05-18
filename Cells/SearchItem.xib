@@ -561,19 +561,19 @@
                                                                 <rect key="frame" x="300" y="5" width="48" height="30"/>
                                                                 <color key="tintColor" systemColor="systemOrangeColor"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="tinted" image="flag_icon"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="flag_icon"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiu-hN-OXT">
                                                                 <rect key="frame" x="247" y="5" width="48" height="30"/>
                                                                 <color key="tintColor" name="yellow_tint"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="tinted" image="flag_icon"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="flag_icon"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIt-Tn-LNE">
                                                                 <rect key="frame" x="194" y="5" width="48" height="30"/>
                                                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="tinted" image="flag_icon"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="flag_icon"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -597,14 +597,9 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgU-Hw-zKi">
                                                         <rect key="frame" x="0.0" y="476" width="368" height="50"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKy-hC-zPW">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKy-hC-zPW" customClass="RoundedCornerView" customModule="Ninox" customModuleProvider="target">
                                                                 <rect key="frame" x="20" y="7" width="328" height="36"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XTO-Pv-nSR">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="328" height="36"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits"/>
-                                                                    </textField>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.pencil" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="O5g-Au-pEp">
                                                                         <rect key="frame" x="292" y="5.3333333333333321" width="26" height="24.33333333333335"/>
                                                                         <color key="tintColor" name="navy_blue"/>
@@ -612,17 +607,34 @@
                                                                             <constraint firstAttribute="width" secondItem="O5g-Au-pEp" secondAttribute="height" multiplier="1:1" id="Q11-xF-k2r"/>
                                                                         </constraints>
                                                                     </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mll-QO-IzY">
+                                                                        <rect key="frame" x="12" y="8" width="268" height="20"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="O5g-Au-pEp" firstAttribute="top" secondItem="JKy-hC-zPW" secondAttribute="top" constant="5" id="7BG-n2-elh"/>
-                                                                    <constraint firstItem="XTO-Pv-nSR" firstAttribute="leading" secondItem="JKy-hC-zPW" secondAttribute="leading" id="Rtv-08-6aQ"/>
-                                                                    <constraint firstItem="XTO-Pv-nSR" firstAttribute="top" secondItem="JKy-hC-zPW" secondAttribute="top" id="X3S-34-pGa"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="XTO-Pv-nSR" secondAttribute="bottom" id="Ye4-eO-e5h"/>
+                                                                    <constraint firstItem="mll-QO-IzY" firstAttribute="leading" secondItem="JKy-hC-zPW" secondAttribute="leading" constant="12" id="DnC-7b-RfW"/>
+                                                                    <constraint firstItem="O5g-Au-pEp" firstAttribute="leading" secondItem="mll-QO-IzY" secondAttribute="trailing" constant="12" id="JZk-hG-Lek"/>
                                                                     <constraint firstAttribute="bottom" secondItem="O5g-Au-pEp" secondAttribute="bottom" constant="5" id="ZcV-ud-SdM"/>
                                                                     <constraint firstAttribute="trailing" secondItem="O5g-Au-pEp" secondAttribute="trailing" constant="10" id="nTQ-ht-xMe"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="XTO-Pv-nSR" secondAttribute="trailing" id="pDM-Wi-dQu"/>
+                                                                    <constraint firstItem="mll-QO-IzY" firstAttribute="top" secondItem="JKy-hC-zPW" secondAttribute="top" constant="8" id="puJ-bu-B4G"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="mll-QO-IzY" secondAttribute="bottom" constant="8" id="zgp-u0-yff"/>
                                                                 </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" white="0.4943305596" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="7"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -966,6 +978,7 @@
                 <outlet property="lblDeviceName" destination="oYK-7e-bYu" id="aep-lc-wTr"/>
                 <outlet property="lblEstimatedLife" destination="JFk-6Q-c8F" id="yp1-bM-uZN"/>
                 <outlet property="lblExpireDate" destination="958-WQ-hBX" id="3gM-f6-WbQ"/>
+                <outlet property="lblFlagNote" destination="mll-QO-IzY" id="T6Z-ki-c3b"/>
                 <outlet property="lblMacAddress" destination="c2X-bF-lU5" id="KdN-dU-2T7"/>
                 <outlet property="lblMoreCustomInfo" destination="Itt-t4-M2G" id="UQ2-5l-ddv"/>
                 <outlet property="lblMoreServiceDate" destination="hLU-FZ-vuc" id="8HJ-lL-yqN"/>
@@ -981,7 +994,6 @@
                 <outlet property="tableViewCustomInfoHeight" destination="kmc-Y9-22o" id="arP-bH-ytL"/>
                 <outlet property="taviewViewServiceDate" destination="jFt-Do-zhj" id="xKe-hH-RRg"/>
                 <outlet property="topParent" destination="zJK-Ga-Sa7" id="UCb-Qx-fla"/>
-                <outlet property="txtFldFlagNote" destination="XTO-Pv-nSR" id="WMY-gN-IXO"/>
                 <outlet property="viewCustomInfoTitle" destination="Bdg-TJ-Ii5" id="IJp-aq-2o1"/>
                 <outlet property="viewExpandParent" destination="5Mg-wU-R0n" id="Fjv-LB-lBh"/>
                 <outlet property="viewMoreCustomInfoParent" destination="Lzf-jl-DSJ" id="pPk-wK-ksb"/>

@@ -70,7 +70,7 @@ class SingupCTL: UIViewController {
                 print(j)
                 if let success = j["Sucess"] as? String {
                     if(success == "true"){
-                        ViewPatternMethods.showAlert(controller: self, title: "Info", message: "You successfully registered.")
+                        ViewPatternMethods.showAlert(controller: self, title: "Info", message: "You successfully registered.", handler: UIAlertAction(title: "OK", style: .destructive))
                     }
                 }
             }

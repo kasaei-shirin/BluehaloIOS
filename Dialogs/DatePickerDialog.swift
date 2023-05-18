@@ -49,7 +49,7 @@ class DatePickerDialog: UIViewController {
         if let strTitle = txtFldTitle.text{
             let title = strTitle.trimmingCharacters(in: .whitespacesAndNewlines)
             if(title == ""){
-                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Write title for service date.")
+                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Write title for service date.", handler: UIAlertAction(title: "OK", style: .destructive))
             }else{
                 self.dismiss(animated: true)
                 serviceDateSelection?.ServiceDateSelected(item: TargetServiceDate(title: title, date: datePicker.date, _id: ""))

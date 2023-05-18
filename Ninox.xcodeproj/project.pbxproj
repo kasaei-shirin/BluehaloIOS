@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3010D3042A15E49400A68C36 /* FlagNoteController.swift */; };
 		301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8229F0FB8500996726 /* AppDelegate.swift */; };
 		301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8429F0FB8500996726 /* SceneDelegate.swift */; };
 		301CED8729F0FB8500996726 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8629F0FB8500996726 /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3010D3042A15E49400A68C36 /* FlagNoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagNoteController.swift; sourceTree = "<group>"; };
 		301CED7F29F0FB8500996726 /* Ninox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ninox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		301CED8229F0FB8500996726 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		301CED8429F0FB8500996726 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				308DC73B2A0E70DD00535557 /* IconTypeDialog.swift */,
 				308DC7442A0E9DC800535557 /* DataPickerDialog.swift */,
 				30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */,
+				3010D3042A15E49400A68C36 /* FlagNoteController.swift */,
 			);
 			path = Dialogs;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */,
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
+				3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
 				308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,

@@ -234,33 +234,39 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
-                alter.dismiss(animated: true)
-            }
-            
-            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-            
-            if let j = json as? [String:Any]{
-                
-                print(j)
-                if let success = j["success"] as? String{
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
                     DispatchQueue.main.async {
-                        let areasOPT = j["area"] as? [String]
-                        if let areas = areasOPT{
-                            for area in areas {
-                                self.allAreas.append(area)
-                            }
-                        }
-                        let projectsOPT = j["project"] as? [String]
-                        if let projects = projectsOPT{
-                            for project in projects {
-                                self.allProjects.append(project)
-                            }
-                        }
+                        alter.dismiss(animated: true)
+                    }
+                    
+                    if let j = json as? [String:Any]{
                         
-//                        self.initProjectAndAreaDropDown()
+                        print(j)
+                        if let success = j["success"] as? String{
+                            DispatchQueue.main.async {
+                                let areasOPT = j["area"] as? [String]
+                                if let areas = areasOPT{
+                                    for area in areas {
+                                        self.allAreas.append(area)
+                                    }
+                                }
+                                let projectsOPT = j["project"] as? [String]
+                                if let projects = projectsOPT{
+                                    for project in projects {
+                                        self.allProjects.append(project)
+                                    }
+                                }
+                                
+        //                        self.initProjectAndAreaDropDown()
+                            }
+                        }
                     }
                 }
             }
+            
+            
             
         } failure: { data, response, error in
             
@@ -334,40 +340,41 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         
         HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
             
+            
             DispatchQueue.main.async {
-                waitingAlert.dismiss(animated: false)
-            }
-            
-            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-            
-            if let j = json as? [String:Any]{
-                print(j)
-                if let success = j["success"] as? String{
-                    DispatchQueue.main.async {
-                        let message = j["message"] as? String ?? ""
-                        if(success == "true"){
-                            let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
-                            alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
-                                alertCTL.dismiss(animated: false)
-                            }))
-                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-                                alertCTL.dismiss(animated: false)
-                                self.dismiss(animated: true)
-                            }))
-                            self.present(alertCTL, animated: true)
-                        }else{
-                            let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
-                            alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
-                                alertCTL.dismiss(animated: false)
-                            }))
-//                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-//                                alertCTL.dismiss(animated: false)
-//                                self.dismiss(animated: true)
-//                            }))
-                            self.present(alertCTL, animated: true)
+                waitingAlert.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    if let j = json as? [String:Any]{
+                        print(j)
+                        if let success = j["success"] as? String{
+                            DispatchQueue.main.async {
+                                let message = j["message"] as? String ?? ""
+                                if(success == "true"){
+                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true)
+                                    }))
+                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true) {
+                                            self.dismiss(animated: true)
+                                        } 
+                                    }))
+                                    self.present(alertCTL, animated: true)
+                                }else{
+                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true)
+                                    }))
+        //                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+        //                                alertCTL.dismiss(animated: false)
+        //                                self.dismiss(animated: true)
+        //                            }))
+                                    self.present(alertCTL, animated: true)
+                                }
+                            }
                         }
                     }
-                    
                 }
             }
             

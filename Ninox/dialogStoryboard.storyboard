@@ -454,6 +454,86 @@
             </objects>
             <point key="canvasLocation" x="1288" y="-35"/>
         </scene>
+        <!--Flag Note Controller-->
+        <scene sceneID="8LN-YF-LQa">
+            <objects>
+                <viewController storyboardIdentifier="FlagNoteCTL" id="WWV-5V-nDD" customClass="FlagNoteController" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IhS-uE-aD6">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGR-yY-HGp" customClass="RoundedCornerView" customModule="Ninox" customModuleProvider="target">
+                                <rect key="frame" x="20" y="583" width="353" height="215"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flag Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Id-fk-YNl">
+                                        <rect key="frame" x="16" y="16" width="317" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write you flag note here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ajy-a6-CjQ">
+                                        <rect key="frame" x="22" y="62" width="309" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D29-RG-J95">
+                                        <rect key="frame" x="20" y="119" width="313" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Save"/>
+                                        <connections>
+                                            <action selector="btnSave:" destination="WWV-5V-nDD" eventType="touchUpInside" id="IrC-0a-u73"/>
+                                        </connections>
+                                    </button>
+                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUp-GO-oeX">
+                                        <rect key="frame" x="20" y="160" width="313" height="35"/>
+                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Cancle"/>
+                                        <connections>
+                                            <action selector="cancleAction:" destination="WWV-5V-nDD" eventType="touchUpInside" id="KcU-d1-twg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="D29-RG-J95" firstAttribute="leading" secondItem="QGR-yY-HGp" secondAttribute="leading" constant="20" id="0w2-WG-o6v"/>
+                                    <constraint firstAttribute="bottom" secondItem="JUp-GO-oeX" secondAttribute="bottom" constant="20" id="2OK-vo-q47"/>
+                                    <constraint firstItem="5Id-fk-YNl" firstAttribute="top" secondItem="QGR-yY-HGp" secondAttribute="top" constant="16" id="7kD-GE-yLB"/>
+                                    <constraint firstAttribute="trailing" secondItem="D29-RG-J95" secondAttribute="trailing" constant="20" id="8BV-eo-hut"/>
+                                    <constraint firstAttribute="trailing" secondItem="JUp-GO-oeX" secondAttribute="trailing" constant="20" id="JtT-Js-C7v"/>
+                                    <constraint firstAttribute="height" priority="200" constant="250" id="Mc4-ha-23W"/>
+                                    <constraint firstItem="Ajy-a6-CjQ" firstAttribute="leading" secondItem="QGR-yY-HGp" secondAttribute="leading" constant="22" id="PKb-sE-gxg"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Id-fk-YNl" secondAttribute="trailing" constant="20" id="gzR-Sr-3gv"/>
+                                    <constraint firstItem="JUp-GO-oeX" firstAttribute="leading" secondItem="QGR-yY-HGp" secondAttribute="leading" constant="20" id="jwv-El-1PJ"/>
+                                    <constraint firstItem="Ajy-a6-CjQ" firstAttribute="top" secondItem="5Id-fk-YNl" secondAttribute="bottom" constant="25" id="nLc-Hl-yee"/>
+                                    <constraint firstItem="5Id-fk-YNl" firstAttribute="leading" secondItem="QGR-yY-HGp" secondAttribute="leading" constant="16" id="owH-RE-MZu"/>
+                                    <constraint firstItem="JUp-GO-oeX" firstAttribute="top" secondItem="D29-RG-J95" secondAttribute="bottom" constant="6" id="vSr-nG-fhb"/>
+                                    <constraint firstItem="D29-RG-J95" firstAttribute="top" secondItem="Ajy-a6-CjQ" secondAttribute="bottom" constant="23" id="wTP-Fe-gv2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ajy-a6-CjQ" secondAttribute="trailing" constant="22" id="ygO-F4-dgp"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WyM-QG-gRg"/>
+                        <color key="backgroundColor" name="DialogMainBackground"/>
+                        <constraints>
+                            <constraint firstItem="WyM-QG-gRg" firstAttribute="trailing" secondItem="QGR-yY-HGp" secondAttribute="trailing" constant="20" id="DeL-wB-hA0"/>
+                            <constraint firstItem="WyM-QG-gRg" firstAttribute="bottom" secondItem="QGR-yY-HGp" secondAttribute="bottom" constant="20" id="hcA-Yu-kWd"/>
+                            <constraint firstItem="QGR-yY-HGp" firstAttribute="leading" secondItem="WyM-QG-gRg" secondAttribute="leading" constant="20" id="mfm-wY-cVz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="txtFldFlagNote" destination="Ajy-a6-CjQ" id="tyR-s9-9Yl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PIA-mx-uVe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2366" y="-386"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="DialogMainBackground">

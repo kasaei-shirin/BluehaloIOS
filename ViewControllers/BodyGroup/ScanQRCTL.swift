@@ -127,7 +127,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                             if let t = j["tag"] as? [String:Any]{
                                 self.chooseActionAfterFetchEveryData(tagExists: true)
                             }else{
-                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!")
+                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
                             }
                         }else{
                             self.chooseActionAfterFetchEveryData(tagExists: false)
@@ -140,7 +140,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         } failure: { data, response, error in
             DispatchQueue.main.async {
 //                waitingAlert.dismiss(animated: true)
-                ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "Check your Internet connection!!!")
+                ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "Check your Internet connection!!!", handler: UIAlertAction(title: "OK", style: .destructive))
             }
             print(data)
             print(response)
@@ -300,11 +300,11 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                     self.startScanForPrepheral()
                 }
                 else{
-                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "QRCode problem!!!")
+                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "QRCode problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
         }else{
-            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "It's not our TAG QRCode.")
+            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "It's not our TAG QRCode.", handler: UIAlertAction(title: "OK", style: .destructive))
         }
         
         
@@ -315,7 +315,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         manager?.scanForPeripherals(withServices: nil, options: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             self.manager?.stopScan()
-            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "The BLE Device that scanned, not exists in your prepheral.")
+            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "The BLE Device that scanned, not exists in your prepheral.", handler: UIAlertAction(title: "OK", style: .destructive))
         }
     }
     

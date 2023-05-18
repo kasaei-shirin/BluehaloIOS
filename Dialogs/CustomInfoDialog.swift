@@ -47,7 +47,7 @@ class CustomInfoDialog: UIViewController {
         if let title = theTitle , let content = theContent{
             if(title.trimmingCharacters(in: .whitespacesAndNewlines) == "" || content.trimmingCharacters(in: .whitespacesAndNewlines) == ""){
                 
-                let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Write title and info truly")
+                let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Write title and info truly", handler: UIAlertAction(title: "OK", style: .destructive))
                 
             }else{
                 self.dismiss(animated: true)

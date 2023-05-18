@@ -79,12 +79,11 @@ class SearchItem: UITableViewCell {
     
     
     
-    @IBOutlet weak var txtFldFlagNote: UITextField!
-    
-    
     @IBOutlet weak var lblMacAddress: UILabel!
     @IBOutlet weak var lblEstimatedLife: UILabel!
     @IBOutlet weak var lblBatteryExpireDate: UILabel!
+    
+    @IBOutlet weak var lblFlagNote: UILabel!
     
     
     

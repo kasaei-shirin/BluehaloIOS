@@ -29,3 +29,6 @@ protocol AddCustomInfoProtocol{
     func saveCustomInfo(title: String, Content: String)
 }
 
+protocol FlagNoteProtocol{
+    func flagNoteText(note: String, indexPath: IndexPath)
+}

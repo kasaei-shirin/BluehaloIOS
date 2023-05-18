@@ -98,27 +98,37 @@ class ViewPatternMethods {
         loadingIndicator.startAnimating();
         
         alert.view.addSubview(loadingIndicator)
-        controller.present(alert, animated: true, completion: nil)
+        
+        controller.present(alert, animated: true) {
+            print("waiting completation")
+        }
+        
+//        controller.present(alert, animated: true, completion: nil)
+        
         return alert
     }
     
     
-    class func showAlert(controller: UIViewController, title: String, message: String)->UIAlertController {
+    class func showAlert(controller: UIViewController, title: String, message: String, handler: UIAlertAction)->UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-                
-                
-            }
-        }))
+        
+//        UIAlertAction(title: "OK", style: .default, handler: { action in
+//            switch action.style{
+//            case .default:
+//                print("default")
+//
+//            case .cancel:
+//                print("cancel")
+//
+//            case .destructive:
+//                print("destructive")
+//
+//
+//            }
+//        })
+        
+        alert.addAction(handler)
+        
         controller.present(alert, animated: true, completion: nil)
         return alert
     }
