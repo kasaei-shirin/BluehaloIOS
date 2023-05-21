@@ -13,7 +13,7 @@ class CustomInfoSPCell: UITableViewCell {
     
     @IBOutlet weak var lblTitle: UILabel!
     
-    @IBOutlet weak var lblServiceDate: UILabel!
+    @IBOutlet weak var lblInfo: UILabel!
     
     
     

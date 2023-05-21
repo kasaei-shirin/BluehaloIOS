@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3010D3042A15E49400A68C36 /* FlagNoteController.swift */; };
+		3015A8C92A1A370C0079FED6 /* TableManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015A8C82A1A370C0079FED6 /* TableManagers.swift */; };
 		301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8229F0FB8500996726 /* AppDelegate.swift */; };
 		301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8429F0FB8500996726 /* SceneDelegate.swift */; };
 		301CED8729F0FB8500996726 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8629F0FB8500996726 /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		3010D3042A15E49400A68C36 /* FlagNoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagNoteController.swift; sourceTree = "<group>"; };
+		3015A8C82A1A370C0079FED6 /* TableManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableManagers.swift; sourceTree = "<group>"; };
 		301CED7F29F0FB8500996726 /* Ninox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ninox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		301CED8229F0FB8500996726 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		301CED8429F0FB8500996726 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,9 +125,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3015A8C72A1A36E80079FED6 /* TableManagers */ = {
+			isa = PBXGroup;
+			children = (
+				3015A8C82A1A370C0079FED6 /* TableManagers.swift */,
+			);
+			path = TableManagers;
+			sourceTree = "<group>";
+		};
 		301CED7629F0FB8500996726 = {
 			isa = PBXGroup;
 			children = (
+				3015A8C72A1A36E80079FED6 /* TableManagers */,
 				308DC73D2A0E797000535557 /* protocols */,
 				308DC7362A0D517400535557 /* Dialogs */,
 				3082371E2A0CE06A0054A64A /* Resource */,
@@ -430,6 +441,7 @@
 				30675BE52A07D36000515238 /* SigninCTL.swift in Sources */,
 				3094DBC72A125D5F00ACAFFB /* ServiceDateSPCell.swift in Sources */,
 				3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */,
+				3015A8C92A1A370C0079FED6 /* TableManagers.swift in Sources */,
 				308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */,
 				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,

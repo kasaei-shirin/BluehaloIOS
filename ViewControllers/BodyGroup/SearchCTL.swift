@@ -33,6 +33,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var searchItemExpand = Dictionary<String,Bool>()
     var customInfoMoreExpand = Dictionary<String,Bool>()
     var serviceDateMoreExpand = Dictionary<String, Bool>()
+    var CUSTOMTABLEMANAGERS = [CustomInfoTableManager]()
+    var SERVICETABLEMANAGERS = [ServiceDateTableManager]()
     
     
     var peripherals:[CBPeripheral] = []
@@ -40,8 +42,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var PPPs : [PeripheralWithRssiAndData] = []
     var manager:CBCentralManager? = nil
     
-    var customTables = [CustomInfoTableModel]()
-    var serviceTables = [ServiceDateTableModel]()
+//    var customTables = [CustomInfoTableModel]()
+//    var serviceTables = [ServiceDateTableModel]()
     
     var RSSILabels = Dictionary<String, UILabel>()
     var RSSISliders = Dictionary<String, UISlider>()
@@ -269,10 +271,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
 //                print(j)
                 if let success = j["success"] as? String{
                     if(success == "true"){
+                        print("get tag")
                         if let t = j["tag"] as? [String:Any]{
                             self.tags.append(TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString))
                             DispatchQueue.main.async {
                                 self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
+                                
                             }
                         }
                     }
@@ -352,55 +356,11 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView == self.tableView{
-            return tags.count
-        }
-        
-        if tableView.tag == 1{
-            
-            for item in self.serviceTables{
-                if item.tableView == tableView{
-                    print("return \(item.data.count) for service tables")
-                    return item.data.count
-                }
-            }
-            return 0
-        }//tag 2 = tableview customInfo
-        else {
-            var i = 0
-            for item in self.customTables{
-                print("cus info \(i)")
-                if item.tableView == tableView{
-                    print("return \(item.data.count) for custom tables")
-                    return item.data.count
-                }
-                i += 1
-            }
-            return 0
-        }
-        
+        return tags.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if tableView == self.tableView{
-            
-            //20 is destination to bottom view
-            //124 is top view height
-            //bottom view must calculate with a method
-            
-            return CGFloat(getRowheight(tag: tags[indexPath.row]))
-        }
-        return 35
-        //tag1 = tableView service dates
-//        if tableView.tag == 1{
-//            return 35
-//        }
-//        //tag 2 = tableview customInfo
-//        else tableView.tag == 2{
-//
-//        }
+        return CGFloat(getRowheight(tag: tags[indexPath.row]))
     }
     
     func getRowheight(tag: TagModel)->Int{
@@ -457,6 +417,14 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     func manageSearchItem(cell: SearchItem, tag: TagModel, indexPath: IndexPath)-> SearchItem{
         
+        cell.btnYellowFlag.configuration = .plain()
+        cell.btnOrangeFlag.configuration = .plain()
+        cell.btnGreenFlag.configuration = .plain()
+        cell.btnGreenFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
+        cell.btnYellowFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
+        cell.btnOrangeFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
+        
+        
         cell.sliderRSSI.isUserInteractionEnabled = false
         
         self.RSSILabels[tag.publicAddress] = cell.lblRSSI
@@ -483,9 +451,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             cell.customInfoMoreheight.constant = 0
             cell.customInfoTopBorder.isHidden = true
         }else{
+            print("custom info height is true")
             cell.customInfoTopBorderHeight.constant = 17
             cell.customInfoTitleHeight.constant = 20
-            cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*35)
+            cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*36)
+            cell.tableViewCustomInfo.rowHeight = 35
+            cell.tableViewCustomInfo.estimatedRowHeight = 35
             cell.customInfoMoreheight.constant = 20
             cell.customInfoTopBorder.isHidden = false
         }
@@ -499,9 +470,10 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         cell.viewExpandParent.isUserInteractionEnabled = true
         let expandTap = UITapGestureRecognizer(target: self, action: #selector(expandClicked(_:)))
-        expandTap.view?.tag = indexPath.row
-        cell.viewExpandParent.addGestureRecognizer(expandTap)
         
+        print("before sender row : \(indexPath.row)")
+        cell.viewExpandParent.addGestureRecognizer(expandTap)
+        expandTap.view!.tag = indexPath.row
         cell.topParent.layer.masksToBounds = true
         cell.topParent.layer.cornerRadius = 10.0
         
@@ -513,20 +485,21 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         cell.sliderRSSI.setValue(getValueFromRSSI(rssi: tag.rssi), animated: false)
         
-        cell.taviewViewServiceDate.tag = 1
-        cell.tableViewCustomInfo.tag = 2
         
-//        cell.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
-//        cell.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
-        
-//        print("RestID : \(cell.tableViewCustomInfo.restorationIdentifier) - \(tag.publicAddress)")
+        cell.tableViewCustomInfo.estimatedRowHeight = 35
+        print("\(cell.tableViewCustomInfoHeight.constant) the height")
+//        cell.taviewViewServiceDate.dropDelegate
+        cell.tableViewCustomInfo.separatorColor = UIColor.white
         
         
-//        self.customTables.append()
-//        self.serviceTables.append()
+//        if let _ = self.searchItemExpand[tag.publicAddress]{
+//
+//
+//
+//        }
+        
         
         cell.taviewViewServiceDate.separatorColor = UIColor.white
-        cell.tableViewCustomInfo.separatorColor = UIColor.white
         
         if tag.flagType == 1 {
             cell.btnGreenFlag.configuration = .tinted()
@@ -544,23 +517,17 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         }
         
         cell.btnGreenFlag.addAction(UIAction(handler: { UIAction in
-            cell.btnYellowFlag.configuration = .plain()
-            cell.btnOrangeFlag.configuration = .plain()
-            cell.btnGreenFlag.configuration = .plain()
+            
             self.sendFlagNote2Web(note: tag.flagNote, flagType: 1, publicAddress: tag.publicAddress, indexPath: indexPath)
         }), for: .touchUpInside)
         
         cell.btnYellowFlag.addAction(UIAction(handler: { UIAction in
-            cell.btnYellowFlag.configuration = .plain()
-            cell.btnOrangeFlag.configuration = .plain()
-            cell.btnGreenFlag.configuration = .plain()
+            
             self.sendFlagNote2Web(note: tag.flagNote, flagType: 2, publicAddress: tag.publicAddress, indexPath: indexPath)
         }), for: .touchUpInside)
         
         cell.btnOrangeFlag.addAction(UIAction(handler: { UIAction in
-            cell.btnYellowFlag.configuration = .plain()
-            cell.btnOrangeFlag.configuration = .plain()
-            cell.btnGreenFlag.configuration = .plain()
+            
             self.sendFlagNote2Web(note: tag.flagNote, flagType: 3, publicAddress: tag.publicAddress, indexPath: indexPath)
         }), for: .touchUpInside)
         
@@ -569,43 +536,25 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         cell.lblMoreServiceDate.isUserInteractionEnabled = true
         
         let customInfoMoreTap = UITapGestureRecognizer(target: self, action: #selector(customInfoMoreTap(_:)))
-        customInfoMoreTap.view?.tag = indexPath.row
+        
         ///TODO make it true (uncomment then)
-//        cell.lblMoreCustomInfo.addGestureRecognizer(customInfoMoreTap)
+        cell.lblMoreCustomInfo.addGestureRecognizer(customInfoMoreTap)
+        customInfoMoreTap.view!.tag = indexPath.row
         
         let serviceDateMoreTap = UITapGestureRecognizer(target: self, action: #selector(serviceDateMoreTap(_:)))
-        serviceDateMoreTap.view?.tag = indexPath.row
-        ///TODO make it true (uncomment then)
-//        cell.lblMoreServiceDate.addGestureRecognizer(serviceDateMoreTap)
         
+        ///TODO make it true (uncomment then)
+        cell.lblMoreServiceDate.addGestureRecognizer(serviceDateMoreTap)
+        serviceDateMoreTap.view!.tag = indexPath.row
         cell.lblFlagNote.isUserInteractionEnabled = true
         cell.lblFlagNote.text = tag.flagNote
         
         let flagNoteTap = UITapGestureRecognizer(target: self, action: #selector(flagNoteTap(_:)))
-        flagNoteTap.view?.tag = indexPath.row
+        
         cell.lblFlagNote.addGestureRecognizer(flagNoteTap)
-        
-//        addCustomTableModel(CustomInfoTableModel(tableView: cell.tableViewCustomInfo, data: tag.targetCustomInfos, publicAddress: tag.publicAddress), cell: cell)
-//        addServiceTableModel(ServiceDateTableModel(tableView: cell.taviewViewServiceDate, data: tag.targetServiceDates, publicAddress: tag.publicAddress), cell: cell)
-        
-        
-//        cell.btnGreenFlag.addAction(UIAction(handler: { UIAction in
-//            self.callFlagAPI(pa: tag.publicAddress, row: indexPath.row, flagType: 1)
-//        }), for: .touchUpInside)
-//        
-//        cell.btnYellowFlag.addAction(UIAction(handler: { UIAction in
-//            self.callFlagAPI(pa: tag.publicAddress, row: indexPath.row, flagType: 2)
-//        }), for: .touchUpInside)
-//        
-//        cell.btnGreenFlag.addAction(UIAction(handler: { UIAction in
-//            self.callFlagAPI(pa: tag.publicAddress, row: indexPath.row, flagType: 3)
-//        }), for: .touchUpInside)
-        
+        flagNoteTap.view!.tag = indexPath.row
         return cell
     }
-    
-//    func callFlagAPI(
-    
     
     func sendFlagNote2Web(note: String, flagType: Int, publicAddress: String, indexPath: IndexPath){
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
@@ -644,70 +593,6 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
 
     }
 
-    
-    func addCustomTableModel(_ customInfoTableModel: CustomInfoTableModel, cell: SearchItem){
-        var check = true
-        for item in self.customTables {
-            if item.publicAddress == customInfoTableModel.publicAddress{
-//                cell.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
-//                cell.tableViewCustomInfo.delegate = self
-//                cell.tableViewCustomInfo.dataSource = self
-//                cell.tableViewCustomInfo.reloadData()
-                check = false
-                break
-            }
-        }
-        if check {
-            self.customTables.append(customInfoTableModel)
-//            cell.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
-            cell.tableViewCustomInfo.delegate = self
-            cell.tableViewCustomInfo.dataSource = self
-            cell.tableViewCustomInfo.reloadData()
-            
-            
-            print("here in reload custom table")
-            
-        }
-    }
-    
-    func addServiceTableModel(_ serviceDateTableModel: ServiceDateTableModel, cell: SearchItem){
-        var check = true
-        for item in self.serviceTables{
-            if item.publicAddress == serviceDateTableModel.publicAddress{
-//                cell.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
-//                cell.taviewViewServiceDate.delegate = self
-//                cell.taviewViewServiceDate.dataSource = self
-//                cell.taviewViewServiceDate.reloadData()
-                check = false
-                break
-            }
-        }
-        if check {
-            self.serviceTables.append(serviceDateTableModel)
-//            cell.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
-            cell.taviewViewServiceDate.delegate = self
-            cell.taviewViewServiceDate.dataSource = self
-            cell.taviewViewServiceDate.reloadData()
-            print("here in reload service date")
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView == self.tableView{
-            let tag = tags[indexPath.row]
-            let theCell = cell as! SearchItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                self.addCustomTableModel(CustomInfoTableModel(tableView: theCell.tableViewCustomInfo, data: tag.targetCustomInfos, publicAddress: tag.publicAddress), cell: theCell)
-                self.addServiceTableModel(ServiceDateTableModel(tableView: theCell.taviewViewServiceDate, data: tag.targetServiceDates, publicAddress: tag.publicAddress), cell: theCell)
-                
-                theCell.tableViewCustomInfo.reloadData()
-                theCell.taviewViewServiceDate.reloadData()
-            }
-        }
-            
-    }
-    
     @objc func flagNoteTap(_ sender: UITapGestureRecognizer){
         print( "indexPath clicked = \(sender.view?.tag)")
         let storyboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
@@ -730,6 +615,30 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
                 openServiceDatesIn(row)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let SI = cell as! SearchItem
+        let tag = tags[indexPath.row]
+        SI.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
+        SI.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
+        let customInfoM = CustomInfoTableManager(custInfos: tag.targetCustomInfos, tableView: SI.tableViewCustomInfo)
+        let serviceDateM = ServiceDateTableManager(serviceDates: tag.targetServiceDates, tableView: SI.taviewViewServiceDate)
+        
+//            customInfoM.buildTableItems()
+        SI.tableViewCustomInfo.dataSource = customInfoM
+        SI.tableViewCustomInfo.delegate = customInfoM
+        
+        SI.taviewViewServiceDate.dataSource = serviceDateM
+        SI.taviewViewServiceDate.delegate = serviceDateM
+        
+        self.CUSTOMTABLEMANAGERS.append(customInfoM)
+        self.SERVICETABLEMANAGERS.append(serviceDateM)
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+//            self.CUSTOMTABLEMANAGERS[0].tableView.reloadData()
+//        }
+        
     }
     
     
@@ -772,6 +681,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     @objc func expandClicked(_ sender: UITapGestureRecognizer){
         let row = sender.view?.tag
+        print("the row of expand clicked : \(row)")
         if let r = row{
             let isTagExpanded = self.searchItemExpand[self.tags[r].publicAddress] ?? false
             
@@ -790,51 +700,10 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
+        let tag = tags[indexPath.row]
         
-        if tableView == self.tableView{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "searchItem", for: indexPath) as! SearchItem
-            let tag = tags[indexPath.row]
-            
-            return manageSearchItem(cell: cell, tag: tag, indexPath: indexPath)
-        }
-        
-        //tag1 = tableView service dates
-        
-        if tableView.tag == 1{
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "serviceDateCell", for: indexPath) as! ServiceDateSPCell
-            
-            for item in self.serviceTables{
-                print(item.publicAddress)
-                if item.tableView == tableView{
-                    print("tableview ha barabar shod dar service date")
-                    print("index path : \(indexPath.row)")
-                    print(item.data[indexPath.row].title)
-//                    print(item.data[indexPath.row].info)
-                    let itemData = item.data[indexPath.row]
-                    cell.lblTitle.text = itemData.title
-                    cell.lblDate.text = MyDateFormatter().getDateByCompleteMonthName(date: itemData.date)
-                    return cell
-                }
-            }
-            
-            return cell
-        }//tag 2 = tableview customInfo
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "customInfoCell", for: indexPath) as! CustomInfoSPCell
-            for item in self.customTables{
-                print("countesh : \(item.data.count)")
-                if item.tableView == tableView{
-                    print("tableview ha barabar shod dar custom info")
-                    let itemData = item.data[indexPath.row]
-                    cell.lblTitle.text = itemData.headerName
-                    cell.lblServiceDate.text = itemData.info
-                    return cell
-                }
-            }
-            return cell
-        }
-        
+        return manageSearchItem(cell: cell, tag: tag, indexPath: indexPath)
     }
     
 }
@@ -863,22 +732,3 @@ class ServiceDateTableModel{
     }
 }
 
-
-//
-//class ManageServiceDateTV{
-//    let tableView: UITableView
-//    let data: [TargetServiceDate]
-//    init(tableView: UITableView, data: [TargetServiceDate]){
-//        self.tableView = tableView
-//        self.data = data
-//    }
-//}
-//
-//class ManageCustInfoTV{
-//    let tableView: UITableView
-//    let data: [TargetCustomInfo]
-//    init(tableView: UITableView, data: [TargetCustomInfo]){
-//        self.tableView = tableView
-//        self.data = data
-//    }
-//}

@@ -463,21 +463,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGR-yY-HGp" customClass="RoundedCornerView" customModule="Ninox" customModuleProvider="target">
-                                <rect key="frame" x="20" y="248.66666666666663" width="353" height="215"/>
+                                <rect key="frame" x="20" y="581" width="353" height="215"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flag Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Id-fk-YNl">
-                                        <rect key="frame" x="16" y="16.000000000000028" width="317" height="21"/>
+                                        <rect key="frame" x="16" y="16" width="317" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write you flag note here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ajy-a6-CjQ">
-                                        <rect key="frame" x="22" y="62.000000000000028" width="309" height="34"/>
+                                        <rect key="frame" x="22" y="62" width="309" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D29-RG-J95">
-                                        <rect key="frame" x="20" y="119.00000000000003" width="313" height="35"/>
+                                        <rect key="frame" x="20" y="119" width="313" height="35"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Save"/>
                                         <connections>
@@ -485,7 +485,7 @@
                                         </connections>
                                     </button>
                                     <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUp-GO-oeX">
-                                        <rect key="frame" x="20" y="160.00000000000003" width="313" height="35"/>
+                                        <rect key="frame" x="20" y="160" width="313" height="35"/>
                                         <color key="tintColor" systemColor="systemRedColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Cancle"/>
@@ -522,7 +522,7 @@
                         <color key="backgroundColor" name="DialogMainBackground"/>
                         <constraints>
                             <constraint firstItem="WyM-QG-gRg" firstAttribute="trailing" secondItem="QGR-yY-HGp" secondAttribute="trailing" constant="20" id="DeL-wB-hA0"/>
-                            <constraint firstItem="QGR-yY-HGp" firstAttribute="centerY" secondItem="IhS-uE-aD6" secondAttribute="centerY" constant="-70" id="eV8-aX-Ga9"/>
+                            <constraint firstItem="WyM-QG-gRg" firstAttribute="bottom" secondItem="QGR-yY-HGp" secondAttribute="bottom" constant="22" id="mMe-yz-eMs"/>
                             <constraint firstItem="QGR-yY-HGp" firstAttribute="leading" secondItem="WyM-QG-gRg" secondAttribute="leading" constant="20" id="mfm-wY-cVz"/>
                         </constraints>
                     </view>
