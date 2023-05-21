@@ -103,6 +103,9 @@ class SearchItem: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        print("awaked")
+        self.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
+        self.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -112,3 +115,4 @@ class SearchItem: UITableViewCell {
     }
     
 }
+

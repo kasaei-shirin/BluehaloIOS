@@ -12,6 +12,10 @@ class FlagNoteController: UIViewController {
     var flagNoteProtocol: FlagNoteProtocol?
     var indexPath: IndexPath?
     
+    var flagType: Int?
+    
+    var publicAddress: String?
+    
     @IBOutlet weak var txtFldFlagNote: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +33,43 @@ class FlagNoteController: UIViewController {
             if fn == ""{
                 ViewPatternMethods.showAlert(controller: self, title: "Error", message: "You should write a flag note.", handler: UIAlertAction(title: "OK", style: .destructive))
             }else{
-                flagNoteProtocol?.flagNoteText(note: fn, indexPath: indexPath!)
+                sendFlagNote2Web(note: fn)
             }
         }
         
     }
     
-    
+    func sendFlagNote2Web(note: String){
+        let waiting = ViewPatternMethods.waitingDialog(controller: self)
+        var params = Dictionary<String,Any>()
+        params["flagNote"] = note
+        params["flagType"] = flagType
+        params["publicAddress"] = publicAddress
+        HttpClientApi.instance().makeAPICall(url: URLS.FlagURL, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+            
+            DispatchQueue.main.async {
+                waiting.dismiss(animated: true) {
+                    self.dismiss(animated: true) {
+                        self.flagNoteProtocol?.flagNoteText(note: note, indexPath: self.indexPath!)
+                    }
+                }
+                
+            }
+            
+        } failure: { data, response, error in
+            
+            DispatchQueue.main.async {
+                waiting.dismiss(animated: true) {
+                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Back Problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+                }
+                
+            }
+            print(data)
+            print(response)
+            print(error)
+        }
+
+    }
 
     /*
     // MARK: - Navigation
