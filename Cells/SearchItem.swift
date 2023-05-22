@@ -10,7 +10,11 @@ import UIKit
 class SearchItem: UITableViewCell {
 
     
-//    @IBOutlet weak var topParent: UIView!
+    @IBOutlet weak var lblAdvanced: UILabel!
+    
+    @IBOutlet weak var imgViewExpand: UIImageView!
+    
+    @IBOutlet weak var imgViewIconType: UIImageView!
     
     @IBOutlet weak var topParent: UIView!
     @IBOutlet weak var lblProductName: UILabel!
@@ -24,7 +28,9 @@ class SearchItem: UITableViewCell {
     
     @IBOutlet weak var viewExpandParent: UIView!
     
+    @IBOutlet weak var imgViewIsOnGoing: UIImageView!
     
+    @IBOutlet weak var imgViewFlagType: UIImageView!
     
     @IBOutlet weak var lblExpireDate: UILabel!
     
@@ -96,8 +102,6 @@ class SearchItem: UITableViewCell {
     
     
     @IBOutlet weak var viewParentOfExpandination: UIView!
-    
-    
     
     
     override func awakeFromNib() {

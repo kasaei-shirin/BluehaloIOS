@@ -22,6 +22,12 @@ class MyDateFormatter{
         }
     }
     
+    func getDateFromServerDate(dateString: String)->Date?{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        return formatter.date(from: dateString)
+    }
+    
     func getDateByCompleteMonthName(date: Date)->String{
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd, yyyy"

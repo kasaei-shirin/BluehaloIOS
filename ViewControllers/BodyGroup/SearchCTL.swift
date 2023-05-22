@@ -33,8 +33,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var searchItemExpand = Dictionary<String,Bool>()
     var customInfoMoreExpand = Dictionary<String,Bool>()
     var serviceDateMoreExpand = Dictionary<String, Bool>()
-    var CUSTOMTABLEMANAGERS = [CustomInfoTableManager]()
-    var SERVICETABLEMANAGERS = [ServiceDateTableManager]()
+    var CUSTOMTABLEMANAGERS = [String:CustomInfoTableManager]()
+    var SERVICETABLEMANAGERS = [String:ServiceDateTableManager]()
     
     
     var peripherals:[CBPeripheral] = []
@@ -42,15 +42,34 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var PPPs : [PeripheralWithRssiAndData] = []
     var manager:CBCentralManager? = nil
     
-//    var customTables = [CustomInfoTableModel]()
-//    var serviceTables = [ServiceDateTableModel]()
-    
     var RSSILabels = Dictionary<String, UILabel>()
     var RSSISliders = Dictionary<String, UISlider>()
     
     var tags = [TagModel]()
     
     var inScanMode: Bool = false
+    
+    func setInScaMode(_ sm: Bool){
+        self.prevScanMode = inScanMode
+        inScanMode = sm
+    }
+    
+    var prevScanMode: Bool = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if prevScanMode{
+            self.scanBLEDevices()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if inScanMode{
+            stopScanForBLEDevices()
+        }else{
+            //be in dalil sedash zadim chon ke vaghti safhe disappear shod bar gasht agar dar search mode nabood dobare naiad search ro shoroo kone.
+            setInScaMode(false)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,13 +160,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-//        print("\(peripheral) + central : \(central.description)")
         var indexP = -1
         var i = 0
-//        print("indexP before : \(indexP)")
-//        print("\(PPPs.count) p ")
+
         for item in PPPs{
-//            print("\(item.periPheral.identifier.uuidString) == \(peripheral.identifier.uuidString)")
+
             if item.periPheral.identifier.uuidString == peripheral.identifier.uuidString{
                 indexP = i
             }
@@ -156,18 +173,15 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         if(indexP == -1) {
             
-//            print("manfie 1 + \(PPPs.count)")
-            
             //add peripheral 2 list
             let PPP = PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData)
             PPPs.append(PPP)
             
             getFromWebThenInsertIntoList(PPP)
-//            self.tableView.insertRows(at: [IndexPath(row: self.PPPs.count-1, section: 0)], with: .none)
-            
+
         }else{
 
-//            print("before \(PPPs[indexP].rssi)")
+
             PPPs[indexP].rssi = RSSI.intValue
             PPPs[indexP].data = advertisementData
             
@@ -184,9 +198,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
             if indexP != -1{
                 tags[indexP].rssi = RSSI.intValue
                 self.editRSSIOnTabelView(row: indexP)
-//                self.tableView.beginUpdates()
-//                self.tableView.reloadRows(at: [IndexPath(row: indexP, section: 0)], with: .none)
-//                self.tableView.endUpdates()
+
             }
 
         }
@@ -214,22 +226,6 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     
     func getFromWebThenInsertIntoList(_ ppp: PeripheralWithRssiAndData){
         
-//        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: nil, method: .GET, success: { (data, response, error) in
-//
-//            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-//
-//
-//
-//        }) { (data, response, error) in
-//            DispatchQueue.main.async {
-//                if let WD = self.waitingDialog{
-//                    WD.dismiss(animated: true)
-//                }
-//            }
-//            print(data)
-//            print(response)
-//            print(error)
-//        }
         
         let data = ppp.data["kCBAdvDataManufacturerData"] as? Data ?? Data()
         
@@ -297,12 +293,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         //manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
         
         //if you pass nil in the first parameter, then scanForPeriperals will look for any devices.
-        PPPs.removeAll()
-        peripherals.removeAll()
-        tags.removeAll()
-        tableView.reloadData()
+//        PPPs.removeAll()
+//        peripherals.removeAll()
+//        tags.removeAll()
+//        tableView.reloadData()
         
-        inScanMode = true
+        setInScaMode(true)
         
         btnScan.setTitle("Stop", for: .normal)
         
@@ -329,7 +325,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     }
     
     func stopScanForBLEDevices() {
-        inScanMode = false
+        self.setInScaMode(false)
         manager?.stopScan()
         btnScan.setTitle("Start", for: .normal)
     }
@@ -386,30 +382,39 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         //the numbers of above formula will be 73
         
         
+        
         if tag.targetServiceDates.count > 0{
-            theBottomHeight += 73 + (tag.targetServiceDates.count*35)
+            
+            if let _ = self.serviceDateMoreExpand[tag.publicAddress]{
+                theBottomHeight += 73 + (tag.targetServiceDates.count*35)
+            }else{
+                ///main height + one row of service date
+                //73 + 35
+                theBottomHeight += 108
+            }
         }
         if tag.targetCustomInfos.count > 0{
-            theBottomHeight += 73 + (tag.targetCustomInfos.count*35)
+            if let _ = self.customInfoMoreExpand[tag.publicAddress]{
+                theBottomHeight += 73 + (tag.targetCustomInfos.count*35)
+            }else{
+                ///main height + one row of custom Info
+                //73 + 35
+                theBottomHeight += 108
+            }
         }
         return theBottomHeight
     }
     
     func getValueFromRSSI(rssi: Int)->Float{
         if rssi <= -10 && rssi >= -50{
-//            cell.sliderRSSI.setValue(100, animated: false)
             return 100
         }else if rssi <= -51 && rssi >= -62{
-//            cell.sliderRSSI.setValue(75, animated: false)
             return 75
         }else if rssi <= -63 && rssi >= -70{
-//            cell.sliderRSSI.setValue(50, animated: false)
             return 50
         }else if rssi <= -71 && rssi >= -80{
-//            cell.sliderRSSI.setValue(25, animated: false)
             return 25
         }else{
-//            cell.sliderRSSI.setValue(0, animated: false)
             return 0
         }
     }
@@ -440,7 +445,11 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         else{
             cell.serviceDateTopBorderHeight.constant = 17
             cell.serviceDateTitleHeight.constant = 20
-            cell.serviceDateTableHeight.constant = CGFloat(tag.targetServiceDates.count*35)
+            if let _ = serviceDateMoreExpand[tag.publicAddress]{
+                cell.serviceDateTableHeight.constant = CGFloat(tag.targetServiceDates.count*35)
+            }else{
+                cell.serviceDateTableHeight.constant = 35
+            }
             cell.serviceDateMoreHeight.constant = 20
             cell.serviceDateTopBorder.isHidden = false
         }
@@ -454,7 +463,11 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             print("custom info height is true")
             cell.customInfoTopBorderHeight.constant = 17
             cell.customInfoTitleHeight.constant = 20
-            cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*36)
+            if let _ = customInfoMoreExpand[tag.publicAddress]{
+                cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*35)
+            }else{
+                cell.tableViewCustomInfoHeight.constant = 35
+            }
             cell.tableViewCustomInfo.rowHeight = 35
             cell.tableViewCustomInfo.estimatedRowHeight = 35
             cell.customInfoMoreheight.constant = 20
@@ -464,8 +477,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         if let _ = self.searchItemExpand[tag.publicAddress]{
             cell.viewParentOfExpandination.isHidden = false
+            cell.imgViewExpand.image = UIImage(systemName: "chevron.up")
+            cell.lblAdvanced.text = "Basic"
         }else{
             cell.viewParentOfExpandination.isHidden = true
+            cell.imgViewExpand.image = UIImage(systemName: "chevron.down")
+            cell.lblAdvanced.text = "Advanced"
         }
         
         cell.viewExpandParent.isUserInteractionEnabled = true
@@ -488,15 +505,9 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         cell.tableViewCustomInfo.estimatedRowHeight = 35
         print("\(cell.tableViewCustomInfoHeight.constant) the height")
-//        cell.taviewViewServiceDate.dropDelegate
+
         cell.tableViewCustomInfo.separatorColor = UIColor.white
         
-        
-//        if let _ = self.searchItemExpand[tag.publicAddress]{
-//
-//
-//
-//        }
         
         
         cell.taviewViewServiceDate.separatorColor = UIColor.white
@@ -504,16 +515,17 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         if tag.flagType == 1 {
             cell.btnGreenFlag.configuration = .tinted()
             cell.btnGreenFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
+            cell.imgViewFlagType.tintColor = UIColor.systemGreen
         }
         else if tag.flagType == 2{
             cell.btnYellowFlag.configuration = .tinted()
             cell.btnYellowFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
+            cell.imgViewFlagType.tintColor = UIColor.systemYellow
         }
         else{
             cell.btnOrangeFlag.configuration = .tinted()
             cell.btnOrangeFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
-//            cell.btnOrangeFlag.backgroundColor = UIColor.orange
-//            cell.btnOrangeFlag.layer.fillMode = true
+            cell.imgViewFlagType.tintColor = UIColor.systemOrange
         }
         
         cell.btnGreenFlag.addAction(UIAction(handler: { UIAction in
@@ -537,13 +549,11 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         let customInfoMoreTap = UITapGestureRecognizer(target: self, action: #selector(customInfoMoreTap(_:)))
         
-        ///TODO make it true (uncomment then)
         cell.lblMoreCustomInfo.addGestureRecognizer(customInfoMoreTap)
         customInfoMoreTap.view!.tag = indexPath.row
         
         let serviceDateMoreTap = UITapGestureRecognizer(target: self, action: #selector(serviceDateMoreTap(_:)))
         
-        ///TODO make it true (uncomment then)
         cell.lblMoreServiceDate.addGestureRecognizer(serviceDateMoreTap)
         serviceDateMoreTap.view!.tag = indexPath.row
         cell.lblFlagNote.isUserInteractionEnabled = true
@@ -553,6 +563,21 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         cell.lblFlagNote.addGestureRecognizer(flagNoteTap)
         flagNoteTap.view!.tag = indexPath.row
+        
+        cell.btnEdit.addAction(UIAction(handler: { UIAction in
+
+            let bodyStoryboard = UIStoryboard(name: "BodyStoryboard", bundle: nil)
+            let dest = bodyStoryboard.instantiateViewController(withIdentifier: "ScanQRCTL") as! ScanQRCTL
+            dest.fromWhere = "search"
+            dest.targetJob = "edit"
+            dest.tagIndexpath = indexPath
+            dest.theTag = tag
+            dest.editProtocol = self
+            self.present(dest, animated: true)
+        }), for: .touchUpInside)
+        
+        cell.imgViewIconType.image = IconTypeModel.getIconByCode(code: tag.iconType).getImage()
+        
         return cell
     }
     
@@ -563,21 +588,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         params["flagType"] = flagType
         params["publicAddress"] = publicAddress
         HttpClientApi.instance().makeAPICall(url: URLS.FlagURL, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
-            
             DispatchQueue.main.async {
-//                waiting.dismiss(animated: true) {
-//                    self.dismiss(animated: true) {
-//                        self.flagNoteProtocol?.flagNoteText(note: note, indexPath: self.indexPath!)
-//                    }
-//                }
                 waiting.dismiss(animated: true) {
                     self.tags[indexPath.row].flagType = flagType
                     self.updateTableViewInRow(indexPath.row)
                 }
-                
-                
             }
-            
         } failure: { data, response, error in
             
             DispatchQueue.main.async {
@@ -601,7 +617,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         flagNoteCTL.indexPath = IndexPath(row: sender.view!.tag, section: 0)
         flagNoteCTL.publicAddress = tags[sender.view!.tag].publicAddress
         flagNoteCTL.flagType = tags[sender.view!.tag].flagType
-//        guard let splashCTL = storyboard.instantiateInitialViewController() else { return }
+
         self.present(flagNoteCTL, animated: true)
     }
     
@@ -622,8 +638,11 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         let tag = tags[indexPath.row]
         SI.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
         SI.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
-        let customInfoM = CustomInfoTableManager(custInfos: tag.targetCustomInfos, tableView: SI.tableViewCustomInfo)
-        let serviceDateM = ServiceDateTableManager(serviceDates: tag.targetServiceDates, tableView: SI.taviewViewServiceDate)
+        
+        
+        
+        let customInfoM = CustomInfoTableManager(custInfos: tag.targetCustomInfos, tableView: SI.tableViewCustomInfo, showAll: self.customInfoMoreExpand[tag.publicAddress] != nil)
+        let serviceDateM = ServiceDateTableManager(serviceDates: tag.targetServiceDates, tableView: SI.taviewViewServiceDate, showAll: self.serviceDateMoreExpand[tag.publicAddress] != nil)
         
 //            customInfoM.buildTableItems()
         SI.tableViewCustomInfo.dataSource = customInfoM
@@ -631,13 +650,9 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         
         SI.taviewViewServiceDate.dataSource = serviceDateM
         SI.taviewViewServiceDate.delegate = serviceDateM
-        
-        self.CUSTOMTABLEMANAGERS.append(customInfoM)
-        self.SERVICETABLEMANAGERS.append(serviceDateM)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-//            self.CUSTOMTABLEMANAGERS[0].tableView.reloadData()
-//        }
+        self.CUSTOMTABLEMANAGERS[tag.publicAddress] = customInfoM
+//        self.CUSTOMTABLEMANAGERS.append(customInfoM)
+        self.SERVICETABLEMANAGERS[tag.publicAddress] = serviceDateM
         
     }
     
@@ -732,3 +747,12 @@ class ServiceDateTableModel{
     }
 }
 
+
+
+extension SearchCTL: EditActionProtocol{
+    func edited(tag: TagModel, indexPath: IndexPath) {
+        self.tags[indexPath.row] = tag
+        self.updateTableViewInRow(indexPath.row)
+    }
+    
+}

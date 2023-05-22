@@ -64,6 +64,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     var selectedProject: String?
     
     
+    @IBOutlet weak var datePickerTargetExpireDate: UIDatePicker!
     
     @IBOutlet weak var serviceDateHeight: NSLayoutConstraint!
     
@@ -110,6 +111,10 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     @IBOutlet weak var tableViewCustomInfo: UITableView!
     
     
+    
+    var theTag: TagModel?
+    var indexPath: IndexPath?
+    var editProtocol: EditActionProtocol?
     
     
     @IBAction func expireDateAction(_ sender: UIDatePicker) {
@@ -170,6 +175,50 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
             
         }
         
+        if targetJob == "edit"{
+            setPropsIfForEdition()
+        }
+        
+    }
+    
+    func setPropsIfForEdition(){
+        if let tag = theTag{
+            self.txtFldTargetName.text = tag.deviceName
+            self.txtFldAlias.text = tag.alias
+            self.txtFldArea.text = tag.area
+            self.txtFldProject.text = tag.project
+            
+            let myDF = MyDateFormatter()
+            let AD = myDF.getDateFromServerDate(dateString: tag.activationDate)
+            if let activeDate = AD{
+                self.lblActivationDate.text = myDF.getDateByCompleteMonthName(date: activeDate)
+            }
+            let BED = myDF.getDateFromServerDate(dateString: tag.tagBatteryExpireDate)
+            if let batteryExpireDate = BED{
+                self.lblBatteryExpireDate.text = myDF.getDateByCompleteMonthName(date: batteryExpireDate)
+            }
+            let LS = myDF.getDateFromServerDate(dateString: tag.lastFindingDate)
+            if let lastSearch = LS{
+                self.lblLastSearch.text = myDF.getDateByCompleteMonthName(date: lastSearch)
+            }
+            
+            let ED = myDF.getDateFromServerDate(dateString: tag.targetExpireDate)
+            if let expireDate = ED{
+                self.datePickerTargetExpireDate.setDate(expireDate, animated: true)
+            }
+            self.customInfos = tag.targetCustomInfos
+            self.serviceDates = tag.targetServiceDates
+            self.updateCustomInfoTableView()
+            self.updateServiceDateTableView()
+            if(tag.isOnGoing){
+                self.isOnGoingSwitch.setOn(true, animated: true)
+            }else{
+                self.isOnGoingSwitch.setOn(false, animated: true)
+            }
+            let iconType = IconTypeModel.getIconByCode(code: tag.iconType)
+            self.imgViewIconType.image = iconType.getImage()
+            self.iconTypeModel = iconType
+        }
     }
     
     @objc func iconTypeTap(_ sender: UITapGestureRecognizer){
@@ -191,12 +240,13 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     func makeHeights0OfSetupingAction(){
-        constraintSpaceTopTagInfo.constant = 0
-        constraintBatteryExpireDate.constant = 0
-        constraintActivationDate.constant = 0
-        constraintLastSearch.constant = 0
-        parentOfSpaceTopTagInfo.isHidden = true
-        
+        if targetJob == "setup"{
+            constraintSpaceTopTagInfo.constant = 0
+            constraintBatteryExpireDate.constant = 0
+            constraintActivationDate.constant = 0
+            constraintLastSearch.constant = 0
+            parentOfSpaceTopTagInfo.isHidden = true
+        }
         updateServiceDateTableView()
         updateCustomInfoTableView()
         
@@ -258,8 +308,6 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
                                         self.allProjects.append(project)
                                     }
                                 }
-                                
-        //                        self.initProjectAndAreaDropDown()
                             }
                         }
                     }
@@ -310,8 +358,95 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         if self.targetJob == "setup"{
             self.sendSetupDatas2Web()
         }else if self.targetJob == "edit"{
-            
+            sendEditDats2Web()
         }
+    }
+    
+    func setPropsInBacktag(){
+        theTag?.deviceName = self.txtFldTargetName.text ?? ""
+        theTag?.alias = self.txtFldAlias.text ?? ""
+        theTag?.iconType = self.iconTypeModel?.code ?? 0
+        theTag?.targetExpireDate = MyDateFormatter().getDateFromDatePickerForSend(datee: self.targetExpireDate)
+        theTag?.isOnGoing = self.isOnGoingSwitch.isOn
+        theTag?.project = self.txtFldProject.text ?? ""
+        theTag?.area = self.txtFldArea.text ?? ""
+    }
+    func sendEditDats2Web(){
+        
+        let waitingAlert = ViewPatternMethods.waitingDialog(controller: self)
+        
+        var params = Dictionary<String, Any>()
+        params["publicAddress"] = self.publicAddress
+        params["update"] = true
+        params["productName"] = "" //get from scan qr
+        params["alias"] = txtFldAlias.text
+        params["deviceName"] = txtFldTargetName.text
+        params["iconType"] = self.iconTypeModel?.code
+        params["isOnGoing"] = self.isOnGoingSwitch.isOn
+        params["advertisementInterval"] = ""//get from scan qr
+        params["txPower"] = "" //get from scan qr
+        params["manufactureId"] = ""//get fro scan qr
+        params["cte"] = false
+        params["batteryReplacementLimit"] = 30
+        params["project"] = self.txtFldProject.text
+        params["area"] = self.txtFldArea.text
+        params["lastBatteryAmount"] = 3
+        params["targetExpireDate"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.targetExpireDate)
+        
+//        sendCustInfosAndServiceDates()
+        
+        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
+            
+            
+            DispatchQueue.main.async {
+                waitingAlert.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    if let j = json as? [String:Any]{
+                        print(j)
+                        if let success = j["success"] as? String{
+                            DispatchQueue.main.async {
+                                let message = j["message"] as? String ?? ""
+                                if(success == "true"){
+                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true)
+                                    }))
+                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true) {
+                                            self.setPropsInBacktag()
+                                            self.dismiss(animated: true) {
+                                                self.editProtocol?.edited(tag: self.theTag!, indexPath: self.indexPath!)
+                                            }
+                                        }
+                                    }))
+                                    self.present(alertCTL, animated: true)
+                                }else{
+                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                                        alertCTL.dismiss(animated: true)
+                                    }))
+        //                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+        //                                alertCTL.dismiss(animated: false)
+        //                                self.dismiss(animated: true)
+        //                            }))
+                                    self.present(alertCTL, animated: true)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } failure: { data, response, error in
+            DispatchQueue.main.async {
+                waitingAlert.dismiss(animated: true)
+            }
+            print(data)
+            print(response)
+            print(error)
+        }
+
     }
     
     func sendSetupDatas2Web(){

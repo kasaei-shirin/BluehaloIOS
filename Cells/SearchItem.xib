@@ -972,6 +972,11 @@
                 <outlet property="customInfoTitleHeight" destination="AMh-TQ-CC9" id="yuM-DH-Cd8"/>
                 <outlet property="customInfoTopBorder" destination="OMa-iU-Xh7" id="vZv-n6-hYD"/>
                 <outlet property="customInfoTopBorderHeight" destination="bNy-e1-nbx" id="DHc-0h-l7C"/>
+                <outlet property="imgViewExpand" destination="N5w-9M-SHf" id="YcR-KO-FEF"/>
+                <outlet property="imgViewFlagType" destination="fCe-3x-tGd" id="kPd-4a-aRN"/>
+                <outlet property="imgViewIconType" destination="5od-C7-bMB" id="ywk-EV-Le0"/>
+                <outlet property="imgViewIsOnGoing" destination="iZ5-WN-XBy" id="WgU-T3-DK2"/>
+                <outlet property="lblAdvanced" destination="6wY-Zy-feH" id="Bdf-Jl-jHT"/>
                 <outlet property="lblAlias" destination="FWG-Ij-bfG" id="dhB-Rf-LHW"/>
                 <outlet property="lblBatteryExpireDate" destination="ieK-dQ-7Wp" id="Hwa-uv-Z9W"/>
                 <outlet property="lblDeviceName" destination="oYK-7e-bYu" id="aep-lc-wTr"/>

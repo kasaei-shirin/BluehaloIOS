@@ -894,7 +894,7 @@
         <!--ScanQRCTL-->
         <scene sceneID="U1O-zI-dr0">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="RQP-XB-pnl" customClass="ScanQRCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanQRCTL" modalPresentationStyle="fullScreen" id="RQP-XB-pnl" customClass="ScanQRCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="weA-Sc-Hkc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="619"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2137,6 +2137,7 @@
                         <outlet property="constraintLastSearch" destination="wQb-O5-1uu" id="sEq-qo-zWf"/>
                         <outlet property="constraintSpaceTopTagInfo" destination="mfK-aW-Dop" id="sog-JB-ohW"/>
                         <outlet property="customInfoheight" destination="Ndu-Wi-a0V" id="y9D-jP-ZDB"/>
+                        <outlet property="datePickerTargetExpireDate" destination="AjT-CJ-50k" id="jI9-dt-JFk"/>
                         <outlet property="imgViewIconType" destination="713-aV-WkI" id="pc9-Jt-Cxr"/>
                         <outlet property="isOnGoingSwitch" destination="sT1-dc-fQG" id="7Mz-6l-wvT"/>
                         <outlet property="lblActivationDate" destination="lUN-Bq-fhz" id="wEE-JD-sbX"/>

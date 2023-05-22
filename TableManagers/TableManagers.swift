@@ -12,11 +12,14 @@ class ServiceDateTableManager:NSObject, UITableViewDelegate, UITableViewDataSour
     
     var serviceDates: [TargetServiceDate]
     var tableView: UITableView
+    var showAll: Bool
     
-    init(serviceDates: [TargetServiceDate], tableView: UITableView) {
+    init(serviceDates: [TargetServiceDate], tableView: UITableView, showAll: Bool) {
         
         self.serviceDates = serviceDates
         self.tableView = tableView
+        
+        self.showAll = showAll
 
     }
     
@@ -26,7 +29,13 @@ class ServiceDateTableManager:NSObject, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("countesh dar custmanager : \(serviceDates.count)")
-        return serviceDates.count
+        if showAll{
+            return serviceDates.count
+        }
+        if(serviceDates.count > 0){
+            return 1
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -51,11 +60,13 @@ class CustomInfoTableManager:NSObject, UITableViewDelegate, UITableViewDataSourc
     
     var custInfos: [TargetCustomInfo]
     var tableView: UITableView
+    var showAll: Bool
     
-    init(custInfos: [TargetCustomInfo], tableView: UITableView) {
+    init(custInfos: [TargetCustomInfo], tableView: UITableView, showAll: Bool) {
         
         self.custInfos = custInfos
         self.tableView = tableView
+        self.showAll = showAll
 
     }
     
@@ -65,7 +76,13 @@ class CustomInfoTableManager:NSObject, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("countesh dar custmanager : \(custInfos.count)")
-        return custInfos.count
+        if showAll {
+            return custInfos.count
+        }
+        if custInfos.count > 0{
+            return 1
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

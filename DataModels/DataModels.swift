@@ -256,7 +256,8 @@ class IconTypeModel{
         return UIImage(named: self.resourceName)
     }
     
-    func getIconByCode(code: Int)->IconTypeModel{
+    
+    class func getIconByCode(code: Int)->IconTypeModel{
         let ITs = IconTypeModel.getIconTypes()
         for item in ITs{
             if item.code == code{

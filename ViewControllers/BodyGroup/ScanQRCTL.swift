@@ -28,6 +28,12 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
     var targetJob: String?
     var fromWhere: String?
     
+    var theTag: TagModel?
+    var tagIndexpath: IndexPath?
+    var editProtocol: EditActionProtocol?
+    
+    //send tag and indexpath for edit to here and also protocol to update list at last
+    
     var ScannedQRCodePA: String?
     
     
@@ -193,6 +199,12 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
             dest.fromWhere = self.fromWhere
             dest.targetJob = self.targetJob
             dest.publicAddress = self.ScannedQRCodePA
+            if let tag = theTag{
+                dest.publicAddress = tag.publicAddress
+                dest.theTag = tag
+                dest.indexPath = self.tagIndexpath
+                dest.editProtocol = self
+            }
         }
     }
     
@@ -207,6 +219,12 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         let backTap = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
         backParentView.isUserInteractionEnabled = true
         backParentView.addGestureRecognizer(backTap)
+        
+        if fromWhere == "search"{
+            skipBtn.isHidden = false
+        }else{
+            skipBtn.isHidden = true
+        }
         
     }
     
@@ -279,6 +297,10 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         
     }
     
+    func going2EditAction(){
+        performSegue(withIdentifier: "scan2setup", sender: self)
+    }
+    
     
     func found(code: String) {
         print(code)
@@ -296,8 +318,17 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                 print("get pa as string : \(thePA)")
                 if thePA != ""{
 //                    getPAFromWeb(theString: thePA)
-                    self.ScannedQRCodePA = thePA
-                    self.startScanForPrepheral()
+                    if fromWhere == "home"{
+                        self.ScannedQRCodePA = thePA
+                        self.startScanForPrepheral()
+                    }
+                    else{
+                        if thePA == theTag?.publicAddress{
+                            going2EditAction()
+                        }else{
+                            ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Your Target tag PublicAddress is diffrence from what you scanned!", handler: UIAlertAction(title: "OK", style: .destructive))
+                        }
+                    }
                 }
                 else{
                     let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "QRCode problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
@@ -342,7 +373,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
     }
     
     @IBAction func skipAction(_ sender: Any) {
-        
+        going2EditAction()
     }
     
     @IBAction func scanAction(_ sender: Any) {
@@ -368,4 +399,11 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         self.manager?.stopScan()
     }
 
+}
+
+extension ScanQRCTL: EditActionProtocol{
+    func edited(tag: TagModel, indexPath: IndexPath) {
+        self.editProtocol?.edited(tag: tag, indexPath: indexPath)
+        self.dismiss(animated: true)
+    }
 }
