@@ -43,6 +43,7 @@
 		3094DBC82A125D5F00ACAFFB /* ServiceDateSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */; };
 		3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */; };
 		3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */; };
+		30B311B22A1D55B8003B24F1 /* SearchFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */; };
 		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
 		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
 		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
@@ -53,7 +54,6 @@
 		30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6B9872A09ECDF0058A91F /* SearchFilterCTL.swift */; };
 		30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CEC62A0203C900DB70C4 /* DBManager.swift */; };
 		30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CECB2A020D9C00DB70C4 /* DataModels.swift */; };
-		30E5CED22A02145700DB70C4 /* LocationCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CED12A02145700DB70C4 /* LocationCTL.swift */; };
 		951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +97,7 @@
 		3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceDateSPCell.xib; sourceTree = "<group>"; };
 		3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoSPCell.swift; sourceTree = "<group>"; };
 		3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoSPCell.xib; sourceTree = "<group>"; };
+		30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterModel.swift; sourceTree = "<group>"; };
 		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
 		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
@@ -108,7 +109,6 @@
 		30E5CEC62A0203C900DB70C4 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		30E5CEC82A02041900DB70C4 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30E5CECB2A020D9C00DB70C4 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
-		30E5CED12A02145700DB70C4 /* LocationCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCTL.swift; sourceTree = "<group>"; };
 		3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.release.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.release.xcconfig"; sourceTree = "<group>"; };
 		64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ninox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.debug.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -257,7 +257,6 @@
 		30D6B9822A09E1370058A91F /* BodyGroup */ = {
 			isa = PBXGroup;
 			children = (
-				30E5CED12A02145700DB70C4 /* LocationCTL.swift */,
 				30D6B9832A09E14E0058A91F /* HomeCTL.swift */,
 				30D6B9852A09ECCF0058A91F /* SearchCTL.swift */,
 				30D6B9872A09ECDF0058A91F /* SearchFilterCTL.swift */,
@@ -280,6 +279,7 @@
 			children = (
 				30E5CECB2A020D9C00DB70C4 /* DataModels.swift */,
 				308DC7422A0E948100535557 /* MyDateFormatter.swift */,
+				30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -438,7 +438,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30E5CED22A02145700DB70C4 /* LocationCTL.swift in Sources */,
 				30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */,
 				308DC73C2A0E70DD00535557 /* IconTypeDialog.swift in Sources */,
 				3015A8CB2A1B657C0079FED6 /* SearchActionProtocols.swift in Sources */,
@@ -474,6 +473,7 @@
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
 				301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */,
 				30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */,
+				30B311B22A1D55B8003B24F1 /* SearchFilterModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

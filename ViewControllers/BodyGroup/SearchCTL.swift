@@ -14,7 +14,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         print(central)
     }
     
-
+    @IBOutlet weak var lblLocationFilter: UILabel!
+    
+    @IBOutlet weak var lblFoundCount: UILabel!
+    
+    
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,6 +30,8 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     @IBOutlet weak var imgViewRefresh: UIImageView!
     @IBOutlet weak var imgViewInfo: UIImageView!
     @IBOutlet weak var imgViewSearchFilter: UIImageView!
+    
+    var filterModel: SearchFilterModel?
     
     
 //    var cellHeight
@@ -90,6 +96,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         
         setClickListenersForTopItems()
+        let locAreaTitle = getLocAreaTextMethod()
+        lblLocationFilter.text = locAreaTitle
+        
+        let dateTime = MyDateFormatter().getCurrentDateTimeForSearchHistory()
+        
+        DBManager().insertSearchHistory(SL: SearchHistoryModel(theID: -1, title: locAreaTitle, dateTime: dateTime))
         
     }
     
@@ -134,7 +146,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         tags.removeAll()
         searchItemExpand.removeAll()
         tableView.reloadData()
-        
+        lblFoundCount.text = "\(tags.count)"
     }
     @objc func collapseTap(_ tap: UITapGestureRecognizer){
         for item in self.tags{
@@ -267,12 +279,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
 //                print(j)
                 if let success = j["success"] as? String{
                     if(success == "true"){
-                        print("get tag")
+                        
                         if let t = j["tag"] as? [String:Any]{
+                            print("tag : \n\(t)")
                             self.tags.append(TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString))
                             DispatchQueue.main.async {
-                                self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
-                                
+                                self.insertRowIntoList()
                             }
                         }
                     }
@@ -288,6 +300,10 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
     }
     
+    func insertRowIntoList(){
+        lblFoundCount.text = "\(tags.count)"
+        self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
+    }
     
     func scanBLEDevices() {
         //manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
@@ -420,6 +436,28 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     }
     
     
+    func getLocAreaTextMethod()->String{
+        var locArea = "All"
+        if let filter = self.filterModel{
+            if filter.project == nil && filter.area == nil{
+                return locArea
+            }
+            if let pro = filter.project{
+                locArea = pro
+            }else{
+                locArea = "All"
+            }
+            if let ar = filter.area{
+                locArea += " / \(ar)"
+            }else{
+                locArea += " / All"
+            }
+            return locArea
+        }else{
+            return locArea
+        }
+    }
+    
     func manageSearchItem(cell: SearchItem, tag: TagModel, indexPath: IndexPath)-> SearchItem{
         
         cell.btnYellowFlag.configuration = .plain()
@@ -499,16 +537,22 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         cell.lblAlias.text = tag.alias
         cell.lblRSSI.text = "\(tag.rssi)"
         
+        let myDF = MyDateFormatter()
         
         cell.sliderRSSI.setValue(getValueFromRSSI(rssi: tag.rssi), animated: false)
-        
+        let expireDate = myDF.getDateFromString(dateString: tag.targetExpireDate)
+        cell.lblExpireDate.text = myDF.getDateByCompleteMonthName(date: expireDate)
         
         cell.tableViewCustomInfo.estimatedRowHeight = 35
         print("\(cell.tableViewCustomInfoHeight.constant) the height")
 
         cell.tableViewCustomInfo.separatorColor = UIColor.white
         
-        
+        if(tag.isOnGoing){
+            cell.imgViewIsOnGoing.image = UIImage(named: "ongoing_true")
+        }else{
+            cell.imgViewIsOnGoing.image = UIImage(named: "ongoing_false")
+        }
         
         cell.taviewViewServiceDate.separatorColor = UIColor.white
         

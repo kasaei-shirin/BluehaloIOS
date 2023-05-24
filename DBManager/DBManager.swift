@@ -66,7 +66,7 @@ class DBManager:NSObject{
         }
         
         let createLastSearchTable = self.LASTSEARCHTABLE.create{(table)in
-            table.column(self.LST_ID, primaryKey: true)
+            table.column(self.LST_ID, primaryKey: .autoincrement)
             table.column(self.LST_PROJECTAREA)
             table.column(self.LST_DATETIME)
         }
@@ -110,7 +110,13 @@ class DBManager:NSObject{
     }
     
     func insertSearchHistory(SL: SearchHistoryModel){
-        let insSH = self.LASTSEARCHTABLE.insert(self.LST_ID <- 1, self.LST_PROJECTAREA<-SL.title, self.LST_DATETIME<-SL.dateTime)
+        let result = self.LASTSEARCHTABLE.filter(self.LST_PROJECTAREA == SL.title)
+        do{
+            try self.database.run(result.delete())
+        }catch{
+            print(error)
+        }
+        let insSH = self.LASTSEARCHTABLE.insert(self.LST_PROJECTAREA<-SL.title, self.LST_DATETIME<-SL.dateTime)
         do{
             try self.database.run(insSH)
             print("search history inserted")

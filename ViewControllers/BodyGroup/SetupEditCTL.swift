@@ -218,6 +218,8 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
             let iconType = IconTypeModel.getIconByCode(code: tag.iconType)
             self.imgViewIconType.image = iconType.getImage()
             self.iconTypeModel = iconType
+            
+            self.targetExpireDate = MyDateFormatter().getDateFromString(dateString: tag.targetExpireDate)
         }
     }
     
@@ -358,7 +360,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         if self.targetJob == "setup"{
             self.sendSetupDatas2Web()
         }else if self.targetJob == "edit"{
-            sendEditDats2Web()
+            sendEditDatas2Web()
         }
     }
     
@@ -371,7 +373,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         theTag?.project = self.txtFldProject.text ?? ""
         theTag?.area = self.txtFldArea.text ?? ""
     }
-    func sendEditDats2Web(){
+    func sendEditDatas2Web(){
         
         let waitingAlert = ViewPatternMethods.waitingDialog(controller: self)
         
@@ -391,7 +393,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         params["project"] = self.txtFldProject.text
         params["area"] = self.txtFldArea.text
         params["lastBatteryAmount"] = 3
-        params["targetExpireDate"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.targetExpireDate)
+        params["targetExpireDate"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.datePickerTargetExpireDate.date)
         
 //        sendCustInfosAndServiceDates()
         
@@ -575,9 +577,6 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     
-    func sendEditDatas2Web(){
-        //after sending check whereComeFrom to choose where to go
-    }
     
     
     @IBAction func addTargetCustomInfoAction(_ sender: Any) {

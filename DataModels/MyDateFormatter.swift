@@ -22,6 +22,13 @@ class MyDateFormatter{
         }
     }
     
+    func getCurrentDateTimeForSearchHistory()->String{
+        let dt = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy MMM dd hh:mmaa"
+        return df.string(from: dt)
+    }
+    
     func getDateFromServerDate(dateString: String)->Date?{
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

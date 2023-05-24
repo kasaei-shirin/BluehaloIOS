@@ -283,3 +283,29 @@ class IconTypeModel{
     }
     
 }
+
+
+
+class RSSIModel{
+    
+    static var RSSI1 = -10
+    static var RSSI2 = -50
+    static var RSSI3 = -62
+    static var RSSI4 = -70
+    static var RSSI5 = -80
+    
+    func getValueFromRSSI(rssi: Int)->Float{
+        if rssi <= RSSIModel.RSSI1 && rssi >= RSSIModel.RSSI2{
+            return 100
+        }else if rssi < RSSIModel.RSSI2 && rssi >= RSSIModel.RSSI3{
+            return 75
+        }else if rssi < RSSIModel.RSSI3 && rssi >= RSSIModel.RSSI4{
+            return 50
+        }else if rssi < RSSIModel.RSSI4 && rssi >= RSSIModel.RSSI5{
+            return 25
+        }else{
+            return 0
+        }
+    }
+    
+}
