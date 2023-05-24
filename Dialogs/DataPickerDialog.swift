@@ -26,6 +26,13 @@ class DataPickerDialog: UIViewController {
 
         self.initViews()
         
+        self.view.isUserInteractionEnabled = true
+        let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))
+        self.view.addGestureRecognizer(viewTap)
+    }
+    
+    @objc func ViewTap(_ sender: UITapGestureRecognizer){
+        self.dismiss(animated: true)
     }
     
     func initViews(){

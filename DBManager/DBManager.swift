@@ -99,7 +99,23 @@ class DBManager:NSObject{
             print(error)
         }
     }
-        
+       
+    func deleteSearchHistoryBy(title: String){
+        let filtered = LASTSEARCHTABLE.filter(LST_PROJECTAREA == title)
+        do{
+            try database.run(filtered.delete())
+        }catch{
+            print(error)
+        }
+    }
+    
+    func deleteSearchHistory(){
+        do{
+            try database.run(LASTSEARCHTABLE.delete())
+        }catch{
+            print(error)
+        }
+    }
         
     func deleteUser(){
         do{
@@ -129,14 +145,14 @@ class DBManager:NSObject{
     func getLastSearchHistories() -> [SearchHistoryModel]{
         var SHMs = [SearchHistoryModel]()
         do{
-             let LSTs = try self.database.prepare(self.LASTSEARCHTABLE)
+            let LSTs = try self.database.prepare(self.LASTSEARCHTABLE.order(LST_ID.desc))
          
              for lst in LSTs{
                  let theID = lst[self.LST_ID]
                  let title = lst[self.LST_PROJECTAREA]
                  let dateTime = lst[self.LST_DATETIME]
                  
-                 SHMs.append(SearchHistoryModel(theID: theID, title: title, dateTime: dateTime))
+                 SHMs.append(SearchHistoryModel(theID: theID, title: title, dateTime: dateTime, isDeleted: false))
              }
             
         }catch{

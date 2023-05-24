@@ -44,6 +44,8 @@
 		3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */; };
 		3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */; };
 		30B311B22A1D55B8003B24F1 /* SearchFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */; };
+		30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */; };
+		30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B52A1E0E67003B24F1 /* FilterCTL.swift */; };
 		30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7663429F9872600A86C06 /* HeaderLabel.swift */; };
 		30B7663729F9EFF100A86C06 /* BodyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */; };
 		30B7663929FA07BF00A86C06 /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */; };
@@ -98,6 +100,9 @@
 		3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoSPCell.swift; sourceTree = "<group>"; };
 		3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoSPCell.xib; sourceTree = "<group>"; };
 		30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterModel.swift; sourceTree = "<group>"; };
+		30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
+		30B311B52A1E0E67003B24F1 /* FilterCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCTL.swift; sourceTree = "<group>"; };
+		30B311B72A1E3335003B24F1 /* MaterialComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MaterialComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B7663429F9872600A86C06 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		30B7663629F9EFF100A86C06 /* BodyStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyStoryboard.storyboard; sourceTree = "<group>"; };
 		30B7663829FA07BF00A86C06 /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
@@ -195,6 +200,7 @@
 				3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */,
 				3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */,
 				3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */,
+				30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -225,6 +231,7 @@
 				308DC7442A0E9DC800535557 /* DataPickerDialog.swift */,
 				30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */,
 				3010D3042A15E49400A68C36 /* FlagNoteController.swift */,
+				30B311B52A1E0E67003B24F1 /* FilterCTL.swift */,
 			);
 			path = Dialogs;
 			sourceTree = "<group>";
@@ -307,6 +314,7 @@
 		EEAC63FC48B20CDF4226B4EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30B311B72A1E3335003B24F1 /* MaterialComponents.framework */,
 				308237232A0D32200054A64A /* iOSDropDown.framework */,
 				30E5CEC82A02041900DB70C4 /* SQLite.framework */,
 				308CB49B29F837040072D97D /* CoreBluetooth.framework */,
@@ -461,9 +469,11 @@
 				30C59AE72A08902E00D675A5 /* HttpClientAPI.swift in Sources */,
 				308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */,
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
+				30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
 				3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
+				30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */,
 				308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
 				30D6B9862A09ECCF0058A91F /* SearchCTL.swift in Sources */,

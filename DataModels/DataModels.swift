@@ -28,9 +28,9 @@ class SearchHistoryModel{
     var title: String
     var dateTime: String
     
-    var isDeleted: Bool?
+    var isDeleted: Bool
     
-    init(theID: Int, title: String, dateTime: String, isDeleted: Bool? = nil) {
+    init(theID: Int, title: String, dateTime: String, isDeleted: Bool) {
         self.theID = theID
         self.title = title
         self.dateTime = dateTime

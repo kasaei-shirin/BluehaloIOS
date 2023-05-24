@@ -21,6 +21,7 @@ class SearchFilterModel{
     
     init(area: String, project: String){
         if area.lowercased() != "all"{
+            print("lowerd casesh all nabood")
             self.area = area
         }
         if project.lowercased() != "all"{
@@ -64,8 +65,9 @@ class SearchFilterModel{
                 return false
             }
         }
-        if let _ = isOnGoing{
-            if tag.isOnGoing == false{
+        if let IOG = isOnGoing{
+            
+            if tag.isOnGoing == false && IOG{
                 return false
             }
         }

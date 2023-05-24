@@ -32,3 +32,8 @@ protocol AddCustomInfoProtocol{
 protocol FlagNoteProtocol{
     func flagNoteText(note: String, indexPath: IndexPath)
 }
+
+
+protocol SearchFilterProtocol{
+    func searchFiltered(filterModel: SearchFilterModel)
+}

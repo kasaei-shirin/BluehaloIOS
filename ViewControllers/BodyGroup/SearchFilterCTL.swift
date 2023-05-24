@@ -42,7 +42,6 @@ class SearchFilterCTL: UIViewController , DataSelection{
         backView.isUserInteractionEnabled = true
         backView.addGestureRecognizer(backTap)
         
-        self.searchHistories = DBManager().getLastSearchHistories()
         
         self.historyTableView.delegate = self
         self.historyTableView.dataSource = self
@@ -62,7 +61,6 @@ class SearchFilterCTL: UIViewController , DataSelection{
         let refreshTap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
         refreshBtn.addGestureRecognizer(refreshTap)
         
-        getProjectAndAreaFromWeb()
     }
     
     @objc func refreshTap(_ sender: UITapGestureRecognizer){
@@ -72,11 +70,21 @@ class SearchFilterCTL: UIViewController , DataSelection{
     
     
     @objc func areaTap(_ sender: UITapGestureRecognizer){
-        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Areas", selectionProtocol: self, datas: allAreas, targetAction: 1)
+        if allAreas.count > 0{
+            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Areas", selectionProtocol: self, datas: allAreas, targetAction: 1)
+        }
     }
     
     @objc func projectTap(_ sender: UITapGestureRecognizer){
-        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Projects", selectionProtocol: self, datas: allProjects, targetAction: 2)
+        if allProjects.count > 0{
+            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Projects", selectionProtocol: self, datas: allProjects, targetAction: 2)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.searchHistories = DBManager().getLastSearchHistories()
+        getProjectAndAreaFromWeb()
+        
     }
     
     
@@ -85,6 +93,9 @@ class SearchFilterCTL: UIViewController , DataSelection{
         let alter = ViewPatternMethods.waitingDialog(controller: self)
         
         let header = Dictionary<String, String>()
+        
+        allAreas.append("All")
+        allProjects.append("All")
         
         HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
             
@@ -113,6 +124,8 @@ class SearchFilterCTL: UIViewController , DataSelection{
                                         self.allProjects.append(project)
                                     }
                                 }
+                                self.checkAllHistories()
+                                self.historyTableView.reloadData()
                             }
                         }
                     }
@@ -151,16 +164,45 @@ class SearchFilterCTL: UIViewController , DataSelection{
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func checkAllHistories(){
+        for item in self.searchHistories{
+            if !(isSHInAreaAndProject(SH: item, projects: self.allProjects, areas: self.allAreas)){
+                item.isDeleted = true
+            }
+        }
     }
-    */
+    
+    func isSHInAreaAndProject(SH: SearchHistoryModel, projects: [String], areas: [String])->Bool{
 
+        let PAs = SH.title.split(separator: "/")
+        ///TODO
+        if(isSHInArea(area: String(PAs[1]), areas: areas)) && isSHInProjects(project: String(PAs[0]), projects: projects){
+            return true
+        }
+        return false
+        
+    }
+    
+    func isSHInArea(area: String, areas: [String])->Bool{
+
+        for item in areas{
+            if item.trimmingCharacters(in: .whitespacesAndNewlines) == area.trimmingCharacters(in: .whitespacesAndNewlines){
+                return true
+            }
+        }
+        return false
+    }
+    
+    func isSHInProjects(project: String, projects: [String])->Bool{
+        for item in projects{
+            if item.trimmingCharacters(in: .whitespacesAndNewlines) == project.trimmingCharacters(in: .whitespacesAndNewlines){
+                return true
+            }
+        }
+        return false
+    }
+    
+   
 }
 
 extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
@@ -168,10 +210,53 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
         return searchHistories.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print("\(indexPath.row) row edition")
+        if (editingStyle == .delete){
+            DBManager().deleteSearchHistoryBy(title: searchHistories[indexPath.row].title)
+            searchHistories.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.historyTableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
+        let cell = self.historyTableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
+        let HM = self.searchHistories[indexPath.row]
+        let mdFD = MyDateFormatter()
+        cell.lblTime.text = mdFD.getHourForSearchHistory(dateSTR: HM.dateTime)
+        cell.lblMonthDay.text = mdFD.getMonthAndDayForSearchHistory(dateSTR: HM.dateTime)
+        cell.lblYear.text = mdFD.getYearForSearchHistory(dateSTR: HM.dateTime)
+        cell.lblTitle.text = HM.title
+        if(HM.isDeleted){
+            cell.lblDeleteItem.isHidden = false
+        }else{
+            cell.lblDeleteItem.isHidden = true
+        }
+//        cell.lbl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO set selection into labels
+        let SH = self.searchHistories[indexPath.row]
+        let seprates = SH.title.split(separator: "/")
+        self.lblProjects.text = String(seprates[0]).trimmingCharacters(in: .whitespacesAndNewlines)
+        self.lblAreas.text = String(seprates[1]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
     
 }

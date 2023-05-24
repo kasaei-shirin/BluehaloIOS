@@ -51,6 +51,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     var RSSILabels = Dictionary<String, UILabel>()
     var RSSISliders = Dictionary<String, UISlider>()
     
+    var allTags = [TagModel]()
     var tags = [TagModel]()
     
     var inScanMode: Bool = false
@@ -77,6 +78,38 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         }
     }
     
+    
+    func getTagsCountText()->String{
+        if(tags.count == 0){
+            return "000";
+        }
+        let countDDD = countDig(n: tags.count);
+        if(countDDD == 1){
+            return "00\(tags.count)";
+        }else if(countDDD == 2){
+            return "0\(tags.count)";
+        }else if(countDDD == 3){
+            return "\(tags.count)";
+        }else{
+            return "999";
+        }
+    }
+    
+    func countDig(n: Int)->Int
+    {
+        var nn = n
+        var count = 0;
+        while(nn != 0)
+        {
+            // removing the last digit of the number n
+            nn = nn / 10;
+            // increasing count by 1
+            count = count + 1;
+        }
+        return count;
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,8 +134,9 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         let dateTime = MyDateFormatter().getCurrentDateTimeForSearchHistory()
         
-        DBManager().insertSearchHistory(SL: SearchHistoryModel(theID: -1, title: locAreaTitle, dateTime: dateTime))
-        
+        if(locAreaTitle.lowercased() != "all") {
+            DBManager().insertSearchHistory(SL: SearchHistoryModel(theID: -1, title: locAreaTitle, dateTime: dateTime, isDeleted: false))
+        }
     }
     
     func setClickListenersForTopItems(){
@@ -135,7 +169,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     }
     
     @objc func searchFilter(_ tap: UITapGestureRecognizer){
-         
+        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+        let filterCTL = dialogStoryboard.instantiateViewController(withIdentifier: "filterCTL") as! FilterCTL
+        ///TODO set values for filter
+        filterCTL.filterModel = self.filterModel
+        filterCTL.fitlerProtocol = self
+        self.present(filterCTL, animated: true)
     }
     @objc func infoTap(_ tap: UITapGestureRecognizer){
         
@@ -143,10 +182,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     @objc func refreshTap(_ tap: UITapGestureRecognizer){
         PPPs.removeAll()
         peripherals.removeAll()
+        allTags.removeAll()
         tags.removeAll()
         searchItemExpand.removeAll()
         tableView.reloadData()
-        lblFoundCount.text = "\(tags.count)"
+        lblFoundCount.text = getTagsCountText()
     }
     @objc func collapseTap(_ tap: UITapGestureRecognizer){
         for item in self.tags{
@@ -179,6 +219,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
 
             if item.periPheral.identifier.uuidString == peripheral.identifier.uuidString{
                 indexP = i
+                break
             }
             i+=1
         }
@@ -203,14 +244,36 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
                 
                 if item.uuid == peripheral.identifier.uuidString{
                     indexP = i
+                    break
                 }
                 i+=1
             }
             
             if indexP != -1{
                 tags[indexP].rssi = RSSI.intValue
-                self.editRSSIOnTabelView(row: indexP)
+                if !self.filterModel!.tagAcceptByFilter(tag: tags[indexP]){
+                    tags.remove(at: indexP)
+                    self.removeTagAtPosition(indexP)
+                }else{
+                    self.editRSSIOnTabelView(row: indexP)
+                }
 
+            }else{
+                i = 0
+                for item in allTags{
+                    if item.uuid == peripheral.identifier.uuidString{
+                        indexP = i
+                        break
+                    }
+                    i+=1
+                }
+                if indexP != -1{
+                    allTags[indexP].rssi = RSSI.intValue
+                    if self.filterModel!.tagAcceptByFilter(tag: allTags[indexP]){
+                        self.tags.append(allTags[indexP])
+                        insertRowIntoList()
+                    }
+                }
             }
 
         }
@@ -282,7 +345,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
                         
                         if let t = j["tag"] as? [String:Any]{
                             print("tag : \n\(t)")
-                            self.tags.append(TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString))
+                            let theTag = TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString)
+//                            self.tags.append(theTag)
+                            self.allTags.append(theTag)
+                            if self.filterModel!.tagAcceptByFilter(tag: theTag){
+                                self.tags.append(theTag)
+                            }
                             DispatchQueue.main.async {
                                 self.insertRowIntoList()
                             }
@@ -301,7 +369,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     }
     
     func insertRowIntoList(){
-        lblFoundCount.text = "\(tags.count)"
+        lblFoundCount.text = getTagsCountText()
         self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
     }
     
@@ -635,7 +703,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
                     self.tags[indexPath.row].flagType = flagType
-                    self.updateTableViewInRow(indexPath.row)
+                    if !self.filterModel!.tagAcceptByFilter(tag: self.tags[indexPath.row]){
+                        self.tags.remove(at: indexPath.row)
+                        self.removeTagAtPosition(indexPath.row)
+                    }else{
+                        self.updateTableViewInRow(indexPath.row)
+                    }
                 }
             }
         } failure: { data, response, error in
@@ -651,6 +724,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             print(error)
         }
 
+    }
+    
+    func removeTagAtPosition(_ row: Int){
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+        self.tableView.endUpdates()
     }
 
     @objc func flagNoteTap(_ sender: UITapGestureRecognizer){
@@ -797,6 +876,24 @@ extension SearchCTL: EditActionProtocol{
     func edited(tag: TagModel, indexPath: IndexPath) {
         self.tags[indexPath.row] = tag
         self.updateTableViewInRow(indexPath.row)
+    }
+    
+}
+
+extension SearchCTL: SearchFilterProtocol{
+    func searchFiltered(filterModel: SearchFilterModel) {
+        self.filterModel = filterModel
+        filterAllList()
+    }
+    
+    func filterAllList(){
+        self.tags.removeAll()
+        for item in allTags{
+            if self.filterModel!.tagAcceptByFilter(tag: item){
+                self.tags.append(item)
+            }
+        }
+        self.tableView.reloadData()
     }
     
 }
