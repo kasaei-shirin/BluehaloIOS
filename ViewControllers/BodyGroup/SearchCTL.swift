@@ -22,7 +22,12 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var btnScan: UIButton!
+//    @IBOutlet weak var btnScan: UIButton!
+    @IBOutlet weak var viewParentScanBtn: RoundedCornerView!
+    @IBOutlet weak var lblScanBtn: UILabel!
+    
+    @IBOutlet weak var imgViewScanBtn: UIImageView!
+    
     
     @IBOutlet weak var imgViewShowMore: UIImageView!
     @IBOutlet weak var imgViewShowLess: UIImageView!
@@ -32,6 +37,14 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     @IBOutlet weak var imgViewSearchFilter: UIImageView!
     
     var filterModel: SearchFilterModel?
+    @IBOutlet weak var widthLblScanBtn: NSLayoutConstraint!
+    
+    
+    enum ScanButtonStates{
+        case open, close, opening, closing
+    }
+    
+    var scanBtnState: ScanButtonStates = .open
     
     
 //    var cellHeight
@@ -125,6 +138,7 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
+        
         manager = CBCentralManager(delegate: self, queue: nil);
         
         
@@ -137,6 +151,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         if(locAreaTitle.lowercased() != "all") {
             DBManager().insertSearchHistory(SL: SearchHistoryModel(theID: -1, title: locAreaTitle, dateTime: dateTime, isDeleted: false))
         }
+        
+        let scanTap = UITapGestureRecognizer(target: self, action: #selector(scanAction(_:)))
+        viewParentScanBtn.isUserInteractionEnabled = true
+        viewParentScanBtn.addGestureRecognizer(scanTap)
+        
     }
     
     func setClickListenersForTopItems(){
@@ -384,7 +403,9 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
         
         setInScaMode(true)
         
-        btnScan.setTitle("Stop", for: .normal)
+//        btnScan.setTitle("Stop", for: .normal)
+        lblScanBtn.text = "Stop"
+        imgViewScanBtn.tintColor = UIColor(named: "pattern_tint")
         
         self.startForContinue()
         //stop scanning after 3 seconds
@@ -411,18 +432,27 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
     func stopScanForBLEDevices() {
         self.setInScaMode(false)
         manager?.stopScan()
-        btnScan.setTitle("Start", for: .normal)
+//        btnScan.setTitle("Start", for: .normal)
+        lblScanBtn.text = "Start"
+        imgViewScanBtn.tintColor = UIColor.lightGray
     }
     
     
-    
-    @IBAction func scanAction(_ sender: Any) {
+    @objc func scanAction(_ sender:UITapGestureRecognizer){
         if(inScanMode){
             stopScanForBLEDevices()
         }else{
             scanBLEDevices()
         }
     }
+    
+//    @IBAction func scanAction(_ sender: Any) {
+//        if(inScanMode){
+//            stopScanForBLEDevices()
+//        }else{
+//            scanBLEDevices()
+//        }
+//    }
     
     
 }
@@ -640,20 +670,16 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             cell.imgViewFlagType.tintColor = UIColor.systemOrange
         }
         
-        cell.btnGreenFlag.addAction(UIAction(handler: { UIAction in
-            
-            self.sendFlagNote2Web(note: tag.flagNote, flagType: 1, publicAddress: tag.publicAddress, indexPath: indexPath)
-        }), for: .touchUpInside)
         
-        cell.btnYellowFlag.addAction(UIAction(handler: { UIAction in
-            
-            self.sendFlagNote2Web(note: tag.flagNote, flagType: 2, publicAddress: tag.publicAddress, indexPath: indexPath)
-        }), for: .touchUpInside)
+        cell.btnGreenFlag.tag = indexPath.row
+        cell.btnYellowFlag.tag = indexPath.row
+        cell.btnOrangeFlag.tag = indexPath.row
         
-        cell.btnOrangeFlag.addAction(UIAction(handler: { UIAction in
-            
-            self.sendFlagNote2Web(note: tag.flagNote, flagType: 3, publicAddress: tag.publicAddress, indexPath: indexPath)
-        }), for: .touchUpInside)
+        cell.btnGreenFlag.addTarget(self, action: #selector(greenAction(_:)), for: .touchUpInside)
+        
+        cell.btnYellowFlag.addTarget(self, action: #selector(yellowAction(_:)), for: .touchUpInside)
+        
+        cell.btnOrangeFlag.addTarget(self, action: #selector(orangeAction(_:)), for: .touchUpInside)
         
         
         cell.lblMoreCustomInfo.isUserInteractionEnabled = true
@@ -693,7 +719,23 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         return cell
     }
     
+    @objc func greenAction(_ sender: UIButton){
+        let tag = tags[sender.tag]
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 1, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+    }
+    
+    @objc func yellowAction(_ sender: UIButton){
+        let tag = tags[sender.tag]
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 2, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+    }
+    
+    @objc func orangeAction(_ sender: UIButton){
+        let tag = tags[sender.tag]
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 3, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+    }
+    
     func sendFlagNote2Web(note: String, flagType: Int, publicAddress: String, indexPath: IndexPath){
+        print("flagType for change : \(flagType) and note : \(note) , publicAddress : \(publicAddress)")
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         var params = Dictionary<String,Any>()
         params["flagNote"] = note
@@ -761,7 +803,6 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         let tag = tags[indexPath.row]
         SI.tableViewCustomInfo.register(UINib(nibName: "CustomInfoSPCell", bundle: nil), forCellReuseIdentifier: "customInfoCell")
         SI.taviewViewServiceDate.register(UINib(nibName: "ServiceDateSPCell", bundle: nil), forCellReuseIdentifier: "serviceDateCell")
-        
         
         
         let customInfoM = CustomInfoTableManager(custInfos: tag.targetCustomInfos, tableView: SI.tableViewCustomInfo, showAll: self.customInfoMoreExpand[tag.publicAddress] != nil)
@@ -896,4 +937,51 @@ extension SearchCTL: SearchFilterProtocol{
         self.tableView.reloadData()
     }
     
+}
+
+
+extension SearchCTL: UIScrollViewDelegate{
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let indexPathes = self.tableView.indexPathsForVisibleRows
+        if let ips = indexPathes{
+            print("\(ips[0].row) row of first visible item")
+            if ips[0].row != 0 && self.scanBtnState == .open{
+                print("the must be here.")
+                self.scanBtnState = .closing
+                self.closeBtnScanAnimationally()
+            }
+            if ips[0].row == 0 && self.scanBtnState == .close{
+                self.scanBtnState = .opening
+                self.openBtnScanAnimationally()
+            }
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        
+    }
+    
+    func closeBtnScanAnimationally(){
+        self.widthLblScanBtn.constant -= 66
+        UIView.animate(withDuration: 0.25, animations: {
+            self.viewParentScanBtn.layoutIfNeeded()
+        }) { Bool in
+            self.scanBtnState = .close
+        }
+    }
+    
+    func openBtnScanAnimationally(){
+        self.widthLblScanBtn.constant += 66
+        UIView.animate(withDuration: 0.25, animations: {
+            self.viewParentScanBtn.layoutIfNeeded()
+        }) { Bool in
+            self.scanBtnState = .open
+        }
+    }
 }

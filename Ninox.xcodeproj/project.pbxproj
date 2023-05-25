@@ -56,6 +56,10 @@
 		30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6B9872A09ECDF0058A91F /* SearchFilterCTL.swift */; };
 		30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CEC62A0203C900DB70C4 /* DBManager.swift */; };
 		30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5CECB2A020D9C00DB70C4 /* DataModels.swift */; };
+		30EE3FC32A1F969300D78C58 /* AddAreaCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE3FC22A1F969300D78C58 /* AddAreaCTL.swift */; };
+		30EE3FC52A1F96A400D78C58 /* AddProjectCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE3FC42A1F96A400D78C58 /* AddProjectCTL.swift */; };
+		30EE3FC72A1F9BF200D78C58 /* AddAreaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE3FC62A1F9BF200D78C58 /* AddAreaItem.swift */; };
+		30EE3FC92A1FB7C000D78C58 /* AddProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE3FC82A1FB7C000D78C58 /* AddProjectItem.swift */; };
 		951BC137F54E40E6499EA984 /* Pods_Ninox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +118,10 @@
 		30E5CEC62A0203C900DB70C4 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		30E5CEC82A02041900DB70C4 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30E5CECB2A020D9C00DB70C4 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		30EE3FC22A1F969300D78C58 /* AddAreaCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAreaCTL.swift; sourceTree = "<group>"; };
+		30EE3FC42A1F96A400D78C58 /* AddProjectCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectCTL.swift; sourceTree = "<group>"; };
+		30EE3FC62A1F9BF200D78C58 /* AddAreaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAreaItem.swift; sourceTree = "<group>"; };
+		30EE3FC82A1FB7C000D78C58 /* AddProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectItem.swift; sourceTree = "<group>"; };
 		3FC600411C898D184B647752 /* Pods-Ninox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.release.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.release.xcconfig"; sourceTree = "<group>"; };
 		64E83C4B3FEDDDBDBD4EA707 /* Pods_Ninox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ninox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A818CE979BB3A643DB82F2A6 /* Pods-Ninox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ninox.debug.xcconfig"; path = "Target Support Files/Pods-Ninox/Pods-Ninox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,6 +209,8 @@
 				3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */,
 				3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */,
 				30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */,
+				30EE3FC62A1F9BF200D78C58 /* AddAreaItem.swift */,
+				30EE3FC82A1FB7C000D78C58 /* AddProjectItem.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -294,12 +304,22 @@
 		30E5CECD2A0213F400DB70C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30EE3FC12A1F968000D78C58 /* SettingsGroup */,
 				30D6B9822A09E1370058A91F /* BodyGroup */,
 				30675BE42A07D36000515238 /* SigninCTL.swift */,
 				30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */,
 				30675BE82A07D9E200515238 /* SingupCTL.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		30EE3FC12A1F968000D78C58 /* SettingsGroup */ = {
+			isa = PBXGroup;
+			children = (
+				30EE3FC22A1F969300D78C58 /* AddAreaCTL.swift */,
+				30EE3FC42A1F96A400D78C58 /* AddProjectCTL.swift */,
+			);
+			path = SettingsGroup;
 			sourceTree = "<group>";
 		};
 		C96C0DEA5881114EF8CD54F9 /* Pods */ = {
@@ -454,6 +474,7 @@
 				3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */,
 				3015A8C92A1A370C0079FED6 /* TableManagers.swift in Sources */,
 				308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */,
+				30EE3FC92A1FB7C000D78C58 /* AddProjectItem.swift in Sources */,
 				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,
 				30D6B9842A09E14E0058A91F /* HomeCTL.swift in Sources */,
@@ -463,6 +484,7 @@
 				308DC73A2A0E633900535557 /* RoundedCornerView.swift in Sources */,
 				30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */,
 				30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */,
+				30EE3FC52A1F96A400D78C58 /* AddProjectCTL.swift in Sources */,
 				30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */,
 				308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */,
 				30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */,
@@ -475,6 +497,7 @@
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
 				30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */,
 				308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */,
+				30EE3FC32A1F969300D78C58 /* AddAreaCTL.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
 				30D6B9862A09ECCF0058A91F /* SearchCTL.swift in Sources */,
 				308237222A0D274B0054A64A /* SetupEditCTL.swift in Sources */,
@@ -483,6 +506,7 @@
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
 				301CED8529F0FB8500996726 /* SceneDelegate.swift in Sources */,
 				30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */,
+				30EE3FC72A1F9BF200D78C58 /* AddAreaItem.swift in Sources */,
 				30B311B22A1D55B8003B24F1 /* SearchFilterModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

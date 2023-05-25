@@ -268,15 +268,6 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     
-//    JSONArray jsonAreas = response.optJSONArray("area");
-//    for (int i = 0; i < jsonAreas.length(); i++) {
-//        areas.add(jsonAreas.optString(i));
-//    }
-//    JSONArray jsonProjs = response.optJSONArray("project");
-//    for (int i = 0; i < jsonProjs.length(); i++) {
-//        projects.add(jsonProjs.optString(i));
-//    }
-    
     func getProjectAndAreaFromWeb(){
         
         let alter = ViewPatternMethods.waitingDialog(controller: self)
@@ -329,24 +320,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
             print(error)
         }
     }
-    
-//    func initProjectAndAreaDropDown(){
-//        initProjectDropDown()
-//        initAreaDropDown()
-//    }
-//
-//    func initProjectDropDown(){
-//
-//    }
-//
-////    - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-////    {
-////        return textField != _yourReadOnlyTextField;
-////    }
-////
-//    func initAreaDropDown(){
-//
-//    }
+   
     
     @IBAction func addTargetServiceDateAction(_ sender: Any) {
         
@@ -428,10 +402,6 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
                                     alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
                                         alertCTL.dismiss(animated: true)
                                     }))
-        //                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-        //                                alertCTL.dismiss(animated: false)
-        //                                self.dismiss(animated: true)
-        //                            }))
                                     self.present(alertCTL, animated: true)
                                 }
                             }
@@ -477,11 +447,10 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         
         HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
             
-            
             DispatchQueue.main.async {
                 waitingAlert.dismiss(animated: true) {
                     let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-                    
+
                     if let j = json as? [String:Any]{
                         print(j)
                         if let success = j["success"] as? String{
@@ -503,10 +472,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
                                     alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
                                         alertCTL.dismiss(animated: true)
                                     }))
-        //                            alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-        //                                alertCTL.dismiss(animated: false)
-        //                                self.dismiss(animated: true)
-        //                            }))
+        
                                     self.present(alertCTL, animated: true)
                                 }
                             }
@@ -523,7 +489,6 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
             print(response)
             print(error)
         }
-
     }
     
     
@@ -538,12 +503,7 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     func sendCustInfo2Web(custInfo: TargetCustomInfo){
-//        json.put("publicAddress", PA);
-//        json.put("update", true);
-//        json.put("targetCustomInfo", targetCustomInfo.getJsonToSend());
-        
-//        let waitingAlert = ViewPatternMethods.waitingDialog(controller: self)
-        
+
         var params = Dictionary<String, Any>()
         params["publicAddress"] = self.publicAddress
         params["update"] = true
@@ -552,12 +512,10 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
         HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
             
         } failure: { data, response, error in
-            
             print(data)
             print(response)
             print(error)
         }
-        
     }
     
     func sendServiceDate2Web(serviceDate: TargetServiceDate){
@@ -577,20 +535,9 @@ class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     
-    
-    
     @IBAction func addTargetCustomInfoAction(_ sender: Any) {
         CustomInfoDialog.presentCustomInfoDialog(ViewController: self, customInfoProtocol: self)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -625,10 +572,7 @@ extension SetupEditCTL: UITableViewDelegate, UITableViewDataSource{
             cell.lblContent.text = CI.info
             return cell
         }
-        
     }
-    
-    
 }
 
 
