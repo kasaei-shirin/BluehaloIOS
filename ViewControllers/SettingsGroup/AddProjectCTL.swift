@@ -7,16 +7,26 @@
 
 import UIKit
 
+enum OpenAddingState{
+    case open, close, opening, closing
+}
+
 class AddProjectCTL: UIViewController {
 
     var allProjects = [String]()
     
+    var openAddingState: OpenAddingState = .close
+    
     @IBOutlet weak var viewBackParent: UIView!
+    @IBOutlet weak var addProjectActionView: UIView!
     
     @IBOutlet weak var btnAddProject: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewParentAddProject: UIView!
     
+    @IBOutlet weak var constraintAddProjectHeight: NSLayoutConstraint!
     @IBOutlet weak var txtFldAddProject: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,10 +37,46 @@ class AddProjectCTL: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.viewParentAddProject.isHidden = true
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        
+        self.addProjectActionView.isUserInteractionEnabled = true
+        let addProjectTap = UITapGestureRecognizer(target: self, action: #selector(addProjectTap(_:)))
+        
+        addProjectActionView.addGestureRecognizer(addProjectTap)
+    }
+    
+    @objc func addProjectTap(_ sender: UITapGestureRecognizer){
+        if self.openAddingState == .open{
+            closeAnimation()
+        }else if self.openAddingState == .close{
+            openAnimation()
+        }
+    }
+    
+    func openAnimation(){
+        self.viewParentAddProject.isHidden = false
+        UIView.animate(withDuration: 0.25, delay: 0.0 ,options: .curveLinear ,animations: {
+        self.constraintAddProjectHeight.constant = 199
+        self.view.layoutIfNeeded()
+        }) { Bool in
+            self.openAddingState = .open
+        }
+    }
+    
+    func closeAnimation(){
+        
+        UIView.animate(withDuration: 0.25, delay: 0.0 ,options: UIView.AnimationOptions.curveLinear ,animations: {
+        self.constraintAddProjectHeight.constant = 0
+        self.view.layoutIfNeeded()
+        }) { Bool in
+            self.viewParentAddProject.isHidden = true
+            self.openAddingState = .close
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -110,6 +156,8 @@ class AddProjectCTL: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        constraintAddProjectHeight.constant = 0
         getAllProjects()
     }
     
@@ -198,17 +246,40 @@ extension AddProjectCTL: UITableViewDelegate, UITableViewDataSource{
     
     
     @objc func editAction(_ sender: UITapGestureRecognizer){
-        
+        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
+        dest.row = sender.view?.tag
+        dest.prevData = allProjects[sender.view!.tag]
+        dest.targetAction = 2
+        dest.theProtocol = self
+        self.present(dest, animated: true, completion: nil)
     }
     
     @objc func deleteAction(_ sender: UITapGestureRecognizer){
-        
+        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
+        dest.row = sender.view?.tag
+        dest.prevData = allProjects[sender.view!.tag]
+        dest.targetAction = 2
+        dest.theProtocol = self
+        self.present(dest, animated: true, completion: nil)
     }
     
 }
 
 
-extension AddProjectCTL: UITextFieldDelegate, UIScrollViewDelegate{
+extension AddProjectCTL: UITextFieldDelegate, UIScrollViewDelegate, EditAreaProjectProtocol, DeleteAreaProjectProtocol{
+    
+    func deleteAreaProject(row: Int) {
+        self.allProjects.remove(at: row)
+        self.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .bottom)
+    }
+    
+    func editAreaProject(row: Int, newTitle: String) {
+        self.allProjects[row] = newTitle
+        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }

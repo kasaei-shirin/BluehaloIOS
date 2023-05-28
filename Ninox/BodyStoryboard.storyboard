@@ -14,7 +14,7 @@
         <!--Settings-->
         <scene sceneID="CgH-Mt-H2g">
             <objects>
-                <viewController id="8uN-wM-b4T" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="8uN-wM-b4T" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yvj-np-27p">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,6 +51,9 @@
                                                 <color key="tintColor" name="navy_blue"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Language"/>
+                                                <connections>
+                                                    <segue destination="0lG-LQ-mUv" kind="show" id="t9J-g4-sTh"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBt-3P-bDl">
                                                 <rect key="frame" x="0.0" y="50" width="349" height="40"/>
@@ -131,7 +134,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Qdi-1W-O5i">
             <objects>
-                <tabBarController id="A9G-La-RlL" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="fullScreen" id="A9G-La-RlL" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3wP-kr-etP">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -268,7 +271,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00C-2n-E4Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-857" y="630"/>
+            <point key="canvasLocation" x="-921" y="711"/>
         </scene>
         <!--addProjectCTL-->
         <scene sceneID="7c7-CC-YIp">
@@ -278,7 +281,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V6M-0T-tPF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-857" y="769"/>
+            <point key="canvasLocation" x="-864" y="630"/>
+        </scene>
+        <!--languageCTL-->
+        <scene sceneID="TfR-BW-tmr">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SettingStoryboard" referencedIdentifier="languageCTL" id="0lG-LQ-mUv" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wUe-Ya-3bO"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YPW-NW-x2f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-925" y="546"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Tyw-sG-Vxr">

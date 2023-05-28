@@ -37,3 +37,11 @@ protocol FlagNoteProtocol{
 protocol SearchFilterProtocol{
     func searchFiltered(filterModel: SearchFilterModel)
 }
+
+protocol EditAreaProjectProtocol{
+    func editAreaProject(row: Int, newTitle: String)
+}
+
+protocol DeleteAreaProjectProtocol{
+    func deleteAreaProject(row: Int)
+}

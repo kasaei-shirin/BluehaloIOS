@@ -11,13 +11,17 @@ class AddAreaCTL: UIViewController {
 
     var allAreas = [String]()
     
+    var openAddingState: OpenAddingState = .close
+    
     @IBOutlet weak var viewBackParent: UIView!
     
+    @IBOutlet weak var addAreaActionView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var constraintAddAreaHeight: NSLayoutConstraint!
     
     @IBOutlet weak var txtFldArea: UITextField!
-    @IBOutlet weak var veiwAddAreaParent: UIView!
+    @IBOutlet weak var viewAddAreaParent: UIView!
     
     @IBOutlet weak var btnSaveArea: UIButton!
     
@@ -29,6 +33,8 @@ class AddAreaCTL: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        self.viewAddAreaParent.isHidden = true
+        
         viewBackParent.isUserInteractionEnabled = true
         let backTap = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
         viewBackParent.addGestureRecognizer(backTap)
@@ -37,6 +43,11 @@ class AddAreaCTL: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        self.addAreaActionView.isUserInteractionEnabled = true
+        let addAreaTap = UITapGestureRecognizer(target: self, action: #selector(addAreaTap(_:)))
+        
+        addAreaActionView.addGestureRecognizer(addAreaTap)
         
     }
     
@@ -60,7 +71,39 @@ class AddAreaCTL: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.constraintAddAreaHeight.constant = 0
         getAllAreas()
+    }
+    
+    
+    
+    @objc func addAreaTap(_ sender: UITapGestureRecognizer){
+        if self.openAddingState == .open{
+            closeAnimation()
+        }else if self.openAddingState == .close{
+            openAnimation()
+        }
+    }
+    
+    func openAnimation(){
+        self.viewAddAreaParent.isHidden = false
+        UIView.animate(withDuration: 0.25, delay: 0.0 ,options: .curveLinear ,animations: {
+        self.constraintAddAreaHeight.constant = 199
+        self.view.layoutIfNeeded()
+        }) { Bool in
+            self.openAddingState = .open
+        }
+    }
+    
+    func closeAnimation(){
+        
+        UIView.animate(withDuration: 0.25, delay: 0.0 ,options: UIView.AnimationOptions.curveLinear ,animations: {
+        self.constraintAddAreaHeight.constant = 0
+        self.view.layoutIfNeeded()
+        }) { Bool in
+            self.viewAddAreaParent.isHidden = true
+            self.openAddingState = .close
+        }
     }
     
     func getAllAreas(){
@@ -196,17 +239,40 @@ extension AddAreaCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func editAction(_ sender: UITapGestureRecognizer){
-        
+        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
+        dest.row = sender.view?.tag
+        dest.prevData = allAreas[sender.view!.tag]
+        dest.targetAction = 1
+        dest.theProtocol = self
+        self.present(dest, animated: true, completion: nil)
     }
     
     @objc func deleteAction(_ sender: UITapGestureRecognizer){
-        
+        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
+        dest.row = sender.view?.tag
+        dest.prevData = allAreas[sender.view!.tag]
+        dest.targetAction = 1
+        dest.theProtocol = self
+        self.present(dest, animated: true, completion: nil)
     }
     
     
 }
 
-extension AddAreaCTL: UITextFieldDelegate, UIScrollViewDelegate{
+extension AddAreaCTL: UITextFieldDelegate, UIScrollViewDelegate, EditAreaProjectProtocol, DeleteAreaProjectProtocol{
+    func deleteAreaProject(row: Int) {
+        print("deleted row : \(row)")
+        self.allAreas.remove(at: row)
+        self.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .bottom)
+    }
+    
+    func editAreaProject(row: Int, newTitle: String) {
+        self.allAreas[row] = newTitle
+        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
