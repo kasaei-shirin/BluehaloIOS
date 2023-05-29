@@ -31,6 +31,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
     var theTag: TagModel?
     var tagIndexpath: IndexPath?
     var editProtocol: EditActionProtocol?
+    var deleteProtocol: DeleteActionProtocol?
     
     //send tag and indexpath for edit to here and also protocol to update list at last
     
@@ -131,9 +132,10 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                     DispatchQueue.main.async {
                         if(success == "true"){
                             if let t = j["tag"] as? [String:Any]{
+                                self.theTag = TagModel(json: t, rssi: 0, uuidString: "")
                                 self.chooseActionAfterFetchEveryData(tagExists: true)
                             }else{
-                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
+                                let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
                             }
                         }else{
                             self.chooseActionAfterFetchEveryData(tagExists: false)
@@ -191,6 +193,24 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                 //showDialog2Going2Setup()
             }
         }
+        else if targetJob == "delete" && self.fromWhere == "home"{
+            if(tagExists){
+                //the below is scan2edit too
+                self.performSegue(withIdentifier: "scan2delete", sender: self)
+            }else{
+                let alertCTL = UIAlertController(title: "Info", message: "The Tag Doesn't Exists Do You Want To Going To Setup Page?", preferredStyle: .actionSheet)
+                alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                    alertCTL.dismiss(animated: false)
+                }))
+                alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+                    alertCTL.dismiss(animated: false)
+                    self.performSegue(withIdentifier: "scan2setup", sender: self)
+                }))
+                self.present(alertCTL, animated: true)
+                //showDialog2Going2Setup()
+            }
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -205,6 +225,14 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                 dest.indexPath = self.tagIndexpath
                 dest.editProtocol = self
             }
+        }
+        else if segue.identifier == "scan2delete"{
+            let dest = segue.destination as! DeleteTagCTL
+            dest.targetJob = self.targetJob
+            dest.fromWhere = self.fromWhere
+            dest.theTag = self.theTag
+            dest.indexPath = self.tagIndexpath
+            dest.deleteActionProtocol = self
         }
     }
     
@@ -301,6 +329,10 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         performSegue(withIdentifier: "scan2setup", sender: self)
     }
     
+    func going2DeleteAction(){
+        performSegue(withIdentifier: "scan2delete", sender: self)
+    }
+    
     
     func found(code: String) {
         print(code)
@@ -318,15 +350,24 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                 print("get pa as string : \(thePA)")
                 if thePA != ""{
 //                    getPAFromWeb(theString: thePA)
-                    if fromWhere == "home"{
+                    if fromWhere == "home" && self.targetJob == "setup"{
                         self.ScannedQRCodePA = thePA
                         self.startScanForPrepheral()
                     }
                     else{
-                        if thePA == theTag?.publicAddress{
-                            going2EditAction()
+                        if let tag = theTag{
+                            if thePA == tag.publicAddress{
+                                if targetJob == "edit"{
+                                    going2EditAction()
+                                }else {
+                                    going2DeleteAction()
+                                }
+                            }else{
+                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Your Target tag PublicAddress is diffrence from what you scanned!", handler: UIAlertAction(title: "OK", style: .destructive))
+                            }
                         }else{
-                            ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Your Target tag PublicAddress is diffrence from what you scanned!", handler: UIAlertAction(title: "OK", style: .destructive))
+                            //TODO
+                            self.startScanForPrepheral()
                         }
                     }
                 }
@@ -373,7 +414,11 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
     }
     
     @IBAction func skipAction(_ sender: Any) {
-        going2EditAction()
+        if self.targetJob == "edit"{
+            going2EditAction()
+        }else if self.targetJob == "delete"{
+            going2DeleteAction()
+        }
     }
     
     @IBAction func scanAction(_ sender: Any) {
@@ -401,9 +446,17 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
 
 }
 
-extension ScanQRCTL: EditActionProtocol{
+extension ScanQRCTL: EditActionProtocol, DeleteActionProtocol{
+    
+    func deleted(tag: TagModel, indexPath: IndexPath) {
+        self.deleteProtocol?.deleted(tag: tag, indexPath: indexPath)
+        self.dismiss(animated: true)
+    }
+    
     func edited(tag: TagModel, indexPath: IndexPath) {
         self.editProtocol?.edited(tag: tag, indexPath: indexPath)
         self.dismiss(animated: true)
     }
+    
 }
+

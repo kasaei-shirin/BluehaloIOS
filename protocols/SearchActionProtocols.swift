@@ -10,3 +10,7 @@ import Foundation
 protocol EditActionProtocol{
     func edited(tag: TagModel, indexPath: IndexPath)
 }
+
+protocol DeleteActionProtocol{
+    func deleted(tag: TagModel, indexPath: IndexPath)
+}

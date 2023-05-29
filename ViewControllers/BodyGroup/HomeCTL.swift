@@ -47,14 +47,16 @@ class HomeCTL: UIViewController {
             dest?.targetJob = targetJob
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func editAction(_ sender: Any) {
+        targetJob = "edit"
+        performSegue(withIdentifier: "home2scanQR", sender: self)
     }
-    */
-
+    
+    @IBAction func deleteAction(_ sender: Any) {
+        targetJob = "delete"
+        performSegue(withIdentifier: "home2scanQR", sender: self)
+    }
+    
 }

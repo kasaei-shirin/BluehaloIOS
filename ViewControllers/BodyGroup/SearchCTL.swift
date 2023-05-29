@@ -714,6 +714,17 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             self.present(dest, animated: true)
         }), for: .touchUpInside)
         
+        cell.btnDelete.addAction(UIAction(handler: { UIAction in
+            let bodyStoryboard = UIStoryboard(name: "BodyStoryboard", bundle: nil)
+            let dest = bodyStoryboard.instantiateViewController(withIdentifier: "ScanQRCTL") as! ScanQRCTL
+            dest.fromWhere = "search"
+            dest.targetJob = "delete"
+            dest.tagIndexpath = indexPath
+            dest.theTag = tag
+            dest.deleteProtocol = self
+            self.present(dest, animated: true)
+        }), for: .touchUpInside)
+        
         cell.imgViewIconType.image = IconTypeModel.getIconByCode(code: tag.iconType).getImage()
         
         return cell
@@ -913,7 +924,15 @@ class ServiceDateTableModel{
 
 
 
-extension SearchCTL: EditActionProtocol{
+extension SearchCTL: EditActionProtocol, DeleteActionProtocol{
+    func deleted(tag: TagModel, indexPath: IndexPath) {
+        self.tags.remove(at: indexPath.row)
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [indexPath], with: .bottom)
+        self.tableView.endUpdates()
+    }
+    
     func edited(tag: TagModel, indexPath: IndexPath) {
         self.tags[indexPath.row] = tag
         self.updateTableViewInRow(indexPath.row)
@@ -942,9 +961,6 @@ extension SearchCTL: SearchFilterProtocol{
 
 extension SearchCTL: UIScrollViewDelegate{
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let indexPathes = self.tableView.indexPathsForVisibleRows
@@ -962,10 +978,6 @@ extension SearchCTL: UIScrollViewDelegate{
         }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        
-    }
     
     func closeBtnScanAnimationally(){
         self.widthLblScanBtn.constant -= 66

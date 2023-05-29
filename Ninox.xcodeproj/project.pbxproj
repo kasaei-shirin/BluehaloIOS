@@ -45,6 +45,7 @@
 		3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */; };
 		30AE5E7F2A2350A800BA659E /* EditAreaProjectCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E7E2A2350A800BA659E /* EditAreaProjectCTL.swift */; };
 		30AE5E812A23615B00BA659E /* DeleteAreaProjectCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E802A23615B00BA659E /* DeleteAreaProjectCTL.swift */; };
+		30AE5E832A24A3F500BA659E /* DeleteTagCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */; };
 		30B311B22A1D55B8003B24F1 /* SearchFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */; };
 		30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */; };
 		30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B311B52A1E0E67003B24F1 /* FilterCTL.swift */; };
@@ -107,6 +108,7 @@
 		3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoSPCell.xib; sourceTree = "<group>"; };
 		30AE5E7E2A2350A800BA659E /* EditAreaProjectCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAreaProjectCTL.swift; sourceTree = "<group>"; };
 		30AE5E802A23615B00BA659E /* DeleteAreaProjectCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAreaProjectCTL.swift; sourceTree = "<group>"; };
+		30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTagCTL.swift; sourceTree = "<group>"; };
 		30B311B12A1D55B8003B24F1 /* SearchFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterModel.swift; sourceTree = "<group>"; };
 		30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
 		30B311B52A1E0E67003B24F1 /* FilterCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCTL.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				30D6B9872A09ECDF0058A91F /* SearchFilterCTL.swift */,
 				308237182A0CD4B60054A64A /* ScanQRCTL.swift */,
 				308237212A0D274B0054A64A /* SetupEditCTL.swift */,
+				30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				30EE3FC92A1FB7C000D78C58 /* AddProjectItem.swift in Sources */,
 				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,
+				30AE5E832A24A3F500BA659E /* DeleteTagCTL.swift in Sources */,
 				30AE5E7F2A2350A800BA659E /* EditAreaProjectCTL.swift in Sources */,
 				30D6B9842A09E14E0058A91F /* HomeCTL.swift in Sources */,
 				30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */,
