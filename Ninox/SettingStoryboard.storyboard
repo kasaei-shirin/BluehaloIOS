@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--LanguageCTL-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="languageCTL" modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="languageCTL" modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="LanguageCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,17 +60,58 @@
                                     <constraint firstItem="ufA-qp-jR6" firstAttribute="centerY" secondItem="ZoT-UP-RWB" secondAttribute="centerY" id="qx4-Bs-F0D"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dty-LJ-Qkd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="45" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dty-LJ-Qkd">
                                 <rect key="frame" x="20" y="139" width="353" height="659"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tYf-Qt-77G">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageCell" rowHeight="45" id="tYf-Qt-77G" customClass="LanuageCell" customModule="Ninox" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tYf-Qt-77G" id="T0p-1L-aB3">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tE1-Ee-kam">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="45"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgu-9G-zQU">
+                                                            <rect key="frame" x="8" y="13.666666666666664" width="296" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.seal" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3i7-RF-NpC">
+                                                            <rect key="frame" x="316" y="7.3333333333333321" width="29" height="30.333333333333339"/>
+                                                            <color key="tintColor" name="pattern_tint"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="3i7-RF-NpC" secondAttribute="height" multiplier="1:1" id="sH5-dI-1Hj"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Mgu-9G-zQU" firstAttribute="centerY" secondItem="tE1-Ee-kam" secondAttribute="centerY" id="9Rh-4v-fZ0"/>
+                                                        <constraint firstItem="3i7-RF-NpC" firstAttribute="leading" secondItem="Mgu-9G-zQU" secondAttribute="trailing" constant="12" id="Du1-xF-pRe"/>
+                                                        <constraint firstItem="Mgu-9G-zQU" firstAttribute="leading" secondItem="tE1-Ee-kam" secondAttribute="leading" constant="8" id="TJO-WC-eLg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="3i7-RF-NpC" secondAttribute="trailing" constant="8" id="boH-XS-q4R"/>
+                                                        <constraint firstAttribute="bottom" secondItem="3i7-RF-NpC" secondAttribute="bottom" constant="8" id="qfi-DQ-kap"/>
+                                                        <constraint firstItem="3i7-RF-NpC" firstAttribute="top" secondItem="tE1-Ee-kam" secondAttribute="top" constant="8" id="zFS-wm-F0G"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="tE1-Ee-kam" secondAttribute="trailing" id="ARD-zW-0t4"/>
+                                                <constraint firstAttribute="bottom" secondItem="tE1-Ee-kam" secondAttribute="bottom" id="eVm-pX-HNa"/>
+                                                <constraint firstItem="tE1-Ee-kam" firstAttribute="top" secondItem="T0p-1L-aB3" secondAttribute="top" id="hOV-oa-DxG"/>
+                                                <constraint firstItem="tE1-Ee-kam" firstAttribute="leading" secondItem="T0p-1L-aB3" secondAttribute="leading" id="zcT-dh-se3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="imgViewCheck" destination="3i7-RF-NpC" id="vvW-WB-XY7"/>
+                                            <outlet property="lblTitle" destination="Mgu-9G-zQU" id="fLV-Tw-Hm1"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -91,6 +132,10 @@
                             <constraint firstItem="2Ng-cW-J05" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="qHo-Ie-XQ9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="dty-LJ-Qkd" id="AVy-xU-xfL"/>
+                        <outlet property="viewBackParent" destination="ur7-HH-rGx" id="Ia9-xK-LKU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -717,6 +762,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.seal" catalog="system" width="128" height="124"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="square.and.pencil" catalog="system" width="128" height="113"/>

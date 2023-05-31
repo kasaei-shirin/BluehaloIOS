@@ -50,7 +50,9 @@
                                                 </constraints>
                                                 <color key="tintColor" name="navy_blue"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Language"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Language">
+                                                    <color key="baseBackgroundColor" name="navy_blue"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="0lG-LQ-mUv" kind="show" id="t9J-g4-sTh"/>
                                                 </connections>
@@ -63,7 +65,9 @@
                                                 </constraints>
                                                 <color key="tintColor" name="navy_blue"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Add Project/Place"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Add Project/Place">
+                                                    <color key="baseBackgroundColor" name="navy_blue"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="kLn-EH-qZ7" kind="show" id="0GW-NF-jqs"/>
                                                 </connections>
@@ -76,7 +80,9 @@
                                                 </constraints>
                                                 <color key="tintColor" name="navy_blue"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Add Area"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Add Area">
+                                                    <color key="baseBackgroundColor" name="navy_blue"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="qHc-PL-wl5" kind="show" id="kLc-56-htv"/>
                                                 </connections>
@@ -89,7 +95,9 @@
                                                 </constraints>
                                                 <color key="tintColor" name="navy_blue"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Set battery alert range"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Set battery alert range">
+                                                    <color key="baseBackgroundColor" name="navy_blue"/>
+                                                </buttonConfiguration>
                                             </button>
                                         </subviews>
                                     </stackView>

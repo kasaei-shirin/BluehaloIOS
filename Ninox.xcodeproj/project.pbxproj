@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3010D3042A15E49400A68C36 /* FlagNoteController.swift */; };
+		30139C2B2A26698C007E3C98 /* LanguageCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C2A2A26698C007E3C98 /* LanguageCTL.swift */; };
+		30139C2D2A266A3F007E3C98 /* LanuageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C2C2A266A3F007E3C98 /* LanuageCell.swift */; };
+		30139C2F2A266BBB007E3C98 /* ReplaceTagCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C2E2A266BBB007E3C98 /* ReplaceTagCTL.swift */; };
 		3015A8C92A1A370C0079FED6 /* TableManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015A8C82A1A370C0079FED6 /* TableManagers.swift */; };
 		3015A8CB2A1B657C0079FED6 /* SearchActionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015A8CA2A1B657C0079FED6 /* SearchActionProtocols.swift */; };
 		301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8229F0FB8500996726 /* AppDelegate.swift */; };
@@ -68,6 +71,9 @@
 
 /* Begin PBXFileReference section */
 		3010D3042A15E49400A68C36 /* FlagNoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagNoteController.swift; sourceTree = "<group>"; };
+		30139C2A2A26698C007E3C98 /* LanguageCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCTL.swift; sourceTree = "<group>"; };
+		30139C2C2A266A3F007E3C98 /* LanuageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanuageCell.swift; sourceTree = "<group>"; };
+		30139C2E2A266BBB007E3C98 /* ReplaceTagCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceTagCTL.swift; sourceTree = "<group>"; };
 		3015A8C82A1A370C0079FED6 /* TableManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableManagers.swift; sourceTree = "<group>"; };
 		3015A8CA2A1B657C0079FED6 /* SearchActionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchActionProtocols.swift; sourceTree = "<group>"; };
 		301CED7F29F0FB8500996726 /* Ninox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ninox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +223,7 @@
 				30B311B32A1DEEC5003B24F1 /* SearchHistoryCell.swift */,
 				30EE3FC62A1F9BF200D78C58 /* AddAreaItem.swift */,
 				30EE3FC82A1FB7C000D78C58 /* AddProjectItem.swift */,
+				30139C2C2A266A3F007E3C98 /* LanuageCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -288,6 +295,7 @@
 				308237182A0CD4B60054A64A /* ScanQRCTL.swift */,
 				308237212A0D274B0054A64A /* SetupEditCTL.swift */,
 				30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */,
+				30139C2E2A266BBB007E3C98 /* ReplaceTagCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -327,6 +335,7 @@
 			children = (
 				30EE3FC22A1F969300D78C58 /* AddAreaCTL.swift */,
 				30EE3FC42A1F96A400D78C58 /* AddProjectCTL.swift */,
+				30139C2A2A26698C007E3C98 /* LanguageCTL.swift */,
 			);
 			path = SettingsGroup;
 			sourceTree = "<group>";
@@ -493,13 +502,16 @@
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
 				308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */,
 				308DC73A2A0E633900535557 /* RoundedCornerView.swift in Sources */,
+				30139C2D2A266A3F007E3C98 /* LanuageCell.swift in Sources */,
 				30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */,
 				30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */,
 				30EE3FC52A1F96A400D78C58 /* AddProjectCTL.swift in Sources */,
 				30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */,
 				308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */,
 				30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */,
+				30139C2F2A266BBB007E3C98 /* ReplaceTagCTL.swift in Sources */,
 				30C59AE72A08902E00D675A5 /* HttpClientAPI.swift in Sources */,
+				30139C2B2A26698C007E3C98 /* LanguageCTL.swift in Sources */,
 				308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */,
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
 				30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */,

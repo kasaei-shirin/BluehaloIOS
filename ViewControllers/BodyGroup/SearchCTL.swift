@@ -963,17 +963,19 @@ extension SearchCTL: UIScrollViewDelegate{
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let indexPathes = self.tableView.indexPathsForVisibleRows
-        if let ips = indexPathes{
-            print("\(ips[0].row) row of first visible item")
-            if ips[0].row != 0 && self.scanBtnState == .open{
-                print("the must be here.")
-                self.scanBtnState = .closing
-                self.closeBtnScanAnimationally()
-            }
-            if ips[0].row == 0 && self.scanBtnState == .close{
-                self.scanBtnState = .opening
-                self.openBtnScanAnimationally()
+        if(self.tags.count > 1){
+            let indexPathes = self.tableView.indexPathsForVisibleRows
+            if let ips = indexPathes{
+                print("\(ips[0].row) row of first visible item")
+                if ips[0].row != 0 && self.scanBtnState == .open{
+                    print("the must be here.")
+                    self.scanBtnState = .closing
+                    self.closeBtnScanAnimationally()
+                }
+                if ips[0].row == 0 && self.scanBtnState == .close{
+                    self.scanBtnState = .opening
+                    self.openBtnScanAnimationally()
+                }
             }
         }
     }
