@@ -252,8 +252,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
             skipBtn.isHidden = false
         }else{
             skipBtn.isHidden = true
-        }
-        
+        }    
     }
     
     

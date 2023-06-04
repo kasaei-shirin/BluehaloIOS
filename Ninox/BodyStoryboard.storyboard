@@ -598,6 +598,9 @@
                                                         <buttonConfiguration key="configuration" style="filled" title="Replace">
                                                             <color key="baseBackgroundColor" name="navy_blue"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <segue destination="63M-kH-jqe" kind="show" id="Ka1-5o-HEA"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fo-uK-nuJ">
                                                         <rect key="frame" x="0.0" y="199.99999999999997" width="353" height="40"/>
@@ -2036,6 +2039,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h86-hN-G7N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3185" y="1044"/>
+        </scene>
+        <!--ReplaceStoryboard-->
+        <scene sceneID="t8r-Af-tgg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ReplaceStoryboard" id="63M-kH-jqe" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="7kA-2t-4SK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pM8-04-e5q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2268" y="630"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bZL-DA-Phh">
