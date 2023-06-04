@@ -369,10 +369,11 @@ class SearchCTL: UIViewController, CBCentralManagerDelegate {
                             self.allTags.append(theTag)
                             if self.filterModel!.tagAcceptByFilter(tag: theTag){
                                 self.tags.append(theTag)
+                                DispatchQueue.main.async {
+                                    self.insertRowIntoList()
+                                }
                             }
-                            DispatchQueue.main.async {
-                                self.insertRowIntoList()
-                            }
+                            
                         }
                     }
                 }
