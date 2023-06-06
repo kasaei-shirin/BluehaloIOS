@@ -8,7 +8,7 @@
 import UIKit
 import CoreBluetooth
 
-class ReplaceTagCTL: UIViewController, CBCentralManagerDelegate {
+class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
 
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

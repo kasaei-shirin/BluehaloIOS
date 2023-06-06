@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DeleteAreaProjectCTL: UIViewController, UITextFieldDelegate {
+class DeleteAreaProjectCTL: MyViewController, UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

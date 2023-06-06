@@ -8,12 +8,13 @@
 import UIKit
 import CoreBluetooth
 
-class SearchCTL: UIViewController, CBCentralManagerDelegate {
+class SearchCTL: MyViewController, CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central)
     }
     
+    @IBOutlet weak var viewParentRadar: UIView!
     @IBOutlet weak var lblLocationFilter: UILabel!
     
     @IBOutlet weak var lblFoundCount: UILabel!
@@ -467,6 +468,13 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tags.count == 0{
+            viewParentRadar.isHidden = false
+            tableView.isHidden = true
+        }else{
+            viewParentRadar.isHidden = true
+            tableView.isHidden = false
+        }
         return tags.count
     }
     

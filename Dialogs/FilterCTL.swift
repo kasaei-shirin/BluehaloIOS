@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilterCTL: UIViewController {
+class FilterCTL: MyViewController {
 
     var filterModel: SearchFilterModel?
     var fitlerProtocol: SearchFilterProtocol?

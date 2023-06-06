@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TestEveryThing: UIViewController, IconTypeSelection, DataSelection {
+class TestEveryThing: MyViewController, IconTypeSelection, DataSelection {
     
     
 

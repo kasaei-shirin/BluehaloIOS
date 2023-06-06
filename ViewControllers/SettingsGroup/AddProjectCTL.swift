@@ -11,7 +11,7 @@ enum OpenAddingState{
     case open, close, opening, closing
 }
 
-class AddProjectCTL: UIViewController {
+class AddProjectCTL: MyViewController {
 
     var allProjects = [String]()
     

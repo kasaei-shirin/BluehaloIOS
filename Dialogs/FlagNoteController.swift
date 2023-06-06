@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlagNoteController: UIViewController {
+class FlagNoteController: MyViewController {
 
     var flagNoteProtocol: FlagNoteProtocol?
     var indexPath: IndexPath?

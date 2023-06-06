@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchFilterCTL: UIViewController , DataSelection{
+class SearchFilterCTL: MyViewController , DataSelection{
     func DataSelected(selectedItemIndex: Int, targetAction: Int) {
         if targetAction == 1{
             //area

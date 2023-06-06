@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import CoreBluetooth
 
-class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCentralManagerDelegate {
+class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central)
@@ -252,7 +252,7 @@ class ScanQRCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
             skipBtn.isHidden = false
         }else{
             skipBtn.isHidden = true
-        }    
+        }
     }
     
     

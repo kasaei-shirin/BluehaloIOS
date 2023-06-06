@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class OnlyScannerCTL: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
+class OnlyScannerCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate{
 
     @IBOutlet weak var viewParentBack: UIView!
     @IBOutlet weak var viewParentScanner: UIView!

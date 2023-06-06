@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeCTL: UIViewController {
+class HomeCTL: MyViewController {
 
     
     @IBOutlet weak var lblEmail: UILabel!

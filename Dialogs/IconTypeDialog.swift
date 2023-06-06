@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IconTypeDialog: UIViewController {
+class IconTypeDialog: MyViewController {
 
     var iconTypes = [IconTypeModel]()
     

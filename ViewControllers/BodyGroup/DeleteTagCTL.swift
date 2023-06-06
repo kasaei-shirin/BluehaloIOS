@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DeleteTagCTL: UIViewController {
+class DeleteTagCTL: MyViewController {
 
     @IBOutlet weak var viewback: UIView!
     

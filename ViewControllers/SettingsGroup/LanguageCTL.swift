@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LanguageCTL: UIViewController {
+class LanguageCTL: MyViewController {
 
     var languages = ["English"]
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DataPickerDialog: UIViewController {
+class DataPickerDialog: MyViewController {
 
     
     @IBOutlet weak var dataPicker: UIPickerView!

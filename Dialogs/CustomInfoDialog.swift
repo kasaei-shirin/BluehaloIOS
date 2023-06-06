@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomInfoDialog: UIViewController {
+class CustomInfoDialog: MyViewController {
     
     
     var customInfoProtocol: AddCustomInfoProtocol?

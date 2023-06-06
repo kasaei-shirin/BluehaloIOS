@@ -1,13 +1,13 @@
 //
-//  SelectUserTypeCTL.swift
+//  MainTabbarCTL.swift
 //  Ninox
 //
-//  Created by saeed on 07/05/2023.
+//  Created by saeed on 06/06/2023.
 //
 
 import UIKit
 
-class SelectUserTypeCTL: MyViewController {
+class MainTabbarCTL: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,5 +25,8 @@ class SelectUserTypeCTL: MyViewController {
         // Pass the selected object to the new view controller.
     }
     */
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
 
 }

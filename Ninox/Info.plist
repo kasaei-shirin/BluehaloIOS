@@ -2,18 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Use camera to Scan QRCodes</string>
-	<key>NSAppTransportSecurity</key>
-	<dict/>
 	<key>Allow arbitrary loads</key>
 	<true/>
 	<key>Exception Domains</key>
 	<dict/>
-	<key>saaiota.ca</key>
-	<string></string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>use bluetooth</string>
+	<key>NSAppTransportSecurity</key>
+	<dict/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -33,5 +27,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>saaiota.ca</key>
+	<string></string>
 </dict>
 </plist>

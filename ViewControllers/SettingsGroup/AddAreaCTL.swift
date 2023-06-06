@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddAreaCTL: UIViewController {
+class AddAreaCTL: MyViewController {
 
     var allAreas = [String]()
     

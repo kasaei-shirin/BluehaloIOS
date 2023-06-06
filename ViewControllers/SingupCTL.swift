@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SingupCTL: UIViewController {
+class SingupCTL: MyViewController {
 
     
     @IBOutlet weak var txtFldEmail: UITextField!

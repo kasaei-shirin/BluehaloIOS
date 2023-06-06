@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditAreaProjectCTL: UIViewController , UITextFieldDelegate{
+class EditAreaProjectCTL: MyViewController , UITextFieldDelegate{
 
     var targetAction: Int?//target1 edit area , 2 edit project
     var prevData: String?

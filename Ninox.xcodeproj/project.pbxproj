@@ -14,6 +14,8 @@
 		30139C312A2788A6007E3C98 /* ReplaceStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30139C302A2788A6007E3C98 /* ReplaceStoryboard.storyboard */; };
 		30139C332A290251007E3C98 /* OnlyScannerCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C322A290251007E3C98 /* OnlyScannerCTL.swift */; };
 		30139C352A2A2DE0007E3C98 /* OtherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C342A2A2DE0007E3C98 /* OtherProtocols.swift */; };
+		30139C382A2DF6A9007E3C98 /* ViewClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C372A2DF6A9007E3C98 /* ViewClasses.swift */; };
+		30139C3A2A2E828E007E3C98 /* MainTabbarCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30139C392A2E828E007E3C98 /* MainTabbarCTL.swift */; };
 		3015A8C92A1A370C0079FED6 /* TableManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015A8C82A1A370C0079FED6 /* TableManagers.swift */; };
 		3015A8CB2A1B657C0079FED6 /* SearchActionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015A8CA2A1B657C0079FED6 /* SearchActionProtocols.swift */; };
 		301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301CED8229F0FB8500996726 /* AppDelegate.swift */; };
@@ -80,6 +82,8 @@
 		30139C302A2788A6007E3C98 /* ReplaceStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReplaceStoryboard.storyboard; sourceTree = "<group>"; };
 		30139C322A290251007E3C98 /* OnlyScannerCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyScannerCTL.swift; sourceTree = "<group>"; };
 		30139C342A2A2DE0007E3C98 /* OtherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProtocols.swift; sourceTree = "<group>"; };
+		30139C372A2DF6A9007E3C98 /* ViewClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewClasses.swift; sourceTree = "<group>"; };
+		30139C392A2E828E007E3C98 /* MainTabbarCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarCTL.swift; sourceTree = "<group>"; };
 		3015A8C82A1A370C0079FED6 /* TableManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableManagers.swift; sourceTree = "<group>"; };
 		3015A8CA2A1B657C0079FED6 /* SearchActionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchActionProtocols.swift; sourceTree = "<group>"; };
 		301CED7F29F0FB8500996726 /* Ninox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ninox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +216,7 @@
 				3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */,
 				308DC7402A0E7ABA00535557 /* TestEveryThing.swift */,
 				30139C302A2788A6007E3C98 /* ReplaceStoryboard.storyboard */,
+				30139C392A2E828E007E3C98 /* MainTabbarCTL.swift */,
 			);
 			path = Ninox;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */,
 				3082371A2A0CDBA80054A64A /* GifLoading.swift */,
 				308DC7392A0E633900535557 /* RoundedCornerView.swift */,
+				30139C372A2DF6A9007E3C98 /* ViewClasses.swift */,
 			);
 			path = ViewPatternMethods;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 			files = (
 				30139C352A2A2DE0007E3C98 /* OtherProtocols.swift in Sources */,
 				30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */,
+				30139C3A2A2E828E007E3C98 /* MainTabbarCTL.swift in Sources */,
 				308DC73C2A0E70DD00535557 /* IconTypeDialog.swift in Sources */,
 				3015A8CB2A1B657C0079FED6 /* SearchActionProtocols.swift in Sources */,
 				30675BE52A07D36000515238 /* SigninCTL.swift in Sources */,
@@ -528,6 +535,7 @@
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
 				30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
+				30139C382A2DF6A9007E3C98 /* ViewClasses.swift in Sources */,
 				3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
 				30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */,
@@ -695,11 +703,14 @@
 				DEVELOPMENT_TEAM = 2BSTL6X2R8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ninox/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "use bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to Scan QRCodes";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -727,11 +738,14 @@
 				DEVELOPMENT_TEAM = 2BSTL6X2R8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ninox/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "use bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use camera to Scan QRCodes";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SigninCTL: UIViewController {
+class SigninCTL: MyViewController {
 
     
     @IBOutlet weak var txtFldEmail: UITextField!

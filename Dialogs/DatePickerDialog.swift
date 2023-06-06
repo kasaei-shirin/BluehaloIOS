@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DatePickerDialog: UIViewController {
+class DatePickerDialog: MyViewController {
 
     
     @IBOutlet weak var datePicker: UIDatePicker!

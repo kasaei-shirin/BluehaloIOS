@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        UIApplication.shared.statusBarView?.backgroundColor = UIColor.red
+        
         return true
     }
 
@@ -44,3 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+class MyViewController: UIViewController{
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+          return .lightContent
+    }
+}

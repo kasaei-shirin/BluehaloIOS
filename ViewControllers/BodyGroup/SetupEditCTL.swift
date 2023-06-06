@@ -8,7 +8,7 @@
 import UIKit
 import iOSDropDown
 
-class SetupEditCTL: UIViewController, UIScrollViewDelegate, IconTypeSelection, DataSelection, AddCustomInfoProtocol, ServiceDateSelection{
+class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, DataSelection, AddCustomInfoProtocol, ServiceDateSelection{
     
     
     func ServiceDateSelected(item: TargetServiceDate) {
