@@ -46,7 +46,8 @@ class DeleteAreaProjectCTL: MyViewController, UITextFieldDelegate {
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
         var params = [String:Any]()
-        params["area"] = title
+        let areas = [title]
+        params["area"] = areas
         HttpClientApi.instance().makeAPICall(url: URLS.DeleteAreaProject, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
@@ -93,7 +94,8 @@ class DeleteAreaProjectCTL: MyViewController, UITextFieldDelegate {
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
         var params = [String:Any]()
-        params["project"] = title
+        let projects = [title]
+        params["project"] = projects
         HttpClientApi.instance().makeAPICall(url: URLS.DeleteAreaProject, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])

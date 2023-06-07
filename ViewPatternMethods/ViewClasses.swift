@@ -76,8 +76,9 @@ class CommonButton: UIButton{
     }
     
     func commonInit(from: String){
-        self.tintColor = UIColor(named: "navy_blue")
-        self.configuration?.background.backgroundColor = UIColor(named: "navy_blue")
+        self.tintColor = UIColor(named: "navy_back")
+        self.configuration?.background.backgroundColor = UIColor(named: "navy_back")
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         updateConstraint(attribute: .height, constant: 42)
     }
     

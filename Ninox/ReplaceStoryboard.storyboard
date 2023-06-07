@@ -169,13 +169,11 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6px-ge-m9A">
                                                         <rect key="frame" x="0.0" y="84" width="353" height="54"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1D-fd-slH">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1D-fd-slH" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="12" width="353" height="42"/>
-                                                                <color key="backgroundColor" name="navy_blue"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="42" id="ddJ-Sa-fF0"/>
                                                                 </constraints>
-                                                                <color key="tintColor" name="navy_blue"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="filled" title="Continue">
                                                                     <color key="baseBackgroundColor" name="navy_blue"/>
@@ -210,7 +208,7 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="main_background"/>
                                 <constraints>
                                     <constraint firstItem="6Pm-kY-AXo" firstAttribute="top" secondItem="qHK-zD-SNi" secondAttribute="bottom" constant="16" id="43y-6u-LoX"/>
                                     <constraint firstAttribute="trailing" secondItem="Rvq-p9-m9r" secondAttribute="trailing" id="EUT-Z6-TeS"/>
@@ -230,7 +228,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="main_background"/>
+                        <color key="backgroundColor" name="navy_back"/>
                         <constraints>
                             <constraint firstItem="DnD-Zq-ddf" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="G7W-QJ-5LE"/>
                             <constraint firstItem="DnD-Zq-ddf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="I6r-fD-cBK"/>
@@ -305,7 +303,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="main_background"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="H79-rg-bXX" secondAttribute="trailing" id="Ij1-9y-bOc"/>
                                     <constraint firstItem="lk7-cB-xoD" firstAttribute="leading" secondItem="QGE-fg-IPg" secondAttribute="leading" id="J0l-i2-t76"/>
@@ -318,7 +316,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rf1-hD-EX1"/>
-                        <color key="backgroundColor" name="main_background"/>
+                        <color key="backgroundColor" name="navy_back"/>
                         <constraints>
                             <constraint firstItem="rf1-hD-EX1" firstAttribute="bottom" secondItem="QGE-fg-IPg" secondAttribute="bottom" id="AWF-ZZ-Bbb"/>
                             <constraint firstItem="rf1-hD-EX1" firstAttribute="trailing" secondItem="QGE-fg-IPg" secondAttribute="trailing" id="Aq2-p6-eU0"/>
@@ -345,6 +343,9 @@
         </namedColor>
         <namedColor name="main_background">
             <color red="0.21199999749660492" green="0.21600000560283661" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navy_back">
+            <color red="0.14100000262260437" green="0.14100000262260437" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="navy_blue">
             <color red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="0.92199999094009399" colorSpace="custom" customColorSpace="sRGB"/>

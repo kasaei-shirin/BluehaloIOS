@@ -127,6 +127,8 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.datePickerTargetExpireDate.contentHorizontalAlignment = .left
+        
         // Do any additional setup after loading the view.
         scrollView.delegate = self
         
