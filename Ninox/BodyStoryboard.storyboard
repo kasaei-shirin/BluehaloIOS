@@ -118,7 +118,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" id="7ag-Rg-7ze">
-                        <imageReference key="image" image="checklist.rtl" catalog="system" symbolScale="medium"/>
+                        <imageReference key="image" image="gear" catalog="system" symbolScale="medium"/>
                         <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
@@ -532,7 +532,7 @@
             <objects>
                 <viewController id="Qm0-i4-9xj" customClass="HomeCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tfG-eV-q47">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="650"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Uy8-xW-Uid">
@@ -550,7 +550,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYd-Ud-mnr">
-                                <rect key="frame" x="20" y="210.33333333333334" width="353" height="419.66666666666663"/>
+                                <rect key="frame" x="20" y="210.33333333333334" width="353" height="459.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDQ-0u-BG5">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="270"/>
@@ -1385,14 +1385,14 @@
             <objects>
                 <viewController storyboardIdentifier="ScanQRCTL" modalPresentationStyle="fullScreen" id="RQP-XB-pnl" customClass="ScanQRCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="weA-Sc-Hkc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="650"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvs-Gv-e2S">
-                                <rect key="frame" x="0.0" y="59" width="393" height="591"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="631"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thepattern" translatesAutoresizingMaskIntoConstraints="NO" id="Oew-R6-d4W" customClass="BackImage" customModule="Ninox" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="591"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="631"/>
                                         <color key="backgroundColor" name="main_background"/>
                                         <color key="tintColor" name="pattern_tint"/>
                                     </imageView>
@@ -1437,10 +1437,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKk-u8-R33">
-                                        <rect key="frame" x="0.0" y="90" width="393" height="361"/>
+                                        <rect key="frame" x="0.0" y="90" width="393" height="401"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="weC-af-gi5">
-                                                <rect key="frame" x="81.666666666666686" y="67.333333333333329" width="230" height="226.99999999999994"/>
+                                                <rect key="frame" x="81.666666666666686" y="87.333333333333329" width="230" height="226.99999999999994"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="230" id="Z6t-yQ-87b"/>
@@ -1455,7 +1455,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7u-KH-21h">
-                                        <rect key="frame" x="0.0" y="471" width="393" height="120"/>
+                                        <rect key="frame" x="0.0" y="511" width="393" height="120"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwG-lY-m4j" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="35" width="353" height="45"/>
@@ -1542,14 +1542,14 @@
             <objects>
                 <viewController storyboardIdentifier="deleteTagCTL" modalPresentationStyle="fullScreen" id="Ejd-J5-Uys" customClass="DeleteTagCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TD3-tT-cuO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="650"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-zt-80b">
-                                <rect key="frame" x="0.0" y="59" width="393" height="591"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="631"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thepattern" translatesAutoresizingMaskIntoConstraints="NO" id="R6Q-0f-fMv" customClass="BackImage" customModule="Ninox" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="591"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="631"/>
                                         <color key="backgroundColor" name="main_background"/>
                                         <color key="tintColor" name="pattern_tint"/>
                                     </imageView>
@@ -1640,10 +1640,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKU-pe-iPO">
-                                        <rect key="frame" x="20" y="170" width="353" height="355"/>
+                                        <rect key="frame" x="20" y="170" width="353" height="395"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcT-b2-FPw">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="355"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="395"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWM-aq-bnQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="353" height="600"/>
@@ -1999,7 +1999,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6N-5O-heu" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="537" width="353" height="42"/>
+                                        <rect key="frame" x="20" y="577" width="353" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="ThU-gk-7MY"/>
                                         </constraints>
@@ -2081,11 +2081,11 @@
             <objects>
                 <viewController id="0xd-Ix-dXe" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wem-xd-JUD">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="632"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbW-Ed-n87">
-                                <rect key="frame" x="36" y="206" width="321" height="220"/>
+                                <rect key="frame" x="36" y="225.66666666666663" width="321" height="220"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ShK-V4-zDi">
                                         <rect key="frame" x="0.0" y="10" width="321" height="190"/>
@@ -2101,7 +2101,7 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Language"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZP-sN-mxP" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="50" width="321" height="40"/>
+                                                <rect key="frame" x="0.0" y="50.000000000000028" width="321" height="40"/>
                                                 <color key="backgroundColor" name="navy_blue"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="pSe-Ie-fVX"/>
@@ -2111,7 +2111,7 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Add Project/Place"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tzv-Gk-dSz" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="100" width="321" height="40"/>
+                                                <rect key="frame" x="0.0" y="100.00000000000003" width="321" height="40"/>
                                                 <color key="backgroundColor" name="navy_blue"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="bXK-ee-lFN"/>
@@ -2121,7 +2121,7 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Add Area"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tux-yy-Y1F" customClass="CommonButton" customModule="Ninox" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="150" width="321" height="40"/>
+                                                <rect key="frame" x="0.0" y="150.00000000000003" width="321" height="40"/>
                                                 <color key="backgroundColor" name="navy_blue"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="2kO-5e-RYh"/>
@@ -2162,7 +2162,7 @@
             <objects>
                 <viewController id="Rxo-xv-x0j" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FCZ-kb-Sii">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="632"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eXn-sz-tjg">
@@ -2325,11 +2325,11 @@
             <objects>
                 <viewController id="t9t-MO-tza" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ga8-nV-Upc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="632"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLEASE HELP TO THE HELP!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h3-at-u6g">
-                                <rect key="frame" x="86.333333333333329" y="306" width="220.66666666666669" height="20.333333333333314"/>
+                                <rect key="frame" x="86.333333333333329" y="325.33333333333331" width="220.66666666666669" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="light_text"/>
                                 <nil key="highlightedColor"/>
@@ -3217,9 +3217,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checklist.rtl" catalog="system" width="128" height="107"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="circle.dashed" catalog="system" width="128" height="123"/>
+        <image name="gear" catalog="system" width="128" height="122"/>
         <image name="icon_scan_btn" width="346" height="351"/>
         <image name="icontype_bag" width="100" height="100"/>
         <image name="icontype_fan" width="96" height="96"/>
