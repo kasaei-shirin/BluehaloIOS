@@ -34,6 +34,7 @@
 		30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */; };
 		30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE82A07D9E200515238 /* SingupCTL.swift */; };
 		30675BEC2A0808AE00515238 /* ViewPatternMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */; };
+		306AB8E02A326DE300080EEC /* AboutusCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AB8DF2A326DE300080EEC /* AboutusCTL.swift */; };
 		308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308237182A0CD4B60054A64A /* ScanQRCTL.swift */; };
 		3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3082371A2A0CDBA80054A64A /* GifLoading.swift */; };
 		3082371D2A0CDFD20054A64A /* dialogStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */; };
@@ -105,6 +106,7 @@
 		30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTypeCTL.swift; sourceTree = "<group>"; };
 		30675BE82A07D9E200515238 /* SingupCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupCTL.swift; sourceTree = "<group>"; };
 		30675BEB2A0808AE00515238 /* ViewPatternMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPatternMethods.swift; sourceTree = "<group>"; };
+		306AB8DF2A326DE300080EEC /* AboutusCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutusCTL.swift; sourceTree = "<group>"; };
 		308237182A0CD4B60054A64A /* ScanQRCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCTL.swift; sourceTree = "<group>"; };
 		3082371A2A0CDBA80054A64A /* GifLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifLoading.swift; sourceTree = "<group>"; };
 		3082371C2A0CDFD20054A64A /* dialogStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = dialogStoryboard.storyboard; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				30675BE42A07D36000515238 /* SigninCTL.swift */,
 				30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */,
 				30675BE82A07D9E200515238 /* SingupCTL.swift */,
+				306AB8DF2A326DE300080EEC /* AboutusCTL.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */,
 				30139C2F2A266BBB007E3C98 /* ReplaceTagCTL.swift in Sources */,
 				30C59AE72A08902E00D675A5 /* HttpClientAPI.swift in Sources */,
+				306AB8E02A326DE300080EEC /* AboutusCTL.swift in Sources */,
 				30139C2B2A26698C007E3C98 /* LanguageCTL.swift in Sources */,
 				308DC73F2A0E799700535557 /* DialogProtocols.swift in Sources */,
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
