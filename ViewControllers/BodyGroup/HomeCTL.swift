@@ -26,14 +26,14 @@ class HomeCTL: MyViewController {
         lblEmail.text = user?.email
     }
     
-    @IBAction func searchAction(_ sender: Any) {
-        performSegue(withIdentifier: "home2search", sender: self)
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        DBManager().deleteUser()
-        performSegue(withIdentifier: "home2spalsh", sender: self)
-    }
+//    @IBAction func searchAction(_ sender: Any) {
+//        performSegue(withIdentifier: "home2search", sender: self)
+//    }
+//    
+//    @IBAction func logout(_ sender: Any) {
+//        DBManager().deleteUser()
+//        performSegue(withIdentifier: "home2spalsh", sender: self)
+//    }
     
     @IBAction func setupAction(_ sender: Any) {
         targetJob = "setup"

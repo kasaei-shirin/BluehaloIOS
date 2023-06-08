@@ -29,6 +29,7 @@
 		30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */; };
 		30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B642A0F9413005A7F29 /* CustomInfoCell.swift */; };
 		30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B662A0F9435005A7F29 /* ServiceDateCell.swift */; };
+		305995242A32521700BD1705 /* UserCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305995232A32521700BD1705 /* UserCTL.swift */; };
 		30675BE52A07D36000515238 /* SigninCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE42A07D36000515238 /* SigninCTL.swift */; };
 		30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */; };
 		30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE82A07D9E200515238 /* SingupCTL.swift */; };
@@ -99,6 +100,7 @@
 		30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoDialog.swift; sourceTree = "<group>"; };
 		30507B642A0F9413005A7F29 /* CustomInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoCell.swift; sourceTree = "<group>"; };
 		30507B662A0F9435005A7F29 /* ServiceDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDateCell.swift; sourceTree = "<group>"; };
+		305995232A32521700BD1705 /* UserCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCTL.swift; sourceTree = "<group>"; };
 		30675BE42A07D36000515238 /* SigninCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninCTL.swift; sourceTree = "<group>"; };
 		30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTypeCTL.swift; sourceTree = "<group>"; };
 		30675BE82A07D9E200515238 /* SingupCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupCTL.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */,
 				30139C2E2A266BBB007E3C98 /* ReplaceTagCTL.swift */,
 				30139C322A290251007E3C98 /* OnlyScannerCTL.swift */,
+				305995232A32521700BD1705 /* UserCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
 				308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */,
 				308DC73A2A0E633900535557 /* RoundedCornerView.swift in Sources */,
+				305995242A32521700BD1705 /* UserCTL.swift in Sources */,
 				30139C2D2A266A3F007E3C98 /* LanuageCell.swift in Sources */,
 				30D6B9882A09ECDF0058A91F /* SearchFilterCTL.swift in Sources */,
 				30E5CECC2A020D9C00DB70C4 /* DataModels.swift in Sources */,
