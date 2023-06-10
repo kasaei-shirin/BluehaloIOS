@@ -24,6 +24,7 @@
 		301CED8A29F0FB8500996726 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8829F0FB8500996726 /* Main.storyboard */; };
 		301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8B29F0FB8700996726 /* Assets.xcassets */; };
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
+		30238BA42A3482DC007B22D8 /* CheckReplaceInfoCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */; };
 		30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30418EAA2A02176F003DD55D /* SearchItem.swift */; };
 		30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30418EAB2A02176F003DD55D /* SearchItem.xib */; };
 		30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */; };
@@ -96,6 +97,7 @@
 		301CED8B29F0FB8700996726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		301CED8E29F0FB8700996726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckReplaceInfoCTL.swift; sourceTree = "<group>"; };
 		30418EAA2A02176F003DD55D /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		30418EAB2A02176F003DD55D /* SearchItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchItem.xib; sourceTree = "<group>"; };
 		30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoDialog.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				30139C2E2A266BBB007E3C98 /* ReplaceTagCTL.swift */,
 				30139C322A290251007E3C98 /* OnlyScannerCTL.swift */,
 				305995232A32521700BD1705 /* UserCTL.swift */,
+				30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				308237192A0CD4B60054A64A /* ScanQRCTL.swift in Sources */,
 				30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */,
 				30139C2F2A266BBB007E3C98 /* ReplaceTagCTL.swift in Sources */,
+				30238BA42A3482DC007B22D8 /* CheckReplaceInfoCTL.swift in Sources */,
 				30C59AE72A08902E00D675A5 /* HttpClientAPI.swift in Sources */,
 				306AB8E02A326DE300080EEC /* AboutusCTL.swift in Sources */,
 				30139C2B2A26698C007E3C98 /* LanguageCTL.swift in Sources */,

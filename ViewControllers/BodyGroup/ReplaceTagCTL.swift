@@ -132,12 +132,127 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
                         self.manager?.stopScan()
 //                        self.getPAFromWeb(theString: sq)
                         self.bluetoothChecked = true
-                        ViewPatternMethods.showAlert(controller: self, title: "Info", message: "BLE Found, now you can Continue!", handler: UIAlertAction(title: "OK", style: .destructive))
+                        self.getTagFromWeb(publicAddress: theString)
                     }
                 }
             }
         }
         
+    }
+    
+    func getTagFromWeb(publicAddress: String){
+//        ViewPatternMethods.showAlert(controller: self, title: "Info", message: "BLE Found, now you can Continue!", handler: UIAlertAction(title: "OK", style: .destructive))
+        
+        let waiting = ViewPatternMethods.waitingDialog(controller: self)
+        var header = Dictionary<String, String>()
+        header["Publicaddress"] = publicAddress
+        
+        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
+            
+//            DispatchQueue.main.async {
+//                waitingAlert.dismiss(animated: false)
+//            }
+            
+            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+            
+            DispatchQueue.main.async {
+                waiting.dismiss(animated: true) {
+                    if let j = json as? [String:Any]{
+                        print(j)
+                        let message = j["message"] as? String ?? ""
+                        if let success = j["success"] as? String{
+                            if(success == "true"){
+                                if let t = j["tag"] as? [String:Any]{
+                                    let theTag = TagModel(json: t, rssi: 0, uuidString: "")
+                                    self.handleTagByLevel(tag: theTag)
+                                }else{
+                                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
+                                }
+                            }else{
+                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            
+        } failure: { data, response, error in
+            DispatchQueue.main.async {
+//                waitingAlert.dismiss(animated: true)
+                waiting.dismiss(animated: true) {
+                    ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "Check your Internet connection!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+                }
+            }
+            print(data)
+            print(response)
+            print(error)
+        }
+
+        
+    }
+    
+    func tagNotUseSomeWhereElseDialog(){
+        ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "This Tag not use any where else, if you want to setup it go to setup page!", handler: UIAlertAction(title: "OK", style: .destructive))
+    }
+    
+    func tagUseSomewhereElseDialog(tag: TagModel){
+//        ViewPatternMethods.showAlert(controller: self, title: "Registered Tag", message: "QR: \()", handler: <#T##UIAlertAction#>)
+        
+//        QR code: 10001255500
+//        Target Name: Manitor 100s
+//        Rigeterd Date: 2022/10/10
+//        Battery life : 70%
+//        1 year. 3 months  & 23 days
+        var activationDateString = ""
+        let myDF = MyDateFormatter()
+        let AD = myDF.getDateFromServerDate(dateString: tag.activationDate)
+        if let activeDate = AD{
+            activationDateString = myDF.getDateByCompleteMonthName(date: activeDate)
+        }
+        
+        let actionController = UIAlertController(title: "Registered Tag", message: "QRCode: \(tag.publicAddress)\nTarget Name: \(tag.deviceName)\nRegistered Date: \(activationDateString)\nBattery life: \(tag.tagBatteryExpireDate)\nDo You Want To Override The Tag?", preferredStyle: .actionSheet)
+        actionController.addAction(UIAlertAction(title: "YES", style: .default, handler: { UIAlertAction in
+            self.checkTag = tag
+            self.continueWithLevel2()
+        }))
+        actionController.addAction(UIAlertAction(title: "No", style: .destructive))
+        self.present(actionController, animated: true, completion: nil)
+    }
+    
+    var checkTag :TagModel?
+    
+//    func going2CheckInfoPage(){
+//        self.performSegue(withIdentifier: "replace2checking", sender: self)
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "replace2checking"{
+            let dest = segue.destination as! CheckReplaceInfoCTL
+            dest.theTag = checkTag
+            dest.publicAddress2Change = self.publicAddress2Change
+        }
+    }
+    
+    func handleTagByLevel(tag: TagModel){
+        if tag.deviceName == ""{
+            if level == 1{
+                tagNotUseSomeWhereElseDialog()
+            }
+            else if level == 2{
+                self.continueWithLevel2()
+            }
+            //TODO if we are in level 1 tell user this tag not use any where else, if we are in level 2 do routine thing
+        }else{
+            //TODO if level 1 routine thing, if level 2 we should show message this tag use somewhere else get ok and then keep on
+            if level == 1{
+                continueWithLevel1()
+            }
+            else if level == 2{
+                self.tagUseSomewhereElseDialog(tag: tag)
+            }
+        }
     }
     
     func startScanForPrepheral(){
@@ -162,7 +277,9 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
     }
     
     func continueWithLevel2(){
-        self.sendChange2Web(PA1: self.publicAddress2Change!, targetPA: targetPublicAddress!)
+//        self.sendChange2Web(PA1: self.publicAddress2Change!, targetPA: targetPublicAddress!)
+        performSegue(withIdentifier: "replace2checking", sender: self)
+        
     }
     
     func sendChange2Web(PA1: String, targetPA: String){
