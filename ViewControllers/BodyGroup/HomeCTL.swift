@@ -10,7 +10,7 @@ import UIKit
 class HomeCTL: MyViewController {
 
     
-    @IBOutlet weak var lblEmail: UILabel!
+//    @IBOutlet weak var lblEmail: UILabel!
     
     var targetJob: String?
     
@@ -22,8 +22,8 @@ class HomeCTL: MyViewController {
     }
     
     func setViews(){
-        let user = DBManager().getUserFromDB()
-        lblEmail.text = user?.email
+//        let user = DBManager().getUserFromDB()
+//        lblEmail.text = user?.email
     }
     
 //    @IBAction func searchAction(_ sender: Any) {

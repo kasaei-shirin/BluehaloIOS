@@ -90,6 +90,9 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Set battery alert range">
                                                     <color key="baseBackgroundColor" name="navy_blue"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="uno-4e-DbL" kind="show" id="u2j-x0-IjL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -573,6 +576,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00C-2n-E4Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-921" y="711"/>
+        </scene>
+        <!--batteryAlertCTL-->
+        <scene sceneID="YKA-1g-Y4L">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SettingStoryboard" referencedIdentifier="batteryAlertCTL" id="uno-4e-DbL" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="W5J-fX-S3z"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FTd-qH-XVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-907" y="820"/>
         </scene>
         <!--addProjectCTL-->
         <scene sceneID="7c7-CC-YIp">
