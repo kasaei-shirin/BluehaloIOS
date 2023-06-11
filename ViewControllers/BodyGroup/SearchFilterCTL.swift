@@ -61,6 +61,9 @@ class SearchFilterCTL: MyViewController , DataSelection{
         let refreshTap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
         refreshBtn.addGestureRecognizer(refreshTap)
         
+        self.historyTableView.separatorStyle = .none
+        self.historyTableView.separatorInset = .init(top: 0, left: 0, bottom: 10, right: 0)
+        
     }
     
     @objc func refreshTap(_ sender: UITapGestureRecognizer){
@@ -211,7 +214,7 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 50
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

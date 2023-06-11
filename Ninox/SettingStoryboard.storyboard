@@ -695,10 +695,10 @@
             </objects>
             <point key="canvasLocation" x="989" y="801"/>
         </scene>
-        <!--View Controller-->
+        <!--Battery AlertCTL-->
         <scene sceneID="1Kk-Da-685">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="2ye-v1-h19" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="batteryAlertCTL" modalPresentationStyle="fullScreen" id="2ye-v1-h19" customClass="BatteryAlertCTL" customModule="Ninox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="imN-Lq-tet">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -751,17 +751,59 @@
                                             <constraint firstAttribute="height" constant="60" id="qsx-Ks-LtT"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p3H-YN-NSk">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p3H-YN-NSk">
                                         <rect key="frame" x="20" y="80" width="353" height="659"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="otq-5P-nzV">
-                                                <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="alertCell" id="otq-5P-nzV" customClass="AlertCell" customModule="Ninox" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="50" width="353" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="otq-5P-nzV" id="rtQ-Un-7wY">
-                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUz-q1-MhK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apO-2d-ZGD" customClass="ContextTitleLabel" customModule="Ninox" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="303" height="50"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kLp-Tp-pU4">
+                                                                    <rect key="frame" x="315" y="13.333333333333334" width="28" height="24.000000000000004"/>
+                                                                    <color key="tintColor" name="pattern_tint"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="kLp-Tp-pU4" secondAttribute="height" multiplier="1:1" id="wgH-PP-1m2"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="kLp-Tp-pU4" secondAttribute="trailing" constant="10" id="IVn-l9-eJ6"/>
+                                                                <constraint firstAttribute="bottom" secondItem="apO-2d-ZGD" secondAttribute="bottom" id="TCW-Ha-ySe"/>
+                                                                <constraint firstItem="apO-2d-ZGD" firstAttribute="top" secondItem="tUz-q1-MhK" secondAttribute="top" id="e9S-T5-efI"/>
+                                                                <constraint firstAttribute="bottom" secondItem="kLp-Tp-pU4" secondAttribute="bottom" constant="11" id="jrL-Y2-Jjk"/>
+                                                                <constraint firstItem="kLp-Tp-pU4" firstAttribute="top" secondItem="tUz-q1-MhK" secondAttribute="top" constant="11" id="oy9-Ks-de5"/>
+                                                                <constraint firstItem="apO-2d-ZGD" firstAttribute="leading" secondItem="tUz-q1-MhK" secondAttribute="leading" id="v7U-0z-mTD"/>
+                                                                <constraint firstItem="kLp-Tp-pU4" firstAttribute="leading" secondItem="apO-2d-ZGD" secondAttribute="trailing" constant="12" id="woD-Kx-Cj5"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="tUz-q1-MhK" firstAttribute="leading" secondItem="rtQ-Un-7wY" secondAttribute="leading" id="TLW-Ec-RML"/>
+                                                        <constraint firstAttribute="trailing" secondItem="tUz-q1-MhK" secondAttribute="trailing" id="a4z-jf-MSd"/>
+                                                        <constraint firstItem="tUz-q1-MhK" firstAttribute="top" secondItem="rtQ-Un-7wY" secondAttribute="top" id="kq1-Ec-pKV"/>
+                                                        <constraint firstAttribute="bottom" secondItem="tUz-q1-MhK" secondAttribute="bottom" id="med-Sk-3CR"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outlet property="imgViewCheck" destination="kLp-Tp-pU4" id="cZJ-wX-olA"/>
+                                                    <outlet property="lblTitle" destination="apO-2d-ZGD" id="0DG-Su-goD"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -791,6 +833,10 @@
                             <constraint firstItem="HeP-9n-Lca" firstAttribute="bottom" secondItem="l0H-Pb-S3Q" secondAttribute="bottom" id="dGe-FF-Xc8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backParentVie" destination="sHO-Jj-SYR" id="nr0-II-Stl"/>
+                        <outlet property="tableView" destination="p3H-YN-NSk" id="xf8-Gk-9Ib"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4e-MY-YPZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -798,6 +844,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="checkmark.seal" catalog="system" width="128" height="124"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>

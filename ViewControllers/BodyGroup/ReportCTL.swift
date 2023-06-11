@@ -1,26 +1,18 @@
 //
-//  AboutusCTL.swift
+//  ReportCTL.swift
 //  Ninox
 //
-//  Created by saeed on 08/06/2023.
+//  Created by saeed on 11/06/2023.
 //
 
 import UIKit
 
-class AboutusCTL: MyViewController {
+class ReportCTL: MyViewController {
 
-    @IBOutlet weak var viewBackParent: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        viewBackParent.isUserInteractionEnabled = true
-        let backTap = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
-        viewBackParent.addGestureRecognizer(backTap)
-    }
-    
-    @objc func backTap(_ sender: UITapGestureRecognizer){
-        self.dismiss(animated: true)
     }
     
 

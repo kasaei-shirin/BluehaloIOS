@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheckReplaceInfoCTL: UIViewController {
+class CheckReplaceInfoCTL: MyViewController {
 
     var theTag: TagModel?
     var publicAddress2Change: String?

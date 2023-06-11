@@ -25,6 +25,9 @@
 		301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8B29F0FB8700996726 /* Assets.xcassets */; };
 		301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301CED8D29F0FB8700996726 /* LaunchScreen.storyboard */; };
 		30238BA42A3482DC007B22D8 /* CheckReplaceInfoCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */; };
+		30382D9E2A359A1C001860A1 /* ReportCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30382D9D2A359A1C001860A1 /* ReportCTL.swift */; };
+		30382DA02A359E37001860A1 /* BatteryAlertCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30382D9F2A359E37001860A1 /* BatteryAlertCTL.swift */; };
+		30382DA22A359F1C001860A1 /* AlertCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30382DA12A359F1C001860A1 /* AlertCellTableViewCell.swift */; };
 		30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30418EAA2A02176F003DD55D /* SearchItem.swift */; };
 		30418EAD2A02176F003DD55D /* SearchItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30418EAB2A02176F003DD55D /* SearchItem.xib */; };
 		30507B632A0F8C4E005A7F29 /* CustomInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */; };
@@ -98,6 +101,9 @@
 		301CED8E29F0FB8700996726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		301CED9029F0FB8700996726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckReplaceInfoCTL.swift; sourceTree = "<group>"; };
+		30382D9D2A359A1C001860A1 /* ReportCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCTL.swift; sourceTree = "<group>"; };
+		30382D9F2A359E37001860A1 /* BatteryAlertCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryAlertCTL.swift; sourceTree = "<group>"; };
+		30382DA12A359F1C001860A1 /* AlertCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCellTableViewCell.swift; sourceTree = "<group>"; };
 		30418EAA2A02176F003DD55D /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		30418EAB2A02176F003DD55D /* SearchItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchItem.xib; sourceTree = "<group>"; };
 		30507B622A0F8C4E005A7F29 /* CustomInfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoDialog.swift; sourceTree = "<group>"; };
@@ -242,6 +248,7 @@
 				30EE3FC62A1F9BF200D78C58 /* AddAreaItem.swift */,
 				30EE3FC82A1FB7C000D78C58 /* AddProjectItem.swift */,
 				30139C2C2A266A3F007E3C98 /* LanuageCell.swift */,
+				30382DA12A359F1C001860A1 /* AlertCellTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -319,6 +326,7 @@
 				30139C322A290251007E3C98 /* OnlyScannerCTL.swift */,
 				305995232A32521700BD1705 /* UserCTL.swift */,
 				30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */,
+				30382D9D2A359A1C001860A1 /* ReportCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -360,6 +368,7 @@
 				30EE3FC22A1F969300D78C58 /* AddAreaCTL.swift */,
 				30EE3FC42A1F96A400D78C58 /* AddProjectCTL.swift */,
 				30139C2A2A26698C007E3C98 /* LanguageCTL.swift */,
+				30382D9F2A359E37001860A1 /* BatteryAlertCTL.swift */,
 			);
 			path = SettingsGroup;
 			sourceTree = "<group>";
@@ -526,6 +535,7 @@
 				30AE5E832A24A3F500BA659E /* DeleteTagCTL.swift in Sources */,
 				30AE5E7F2A2350A800BA659E /* EditAreaProjectCTL.swift in Sources */,
 				30D6B9842A09E14E0058A91F /* HomeCTL.swift in Sources */,
+				30382D9E2A359A1C001860A1 /* ReportCTL.swift in Sources */,
 				30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */,
 				301CED8729F0FB8500996726 /* ViewController.swift in Sources */,
 				308DC7432A0E948100535557 /* MyDateFormatter.swift in Sources */,
@@ -548,6 +558,7 @@
 				30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
 				30139C382A2DF6A9007E3C98 /* ViewClasses.swift in Sources */,
+				30382DA02A359E37001860A1 /* BatteryAlertCTL.swift in Sources */,
 				3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
 				30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */,
@@ -557,6 +568,7 @@
 				30D6B9862A09ECCF0058A91F /* SearchCTL.swift in Sources */,
 				30AE5E812A23615B00BA659E /* DeleteAreaProjectCTL.swift in Sources */,
 				308237222A0D274B0054A64A /* SetupEditCTL.swift in Sources */,
+				30382DA22A359F1C001860A1 /* AlertCellTableViewCell.swift in Sources */,
 				30B7663529F9872600A86C06 /* HeaderLabel.swift in Sources */,
 				308DC7452A0E9DC800535557 /* DataPickerDialog.swift in Sources */,
 				308CB49E29F8376B0072D97D /* TestBluetoothCTL.swift in Sources */,
