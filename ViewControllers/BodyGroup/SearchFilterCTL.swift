@@ -261,7 +261,8 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO set selection into labels
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
-        if cell.lblDeleteItem.isHidden{
+        let HM = self.searchHistories[indexPath.row]
+        if HM.isDeleted{
             return
         }
         let SH = self.searchHistories[indexPath.row]
