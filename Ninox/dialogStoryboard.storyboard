@@ -988,7 +988,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rIF-Nl-5ac"/>
-                        <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.32899999618530273" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="DialogMainBackground"/>
                         <constraints>
                             <constraint firstItem="rIF-Nl-5ac" firstAttribute="trailing" secondItem="nGg-HP-zNG" secondAttribute="trailing" constant="22" id="3Xl-fg-lYt"/>
                             <constraint firstItem="15k-01-rLp" firstAttribute="centerY" secondItem="DJh-7q-kHp" secondAttribute="centerY" id="Ovc-03-fhc"/>
@@ -1200,7 +1200,7 @@
         <image name="flag_icon" width="24" height="24"/>
         <image name="nearby_icon" width="200" height="200"/>
         <namedColor name="DialogMainBackground">
-            <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="0.32899999618530273" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="0.50467168068399237" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="main_background">
             <color red="0.21199999749660492" green="0.21600000560283661" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

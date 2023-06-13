@@ -32,6 +32,10 @@ class DeleteAreaProjectCTL: MyViewController, UITextFieldDelegate {
             lblTitle.text = "Delete Project"
             lblMessage.text = "Are you sure you want delete \(prevData!) Project?"
         }
+        
+        self.view.isUserInteractionEnabled = true
+        let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))
+        self.view.addGestureRecognizer(viewTap)
     }
     
     @IBAction func deleteAction(_ sender: Any) {
@@ -40,6 +44,10 @@ class DeleteAreaProjectCTL: MyViewController, UITextFieldDelegate {
         }else{
             self.deleteProject(prevData!)
         }
+    }
+    
+    @objc func ViewTap(_ sender: UITapGestureRecognizer){
+        self.dismiss(animated: true)
     }
     
     func deleteArea(_ title: String){

@@ -47,27 +47,32 @@ class SearchFilterModel{
 
         if let ar = self.area{
             if tag.area != ar && area != ""{
+                print("areaFalse")
                 return false
             }
         }
         if let pro = self.project{
             if tag.project == pro && pro != ""{
+                print("project false")
                 return false
             }
         }
         if let RR = rssiRange{
             if RR > getRangeByRssi(rssi: tag.rssi){
+                print("rssi false")
                 return false
             }
         }
         if let FT = flagType{
-            if FT != tag.flagType{
+            if FT != tag.flagType && FT != 0{
+                print("flag type false")
                 return false
             }
         }
         if let IOG = isOnGoing{
             
             if tag.isOnGoing == false && IOG{
+                print("is on going false")
                 return false
             }
         }

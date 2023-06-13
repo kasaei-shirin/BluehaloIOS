@@ -36,7 +36,17 @@ class EditAreaProjectCTL: MyViewController , UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        
+        self.view.isUserInteractionEnabled = true
+        let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))
+        self.view.addGestureRecognizer(viewTap)
     }
+    
+    
+    @objc func ViewTap(_ sender: UITapGestureRecognizer){
+        self.dismiss(animated: true)
+    }
+    
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

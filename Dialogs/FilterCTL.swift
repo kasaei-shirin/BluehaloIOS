@@ -34,6 +34,10 @@ class FilterCTL: MyViewController {
         
         setProps2View()
         
+        
+        self.view.isUserInteractionEnabled = true
+        let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))
+        self.view.addGestureRecognizer(viewTap)
     }
     
     
@@ -70,6 +74,10 @@ class FilterCTL: MyViewController {
             self.switchIsOnGoing.setOn(false, animated: true)
         }
         
+    }
+    
+    @objc func ViewTap(_ sender: UITapGestureRecognizer){
+        self.dismiss(animated: true)
     }
     
     func normalizeAllBtns(){

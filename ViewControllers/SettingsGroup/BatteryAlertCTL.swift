@@ -52,6 +52,7 @@ class BatteryAlertCTL: MyViewController {
                             if(success == "true"){
                                 self.choosedBatteryRange = j["battreyAlertRange"] as? Int ?? 30
                                 self.tableView.reloadData()
+                                return
                             }
                         }
                     }

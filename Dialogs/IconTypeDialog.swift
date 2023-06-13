@@ -22,7 +22,14 @@ class IconTypeDialog: MyViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
 
+        self.view.isUserInteractionEnabled = true
+        let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))
+        self.view.addGestureRecognizer(viewTap)
         
+    }
+    
+    @objc func ViewTap(_ sender: UITapGestureRecognizer){
+        self.dismiss(animated: true)
     }
     
     @IBAction func cancleAction(_ sender: Any) {

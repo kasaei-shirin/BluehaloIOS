@@ -61,8 +61,12 @@ class SearchFilterCTL: MyViewController , DataSelection{
         let refreshTap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
         refreshBtn.addGestureRecognizer(refreshTap)
         
-        self.historyTableView.separatorStyle = .none
-        self.historyTableView.separatorInset = .init(top: 0, left: 0, bottom: 10, right: 0)
+        self.historyTableView.rowHeight = 60
+        self.historyTableView.separatorStyle = .singleLine
+        self.historyTableView.separatorInset = .init(top: 5, left: 0, bottom: 5, right: 0)
+        
+//        self.historyTableView.contentSize = CGSize(width: .bitWidth, height: 50)
+//        self.historyTableView.seprato
         
     }
     
@@ -213,9 +217,9 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
         return searchHistories.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 50
+//    }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -256,6 +260,10 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO set selection into labels
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
+        if cell.lblDeleteItem.isHidden{
+            return
+        }
         let SH = self.searchHistories[indexPath.row]
         let seprates = SH.title.split(separator: "/")
         self.lblProjects.text = String(seprates[0]).trimmingCharacters(in: .whitespacesAndNewlines)

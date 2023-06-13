@@ -139,6 +139,11 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        customView.backgroundColor = UIColor.clear
+        
+        self.tableView.tableFooterView = customView
+        
         
         manager = CBCentralManager(delegate: self, queue: nil);
         
@@ -197,7 +202,8 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         self.present(filterCTL, animated: true)
     }
     @objc func infoTap(_ tap: UITapGestureRecognizer){
-        
+        tags = tags.sorted {$0.rssi > $1.rssi}
+        self.tableView.reloadData()
     }
     @objc func refreshTap(_ tap: UITapGestureRecognizer){
         PPPs.removeAll()
@@ -957,8 +963,10 @@ extension SearchCTL: SearchFilterProtocol{
     
     func filterAllList(){
         self.tags.removeAll()
+        print(allTags.count)
         for item in allTags{
             if self.filterModel!.tagAcceptByFilter(tag: item){
+                print("tag inserted by filter")
                 self.tags.append(item)
             }
         }
