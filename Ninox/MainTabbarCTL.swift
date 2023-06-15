@@ -9,14 +9,19 @@ import UIKit
 
 class MainTabbarCTL: UITabBarController {
 
+    var check = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.selectedIndex = 2
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        if check{
+            self.selectedIndex = 2
+            check = false
+        }
     }
 
     /*

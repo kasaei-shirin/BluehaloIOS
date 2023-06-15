@@ -43,32 +43,15 @@ class SearchFilterCTL: MyViewController , DataSelection{
         backView.addGestureRecognizer(backTap)
         
         
-        self.historyTableView.delegate = self
-        self.historyTableView.dataSource = self
-        
-        
-        self.areaParentView.isUserInteractionEnabled = true
-        self.projectParentView.isUserInteractionEnabled = true
-        
-        let areaTap = UITapGestureRecognizer(target: self, action: #selector(areaTap(_:)))
-        areaParentView.addGestureRecognizer(areaTap)
-        
-        let projectTap = UITapGestureRecognizer(target: self, action: #selector(projectTap(_:)))
-        projectParentView.addGestureRecognizer(projectTap)
-        
-        
-        refreshBtn.isUserInteractionEnabled = true
-        let refreshTap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
-        refreshBtn.addGestureRecognizer(refreshTap)
-        
-        self.historyTableView.rowHeight = 60
-        self.historyTableView.separatorStyle = .singleLine
-        self.historyTableView.separatorInset = .init(top: 5, left: 0, bottom: 5, right: 0)
+//        self.historyTableView.separatorStyle = .singleLine
+//        self.historyTableView.separatorInset = .init(top: 5, left: 0, bottom: 5, right: 0)
         
 //        self.historyTableView.contentSize = CGSize(width: .bitWidth, height: 50)
 //        self.historyTableView.seprato
         
     }
+    
+    
     
     @objc func refreshTap(_ sender: UITapGestureRecognizer){
         lblAreas.text = "All"
@@ -89,6 +72,27 @@ class SearchFilterCTL: MyViewController , DataSelection{
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.historyTableView.delegate = self
+        self.historyTableView.dataSource = self
+        
+        
+        self.areaParentView.isUserInteractionEnabled = true
+        self.projectParentView.isUserInteractionEnabled = true
+        
+        let areaTap = UITapGestureRecognizer(target: self, action: #selector(areaTap(_:)))
+        areaParentView.addGestureRecognizer(areaTap)
+        
+        let projectTap = UITapGestureRecognizer(target: self, action: #selector(projectTap(_:)))
+        projectParentView.addGestureRecognizer(projectTap)
+        
+        
+        refreshBtn.isUserInteractionEnabled = true
+        let refreshTap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
+        refreshBtn.addGestureRecognizer(refreshTap)
+        
+        self.historyTableView.rowHeight = 60
+        
+        
         self.searchHistories = DBManager().getLastSearchHistories()
         getProjectAndAreaFromWeb()
         
@@ -263,12 +267,27 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
         let HM = self.searchHistories[indexPath.row]
         if HM.isDeleted{
+            print("check is delete")
             return
         }
         let SH = self.searchHistories[indexPath.row]
         let seprates = SH.title.split(separator: "/")
         self.lblProjects.text = String(seprates[0]).trimmingCharacters(in: .whitespacesAndNewlines)
         self.lblAreas.text = String(seprates[1]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+            -> UISwipeActionsConfiguration? {
+                let deleteAction = UIContextualAction(style: .normal, title: nil) { (_, _, completionHandler) in
+                    // delete the item here
+                    completionHandler(true)
+                }
+                deleteAction.image = UIImage(systemName: "trash")
+                deleteAction.backgroundColor = UIColor(named: "main_background")
+            
+                let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+                
+                return configuration
     }
     
 }

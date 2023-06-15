@@ -34,6 +34,7 @@
 		30507B652A0F9414005A7F29 /* CustomInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B642A0F9413005A7F29 /* CustomInfoCell.swift */; };
 		30507B672A0F9435005A7F29 /* ServiceDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30507B662A0F9435005A7F29 /* ServiceDateCell.swift */; };
 		305995242A32521700BD1705 /* UserCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305995232A32521700BD1705 /* UserCTL.swift */; };
+		305AE61B2A3AB7C900982C39 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AE61A2A3AB7C900982C39 /* Reachability.swift */; };
 		30675BE52A07D36000515238 /* SigninCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE42A07D36000515238 /* SigninCTL.swift */; };
 		30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */; };
 		30675BE92A07D9E200515238 /* SingupCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30675BE82A07D9E200515238 /* SingupCTL.swift */; };
@@ -110,6 +111,7 @@
 		30507B642A0F9413005A7F29 /* CustomInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoCell.swift; sourceTree = "<group>"; };
 		30507B662A0F9435005A7F29 /* ServiceDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDateCell.swift; sourceTree = "<group>"; };
 		305995232A32521700BD1705 /* UserCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCTL.swift; sourceTree = "<group>"; };
+		305AE61A2A3AB7C900982C39 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		30675BE42A07D36000515238 /* SigninCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninCTL.swift; sourceTree = "<group>"; };
 		30675BE62A07D9B700515238 /* SelectUserTypeCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTypeCTL.swift; sourceTree = "<group>"; };
 		30675BE82A07D9E200515238 /* SingupCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupCTL.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				308DC7402A0E7ABA00535557 /* TestEveryThing.swift */,
 				30139C302A2788A6007E3C98 /* ReplaceStoryboard.storyboard */,
 				30139C392A2E828E007E3C98 /* MainTabbarCTL.swift */,
+				305AE61A2A3AB7C900982C39 /* Reachability.swift */,
 			);
 			path = Ninox;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				308DC7412A0E7ABA00535557 /* TestEveryThing.swift in Sources */,
 				30EE3FC92A1FB7C000D78C58 /* AddProjectItem.swift in Sources */,
 				3082371B2A0CDBA80054A64A /* GifLoading.swift in Sources */,
+				305AE61B2A3AB7C900982C39 /* Reachability.swift in Sources */,
 				30675BE72A07D9B700515238 /* SelectUserTypeCTL.swift in Sources */,
 				30AE5E832A24A3F500BA659E /* DeleteTagCTL.swift in Sources */,
 				30AE5E7F2A2350A800BA659E /* EditAreaProjectCTL.swift in Sources */,

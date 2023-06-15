@@ -120,6 +120,7 @@ extension BatteryAlertCTL: UITableViewDelegate, UITableViewDataSource{
                         message = j["message"] as? String ?? ""
                         if let success = j["success"] as? String{
                             if(success == "true"){
+                                self.choosedBatteryRange = range
                                 self.tableView.reloadData()
                             }
                         }

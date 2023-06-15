@@ -24,9 +24,26 @@ class TestBluetoothCTL: UIViewController, CBCentralManagerDelegate {
     
     @IBOutlet weak var btnScan: UIButton!
     
+    var firstBluetooth = true
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
+        if firstBluetooth{
+            firstBluetooth = false
+            return
+        }
+        if central.state == .poweredOff{
+            
+                let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
+                action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+                    let url = URL(string: "App-Prefs:root=General")
+                    let app = UIApplication.shared
+                    app.open(url!, options: [:], completionHandler: nil)
+                }))
+                action.addAction(UIAlertAction(title: "No", style: .destructive))
+                self.present(action, animated: true)
+            
+        }
     }
     
 

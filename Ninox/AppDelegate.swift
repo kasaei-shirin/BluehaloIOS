@@ -51,4 +51,40 @@ class MyViewController: UIViewController{
     override var preferredStatusBarStyle: UIStatusBarStyle {
           return .lightContent
     }
+    
+    override func viewDidLoad() {
+        
+    }
+    
+    
+    func getUserInfo(){
+        HttpClientApi.instance().makeAPICall(url: URLS.USERINFO, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+            
+            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+            
+            var message = ""
+            
+            DispatchQueue.main.async {
+                if let j = json as? [String:Any]{
+                    message = j["message"] as? String ?? ""
+                    if let success = j["success"] as? String{
+                        if(success == "true"){
+                            return
+                        }
+                    }
+                }
+                DBManager().deleteUser()
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let dest = mainStoryboard.instantiateInitialViewController()
+                self.present(dest!, animated: true)
+            }
+            
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+
+    }
 }
