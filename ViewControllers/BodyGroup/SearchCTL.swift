@@ -12,6 +12,8 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     
     var firstBluetooth = true
     
+    private var lastContentOffset: CGFloat = 0
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central)
         print("bluetooth state update")
@@ -1002,23 +1004,72 @@ extension SearchCTL: SearchFilterProtocol{
 
 extension SearchCTL: UIScrollViewDelegate{
     
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if(self.tags.count > 1){
-            let indexPathes = self.tableView.indexPathsForVisibleRows
-            if let ips = indexPathes{
-                print("\(ips[0].row) row of first visible item")
-                if ips[0].row != 0 && self.scanBtnState == .open{
-                    print("the must be here.")
-                    self.scanBtnState = .closing
-                    self.closeBtnScanAnimationally()
-                }
-                if ips[0].row == 0 && self.scanBtnState == .close{
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if(self.tags.count > 0){
+            if (self.lastContentOffset > scrollView.contentOffset.y) {
+                // move up
+                print("move up")
+                if self.scanBtnState == .close{
                     self.scanBtnState = .opening
                     self.openBtnScanAnimationally()
                 }
             }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+                // move down
+                print("move down")
+                if self.scanBtnState == .open{
+                    print("the must be here.")
+                    self.scanBtnState = .closing
+                    self.closeBtnScanAnimationally()
+                }
+            }
+            self.lastContentOffset = scrollView.contentOffset.y
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+//        if(self.tags.count > 0){
+//            if (self.lastContentOffset > scrollView.contentOffset.y) {
+//                // move up
+//                print("move up")
+//                if self.scanBtnState == .close{
+//                    self.scanBtnState = .opening
+//                    self.openBtnScanAnimationally()
+//                }
+//            }
+//            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+//                // move down
+//                print("move down")
+//                if self.scanBtnState == .open{
+//                    print("the must be here.")
+//                    self.scanBtnState = .closing
+//                    self.closeBtnScanAnimationally()
+//                }
+//            }
+//            self.lastContentOffset = scrollView.contentOffset.y
+//        }
+
+         // update the new position acquired
+         
+
+        
+        
+//        if(self.tags.count > 1){
+//            let indexPathes = self.tableView.indexPathsForVisibleRows
+//            if let ips = indexPathes{
+//                print("\(ips[0].row) row of first visible item")
+//                if ips[0].row != 0 && self.scanBtnState == .open{
+//                    print("the must be here.")
+//                    self.scanBtnState = .closing
+//                    self.closeBtnScanAnimationally()
+//                }
+//                if ips[0].row == 0 && self.scanBtnState == .close{
+//                    self.scanBtnState = .opening
+//                    self.openBtnScanAnimationally()
+//                }
+//            }
+//        }
     }
     
     

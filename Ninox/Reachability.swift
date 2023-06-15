@@ -17,7 +17,7 @@ public class Reachability {
 //        zeroAddress.sin_family = sa_family_t(AF_INET)
 //
 //        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-//            SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer($0))
+//            SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer($0))w
 //        }
 //
 //        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
