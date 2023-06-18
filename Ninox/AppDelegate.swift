@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 
 func going2SplashFrom(controller: UIViewController, withClearingDB: Bool){
@@ -53,9 +54,38 @@ class MyViewController: UIViewController{
     }
     
     override func viewDidLoad() {
-        
+//        self.title = self.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        userReachability()
+        getUserInfo()
+        
+        print("VC : \(self)")
+    }
+    
+    
+    func userReachability(){
+        do {
+            print("try")
+            try Network.reachability = Reachability(hostname: "https://saaiota.ca/")
+//            monitorNetwork()
+        }
+        catch {
+            switch error as? Network.Error {
+            case let .failedToCreateWith(hostname)?:
+                print("Network error:\nFailed to create reachability object With host named:", hostname)
+            case let .failedToInitializeWith(address)?:
+                print("Network error:\nFailed to initialize reachability object With address:", address)
+            case .failedToSetCallout?:
+                print("Network error:\nFailed to set callout")
+            case .failedToSetDispatchQueue?:
+                print("Network error:\nFailed to set DispatchQueue")
+            case .none:
+                print(error)
+            }
+        }
+    }
     
     func getUserInfo(){
         HttpClientApi.instance().makeAPICall(url: URLS.USERINFO, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
@@ -87,4 +117,58 @@ class MyViewController: UIViewController{
         }
 
     }
+    
+    var theAlert: UIAlertController?
+    var monitor: NWPathMonitor?
+    
+    func monitorNetwork(){
+        self.monitor = NWPathMonitor()
+        self.monitor?.pathUpdateHandler = {
+            path in
+            
+            switch path.status{
+            case .satisfied:
+                print("network satisfied!")
+            case .requiresConnection:
+                print("network requiresConnection!")
+            case .unsatisfied:
+                print("network unsatisfied!")
+            }
+            
+            if path.status != .satisfied{
+                DispatchQueue.main.async {
+                    if self.theAlert == nil{
+                        
+                        
+                        self.theAlert = ViewPatternMethods.showAlert(controller: self, title: "Network", message: "Check your network connection!!!", handler: UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+                            let url = URL(string: "App-Prefs:root=General")
+                            let app = UIApplication.shared
+                            app.open(url!, options: [:], completionHandler: nil)
+                        }))
+                        self.theAlert?.dismiss(animated: true, completion: {
+                            self.present(self.theAlert!, animated: true)
+                        })
+                    }
+                }
+            }
+            else{
+                if let alert = self.theAlert{
+                    DispatchQueue.main.async {
+                        alert.dismiss(animated: true)
+                        self.theAlert = nil
+                    }
+                }
+                print("network satisfied")
+            }
+        }
+        let queue = DispatchQueue(label: "Network")
+        self.monitor?.start(queue: queue)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("disappear \(self)")
+        
+        monitor?.cancel()
+    }
+
 }

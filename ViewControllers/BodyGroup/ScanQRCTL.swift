@@ -12,25 +12,35 @@ import CoreBluetooth
 class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCentralManagerDelegate {
     
     var firstBluetooth = true
+    @IBOutlet weak var imgViewBluetooth: UIImageView!
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central)
-        if firstBluetooth{
-            firstBluetooth = false
-            return
-        }
+//        if firstBluetooth{
+//            firstBluetooth = false
+//            return
+//        }
+        
         if central.state == .poweredOff{
-            
-                let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
-                action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-                    let url = URL(string: "App-Prefs:root=General")
-                    let app = UIApplication.shared
-                    app.open(url!, options: [:], completionHandler: nil)
-                }))
-                action.addAction(UIAlertAction(title: "No", style: .destructive))
-                self.present(action, animated: true)
-            
+            imgViewBluetooth.isUserInteractionEnabled = true
+            imgViewBluetooth.tintColor = UIColor.white
+        }else{
+            imgViewBluetooth.isUserInteractionEnabled = false
+            imgViewBluetooth.tintColor = UIColor.gray
         }
+        
+//        if central.state == .poweredOff{
+//            
+//                let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
+//                action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+//                    let url = URL(string: "App-Prefs:root=General")
+//                    let app = UIApplication.shared
+//                    app.open(url!, options: [:], completionHandler: nil)
+//                }))
+//                action.addAction(UIAlertAction(title: "No", style: .destructive))
+//                self.present(action, animated: true)
+//            
+//        }
     }
     
     
@@ -271,6 +281,24 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         }else{
             skipBtn.isHidden = true
         }
+        let bluetoothTap = UITapGestureRecognizer(target: self, action: #selector(bluetoothTap(_:)))
+        imgViewBluetooth.addGestureRecognizer(bluetoothTap)
+    }
+    
+    @objc func bluetoothTap(_ sender: UITapGestureRecognizer){
+        
+        let url = URL(string: "App-Prefs:root=General")
+        let app = UIApplication.shared
+        app.open(url!, options: [:], completionHandler: nil)
+        
+//        let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
+//        action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+//            let url = URL(string: "App-Prefs:root=General")
+//            let app = UIApplication.shared
+//            app.open(url!, options: [:], completionHandler: nil)
+//        }))
+//        action.addAction(UIAlertAction(title: "No", style: .destructive))
+//        self.present(action, animated: true)
     }
     
     

@@ -56,7 +56,7 @@ class BatteryAlertCTL: MyViewController {
                             }
                         }
                     }
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
             

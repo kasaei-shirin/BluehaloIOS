@@ -1395,22 +1395,23 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Ec4-EU-aoe">
                                                         <rect key="frame" x="0.0" y="0.0" width="201" height="60"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_less_all_icon" translatesAutoresizingMaskIntoConstraints="NO" id="46i-eW-RvN">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_bluetooth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Jin-k3-5ck">
                                                                 <rect key="frame" x="0.0" y="0.0" width="26" height="60"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="26" id="3WQ-2u-CV4"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_less_all_icon" translatesAutoresizingMaskIntoConstraints="NO" id="46i-eW-RvN">
+                                                                <rect key="frame" x="35" y="0.0" width="26" height="60"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="26" id="3YZ-Ds-fes"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_show_all_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Olc-di-haZ">
-                                                                <rect key="frame" x="35" y="0.0" width="26" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="26" id="nZa-Es-MeE"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_setting_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Jin-k3-5ck">
                                                                 <rect key="frame" x="70" y="0.0" width="26" height="60"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="26" id="3WQ-2u-CV4"/>
+                                                                    <constraint firstAttribute="width" constant="26" id="nZa-Es-MeE"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_refresh_icon" translatesAutoresizingMaskIntoConstraints="NO" id="drc-4o-1KA">
@@ -1612,11 +1613,11 @@
                     <navigationItem key="navigationItem" id="aUA-Tn-mKG"/>
                     <connections>
                         <outlet property="backView" destination="JPm-fN-TaK" id="sdf-oA-xtD"/>
+                        <outlet property="imgViewBluetooth" destination="Jin-k3-5ck" id="Unq-QB-a7u"/>
                         <outlet property="imgViewInfo" destination="5nt-1j-VKm" id="HEk-gd-rOr"/>
                         <outlet property="imgViewRefresh" destination="drc-4o-1KA" id="PWY-Lg-oaS"/>
                         <outlet property="imgViewScanBtn" destination="clu-RN-ExS" id="9Bx-fP-t5F"/>
                         <outlet property="imgViewSearchFilter" destination="Vhz-PE-xcD" id="wqq-pu-GCh"/>
-                        <outlet property="imgViewSetting" destination="Jin-k3-5ck" id="Vz4-sB-Oua"/>
                         <outlet property="imgViewShowLess" destination="46i-eW-RvN" id="pGK-tb-PAB"/>
                         <outlet property="imgViewShowMore" destination="Olc-di-haZ" id="hdY-Rv-uSX"/>
                         <outlet property="lblFoundCount" destination="rKe-mU-urU" id="4tl-Qy-Bta"/>
@@ -1648,9 +1649,16 @@
                                         <color key="backgroundColor" name="main_background"/>
                                         <color key="tintColor" name="pattern_tint"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKj-Uw-mSj">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKj-Uw-mSj" customClass="HeaderView" customModule="Ninox" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>
                                         <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_bluetooth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="e9G-P8-7re">
+                                                <rect key="frame" x="355" y="5" width="26" height="50"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="26" id="cZY-pM-hiV"/>
+                                                </constraints>
+                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHV-YR-CTE">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
                                                 <subviews>
@@ -1680,12 +1688,15 @@
                                         <color key="backgroundColor" name="header"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Ooi-yl-XMr" secondAttribute="trailing" constant="20" id="7th-xT-Ou6"/>
+                                            <constraint firstItem="e9G-P8-7re" firstAttribute="top" secondItem="jKj-Uw-mSj" secondAttribute="top" constant="5" id="A4d-jA-8tM"/>
                                             <constraint firstItem="Ooi-yl-XMr" firstAttribute="leading" secondItem="FHV-YR-CTE" secondAttribute="trailing" constant="10" id="SPA-d1-IFs"/>
                                             <constraint firstItem="FHV-YR-CTE" firstAttribute="leading" secondItem="jKj-Uw-mSj" secondAttribute="leading" id="T84-Ph-ED1"/>
+                                            <constraint firstAttribute="bottom" secondItem="e9G-P8-7re" secondAttribute="bottom" constant="5" id="daQ-jW-eVP"/>
                                             <constraint firstAttribute="bottom" secondItem="FHV-YR-CTE" secondAttribute="bottom" id="fJL-LF-BW3"/>
                                             <constraint firstAttribute="height" constant="60" id="qod-UK-bPd"/>
                                             <constraint firstItem="Ooi-yl-XMr" firstAttribute="centerY" secondItem="jKj-Uw-mSj" secondAttribute="centerY" id="v43-94-Rdl"/>
                                             <constraint firstItem="FHV-YR-CTE" firstAttribute="top" secondItem="jKj-Uw-mSj" secondAttribute="top" id="w0Y-vf-gQj"/>
+                                            <constraint firstAttribute="trailing" secondItem="e9G-P8-7re" secondAttribute="trailing" constant="12" id="xkP-x1-N3J"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKk-u8-R33">
@@ -1778,6 +1789,7 @@
                     <connections>
                         <outlet property="backParentView" destination="FHV-YR-CTE" id="Pvn-5x-geo"/>
                         <outlet property="btnScan" destination="hwG-lY-m4j" id="bMH-LQ-xzL"/>
+                        <outlet property="imgViewBluetooth" destination="e9G-P8-7re" id="ly8-Cx-xk8"/>
                         <outlet property="imgViewQR" destination="weC-af-gi5" id="7K6-p5-d0g"/>
                         <outlet property="scannerParentView" destination="EKk-u8-R33" id="PDi-Aw-BPU"/>
                         <outlet property="skipBtn" destination="JKt-z5-wVU" id="5CB-J8-ba8"/>
@@ -3550,10 +3562,10 @@
         <image name="qr_code_scan" width="500" height="500"/>
         <image name="radar" width="512" height="512"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
+        <image name="search_bluetooth_icon" width="50" height="50"/>
         <image name="search_filter_icon" width="125" height="125"/>
         <image name="search_less_all_icon" width="125" height="125"/>
         <image name="search_refresh_icon" width="125" height="125"/>
-        <image name="search_setting_icon" width="125" height="125"/>
         <image name="search_show_all_icon" width="125" height="125"/>
         <image name="splash_icon" width="339" height="482"/>
         <image name="tag.fill" catalog="system" width="128" height="118"/>

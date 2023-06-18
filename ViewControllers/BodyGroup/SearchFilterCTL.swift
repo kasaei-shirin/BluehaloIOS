@@ -234,15 +234,15 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("\(indexPath.row) row edition")
-        if (editingStyle == .delete){
-            DBManager().deleteSearchHistoryBy(title: searchHistories[indexPath.row].title)
-            searchHistories.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-            
-        }
+//        print("\(indexPath.row) row edition")
+//        if (editingStyle == .delete){
+//            DBManager().deleteSearchHistoryBy(title: searchHistories[indexPath.row].title)
+//            searchHistories.remove(at: indexPath.row)
+//            tableView.beginUpdates()
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//            tableView.endUpdates()
+//
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -264,7 +264,7 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO set selection into labels
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryCell", for: indexPath) as! SearchHistoryCell
         let HM = self.searchHistories[indexPath.row]
         if HM.isDeleted{
             print("check is delete")
@@ -279,15 +279,21 @@ extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
             -> UISwipeActionsConfiguration? {
                 let deleteAction = UIContextualAction(style: .normal, title: nil) { (_, _, completionHandler) in
-                    // delete the item here
+                    DBManager().deleteSearchHistoryBy(title: self.searchHistories[indexPath.row].title)
+                    self.searchHistories.remove(at: indexPath.row)
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.endUpdates()
                     completionHandler(true)
                 }
                 deleteAction.image = UIImage(systemName: "trash")
                 deleteAction.backgroundColor = UIColor(named: "main_background")
-            
+                
                 let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
                 
                 return configuration
     }
     
 }
+
+

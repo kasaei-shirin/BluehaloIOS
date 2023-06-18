@@ -17,22 +17,38 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central)
         print("bluetooth state update")
-        
-        if firstBluetooth{
-            firstBluetooth = false
-            return
+        switch central.state{
+        case .poweredOff:
+            print("poweredOff")
+        case .poweredOn:
+            print("poweredOn")
+        case .resetting:
+            print("resetting")
+        case .unauthorized:
+            print("unauthorized")
+        case .unknown:
+            print("unknown")
+        case .unsupported:
+            print("unsupported")
+        default:
+            print("default")
         }
+//        CBCentralManagerState(rawValue: <#T##Int#>)
+        print("the state => \(central.state)")
+        
+//        if firstBluetooth{
+//            firstBluetooth = false
+//            return
+//        }
+        
+        
+        
         if central.state == .poweredOff{
-            
-                let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
-                action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-                    let url = URL(string: "App-Prefs:root=General")
-                    let app = UIApplication.shared
-                    app.open(url!, options: [:], completionHandler: nil)
-                }))
-                action.addAction(UIAlertAction(title: "No", style: .destructive))
-                self.present(action, animated: true)
-            
+            imgViewBluetooth.isUserInteractionEnabled = true
+            imgViewBluetooth.tintColor = UIColor.white
+        }else{
+            imgViewBluetooth.isUserInteractionEnabled = false
+            imgViewBluetooth.tintColor = UIColor.gray
         }
 //        else{
 //
@@ -58,7 +74,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     
     @IBOutlet weak var imgViewShowMore: UIImageView!
     @IBOutlet weak var imgViewShowLess: UIImageView!
-    @IBOutlet weak var imgViewSetting: UIImageView!
+    @IBOutlet weak var imgViewBluetooth: UIImageView!
     @IBOutlet weak var imgViewRefresh: UIImageView!
     @IBOutlet weak var imgViewInfo: UIImageView!
     @IBOutlet weak var imgViewSearchFilter: UIImageView!
@@ -196,7 +212,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         imgViewShowMore.isUserInteractionEnabled = true
         imgViewInfo.isUserInteractionEnabled = true
         imgViewRefresh.isUserInteractionEnabled = true
-        imgViewSetting.isUserInteractionEnabled = true
+        imgViewBluetooth.isUserInteractionEnabled = true
         imgViewSearchFilter.isUserInteractionEnabled = true
         
         var tap = UITapGestureRecognizer(target: self, action: #selector(collapseTap(_:)))
@@ -206,8 +222,8 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         tap = UITapGestureRecognizer(target: self, action: #selector(expandAllTap(_:)))
         imgViewShowMore.addGestureRecognizer(tap);
         
-        tap = UITapGestureRecognizer(target: self, action: #selector(settingsTap(_:)))
-        imgViewSetting.addGestureRecognizer(tap)
+        tap = UITapGestureRecognizer(target: self, action: #selector(bluetoothTap(_:)))
+        imgViewBluetooth.addGestureRecognizer(tap)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
         imgViewRefresh.addGestureRecognizer(tap)
@@ -252,8 +268,20 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         }
         self.tableView.reloadData()
     }
-    @objc func settingsTap(_ tap: UITapGestureRecognizer){
+    @objc func bluetoothTap(_ tap: UITapGestureRecognizer){
         
+        let url = URL(string: "App-Prefs:root=General")
+        let app = UIApplication.shared
+        app.open(url!, options: [:], completionHandler: nil)
+        
+//        let action = UIAlertController(title: "Info", message: "Turn on bluetooth", preferredStyle: .alert)
+//        action.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+//            let url = URL(string: "App-Prefs:root=General")
+//            let app = UIApplication.shared
+//            app.open(url!, options: [:], completionHandler: nil)
+//        }))
+//        action.addAction(UIAlertAction(title: "No", style: .destructive))
+//        self.present(action, animated: true)
     }
     
     

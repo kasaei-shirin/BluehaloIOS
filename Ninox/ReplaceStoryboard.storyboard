@@ -28,6 +28,13 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rvq-p9-m9r" customClass="HeaderView" customModule="Ninox" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="70"/>
                                         <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_bluetooth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="O4J-g2-n7H">
+                                                <rect key="frame" x="347" y="5" width="26" height="60"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="26" id="waY-CQ-wVD"/>
+                                                </constraints>
+                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2X-y5-VET">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
                                                 <subviews>
@@ -58,6 +65,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="A5z-Um-19d"/>
                                             <constraint firstItem="2gK-bf-Rr4" firstAttribute="leading" secondItem="k2X-y5-VET" secondAttribute="trailing" constant="10" id="ANs-YU-ldg"/>
+                                            <constraint firstItem="O4J-g2-n7H" firstAttribute="top" secondItem="Rvq-p9-m9r" secondAttribute="top" constant="5" id="Aac-IF-Da7"/>
+                                            <constraint firstAttribute="trailing" secondItem="O4J-g2-n7H" secondAttribute="trailing" constant="20" id="Be6-5B-UIc"/>
+                                            <constraint firstAttribute="bottom" secondItem="O4J-g2-n7H" secondAttribute="bottom" constant="5" id="KsQ-GM-DvW"/>
                                             <constraint firstItem="k2X-y5-VET" firstAttribute="leading" secondItem="Rvq-p9-m9r" secondAttribute="leading" id="Ze2-Ui-ukP"/>
                                             <constraint firstItem="2gK-bf-Rr4" firstAttribute="centerY" secondItem="Rvq-p9-m9r" secondAttribute="centerY" id="byh-OZ-ql7"/>
                                             <constraint firstAttribute="bottom" secondItem="k2X-y5-VET" secondAttribute="bottom" id="kdi-jR-6Mp"/>
@@ -238,6 +248,7 @@
                     </view>
                     <connections>
                         <outlet property="btnContinue" destination="A1D-fd-slH" id="KsI-M9-oNE"/>
+                        <outlet property="imgViewBluetooth" destination="O4J-g2-n7H" id="Ezv-Ss-jmh"/>
                         <outlet property="lblQRCode" destination="VVs-mZ-PdI" id="Tox-cn-U5O"/>
                         <outlet property="viewBackParent" destination="k2X-y5-VET" id="oWx-5J-DCO"/>
                         <outlet property="viewParentCamera" destination="zVG-Q5-WQF" id="bNX-A9-hhq"/>
@@ -681,6 +692,7 @@
     <resources>
         <image name="camera" catalog="system" width="128" height="93"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="search_bluetooth_icon" width="50" height="50"/>
         <image name="thepattern" width="800" height="1422"/>
         <namedColor name="header">
             <color red="0.14100000262260437" green="0.14100000262260437" blue="0.14100000262260437" alpha="0.94300001859664917" colorSpace="custom" customColorSpace="sRGB"/>
