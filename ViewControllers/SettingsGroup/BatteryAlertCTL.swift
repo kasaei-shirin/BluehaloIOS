@@ -24,8 +24,6 @@ class BatteryAlertCTL: MyViewController {
         let backtap = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
         backParentVie.addGestureRecognizer(backtap)
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
         
         getCurrentRange()
         // Do any additional setup after loading the view.
@@ -51,6 +49,8 @@ class BatteryAlertCTL: MyViewController {
                         if let success = j["success"] as? String{
                             if(success == "true"){
                                 self.choosedBatteryRange = j["battreyAlertRange"] as? Int ?? 30
+                                self.tableView.delegate = self
+                                self.tableView.dataSource = self
                                 self.tableView.reloadData()
                                 return
                             }
