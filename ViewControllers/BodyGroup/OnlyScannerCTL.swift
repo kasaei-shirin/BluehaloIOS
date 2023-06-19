@@ -29,17 +29,21 @@ class OnlyScannerCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewParentBack.isUserInteractionEnabled = true
-        let backTap = UIGestureRecognizer(target: self, action: #selector(backTap(_:)))
-        viewParentBack.addGestureRecognizer(backTap)
     }
     
     @objc func backTap(_ sender:UITapGestureRecognizer){
+        print("check back")
         self.dismiss(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("whats")
+        viewParentBack.isUserInteractionEnabled = true
+        let backT = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
+        viewParentBack.addGestureRecognizer(backT)
+        print("happend")
         buildQRScanner()
+        print("after shits")
     }
     
     func buildQRScanner(){
@@ -77,7 +81,7 @@ class OnlyScannerCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate{
         previewLayer.frame = viewParentScanner.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         viewParentScanner.layer.addSublayer(previewLayer)
-        
+        captureSession.startRunning()
 //
 //        scannerParentView.bringSubviewToFront(imgViewQR)
     }
@@ -123,6 +127,11 @@ class OnlyScannerCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate{
             }
         }
         return nil
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        captureSession.stopRunning()
     }
     
     func found(code: String) {

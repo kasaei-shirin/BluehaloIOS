@@ -58,34 +58,34 @@ class MyViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        userReachability()
+//        userReachability()
         getUserInfo()
         
         print("VC : \(self)")
     }
     
     
-    func userReachability(){
-        do {
-            print("try")
-            try Network.reachability = Reachability(hostname: "https://saaiota.ca/")
-//            monitorNetwork()
-        }
-        catch {
-            switch error as? Network.Error {
-            case let .failedToCreateWith(hostname)?:
-                print("Network error:\nFailed to create reachability object With host named:", hostname)
-            case let .failedToInitializeWith(address)?:
-                print("Network error:\nFailed to initialize reachability object With address:", address)
-            case .failedToSetCallout?:
-                print("Network error:\nFailed to set callout")
-            case .failedToSetDispatchQueue?:
-                print("Network error:\nFailed to set DispatchQueue")
-            case .none:
-                print(error)
-            }
-        }
-    }
+//    func userReachability(){
+//        do {
+//            print("try")
+//            try Network.reachability = Reachability(hostname: "https://saaiota.ca/")
+////            monitorNetwork()
+//        }
+//        catch {
+//            switch error as? Network.Error {
+//            case let .failedToCreateWith(hostname)?:
+//                print("Network error:\nFailed to create reachability object With host named:", hostname)
+//            case let .failedToInitializeWith(address)?:
+//                print("Network error:\nFailed to initialize reachability object With address:", address)
+//            case .failedToSetCallout?:
+//                print("Network error:\nFailed to set callout")
+//            case .failedToSetDispatchQueue?:
+//                print("Network error:\nFailed to set DispatchQueue")
+//            case .none:
+//                print(error)
+//            }
+//        }
+//    }
     
     func getUserInfo(){
         HttpClientApi.instance().makeAPICall(url: URLS.USERINFO, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in

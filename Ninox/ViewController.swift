@@ -8,7 +8,7 @@
 import UIKit
 
 
-class ViewController: MyViewController {
+class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,10 @@ class ViewController: MyViewController {
         
         
         //ready to commit
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+          return .lightContent
     }
 
 

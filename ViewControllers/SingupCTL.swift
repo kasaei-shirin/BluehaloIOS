@@ -7,8 +7,11 @@
 
 import UIKit
 
-class SingupCTL: MyViewController {
+class SingupCTL: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+          return .lightContent
+    }
     
     @IBOutlet weak var txtFldEmail: UITextField!
     @IBOutlet weak var txtFldPassword: UITextField!

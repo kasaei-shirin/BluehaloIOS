@@ -78,6 +78,19 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
         let bluetoothTap = UITapGestureRecognizer(target: self, action: #selector(bluetoothTap(_:)))
         imgViewBluetooth.addGestureRecognizer(bluetoothTap)
         
+        
+        viewParentCamera.isUserInteractionEnabled = true
+        let cameraTap = UITapGestureRecognizer(target: self, action: #selector(cameraTap(_:)))
+        viewParentCamera.addGestureRecognizer(cameraTap)
+        
+    }
+    
+    @objc func cameraTap(_ sender: UITapGestureRecognizer){
+//        let replaceSB = UIStoryboard(name: "ReplaceStoryboard", bundle: nil)
+//        let dest = replaceSB.instantiateViewController(withIdentifier: "onlyScannerCTL") as! OnlyScannerCTL
+//        dest.findTag = self
+//        present(dest, animated: true)
+        OnlyScannerCTL.presentOnlyScanner(viewController: self, findTagProtocol: self)
     }
     
     @objc func bluetoothTap(_ sender: UITapGestureRecognizer){

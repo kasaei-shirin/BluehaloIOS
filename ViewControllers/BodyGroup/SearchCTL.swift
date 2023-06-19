@@ -754,6 +754,8 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         cell.lblMoreCustomInfo.isUserInteractionEnabled = true
         cell.lblMoreServiceDate.isUserInteractionEnabled = true
         
+        cell.lblMacAddress.text = tag.publicAddress
+        
         let customInfoMoreTap = UITapGestureRecognizer(target: self, action: #selector(customInfoMoreTap(_:)))
         
         cell.lblMoreCustomInfo.addGestureRecognizer(customInfoMoreTap)
