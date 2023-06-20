@@ -22,11 +22,11 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
 //        }
         
         if central.state == .poweredOff{
-            imgViewBluetooth.isUserInteractionEnabled = true
-            imgViewBluetooth.tintColor = UIColor.white
+            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth)
+            
+            
         }else{
-            imgViewBluetooth.isUserInteractionEnabled = false
-            imgViewBluetooth.tintColor = UIColor.gray
+            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth)
         }
         
 //        if central.state == .poweredOff{

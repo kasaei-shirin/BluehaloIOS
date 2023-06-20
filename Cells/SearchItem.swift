@@ -77,6 +77,7 @@ class SearchItem: UITableViewCell {
     @IBOutlet weak var customInfoMoreheight: NSLayoutConstraint!
     
     
+    @IBOutlet weak var imgViewEdtFlagNote: UIImageView!
     
     
     @IBOutlet weak var btnGreenFlag: UIButton!

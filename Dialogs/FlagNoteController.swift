@@ -16,6 +16,8 @@ class FlagNoteController: MyViewController {
     
     var publicAddress: String?
     
+    var flagTxt: String?
+    
     @IBOutlet weak var txtFldFlagNote: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class FlagNoteController: MyViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        txtFldFlagNote.text = flagTxt
         
         self.view.isUserInteractionEnabled = true
         let viewTap = UITapGestureRecognizer(target: self, action: #selector(ViewTap(_:)))

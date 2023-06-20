@@ -44,11 +44,11 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         
         
         if central.state == .poweredOff{
-            imgViewBluetooth.isUserInteractionEnabled = true
-            imgViewBluetooth.tintColor = UIColor.white
+            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth)
+            
+            
         }else{
-            imgViewBluetooth.isUserInteractionEnabled = false
-            imgViewBluetooth.tintColor = UIColor.gray
+            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth)
         }
 //        else{
 //
@@ -310,7 +310,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
             let PPP = PeripheralWithRssiAndData(periPheral: peripheral, rssi: RSSI.intValue, data: advertisementData)
             PPPs.append(PPP)
             
-            getFromWebThenInsertIntoList(PPP)
+            getFromWebThenInsertIntoList(PPP, TRY: 1)
 
         }else{
 
@@ -379,7 +379,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         }
     }
     
-    func getFromWebThenInsertIntoList(_ ppp: PeripheralWithRssiAndData){
+    func getFromWebThenInsertIntoList(_ ppp: PeripheralWithRssiAndData, TRY: Int){
         
         
         let data = ppp.data["kCBAdvDataManufacturerData"] as? Data ?? Data()
@@ -441,6 +441,9 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
             }
             
         } failure: { data, response, error in
+            if TRY <= 3{
+                self.getFromWebThenInsertIntoList(ppp, TRY: TRY+1)
+            }
             print(data)
             print(response)
             print(error)
@@ -766,12 +769,15 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         cell.lblMoreServiceDate.addGestureRecognizer(serviceDateMoreTap)
         serviceDateMoreTap.view!.tag = indexPath.row
         cell.lblFlagNote.isUserInteractionEnabled = true
+        cell.imgViewEdtFlagNote.isUserInteractionEnabled = true
         cell.lblFlagNote.text = tag.flagNote
         
         let flagNoteTap = UITapGestureRecognizer(target: self, action: #selector(flagNoteTap(_:)))
-        
+        let imgFlagNoteTap = UITapGestureRecognizer(target: self, action: #selector(flagNoteTap(_:)))
+        cell.imgViewEdtFlagNote.addGestureRecognizer(imgFlagNoteTap)
         cell.lblFlagNote.addGestureRecognizer(flagNoteTap)
         flagNoteTap.view!.tag = indexPath.row
+        imgFlagNoteTap.view!.tag = indexPath.row
         
         cell.btnEdit.addAction(UIAction(handler: { UIAction in
 
@@ -864,6 +870,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         flagNoteCTL.indexPath = IndexPath(row: sender.view!.tag, section: 0)
         flagNoteCTL.publicAddress = tags[sender.view!.tag].publicAddress
         flagNoteCTL.flagType = tags[sender.view!.tag].flagType
+        flagNoteCTL.flagTxt = tags[sender.view!.tag].flagNote
 
         self.present(flagNoteCTL, animated: true)
     }
@@ -1034,13 +1041,14 @@ extension SearchCTL: SearchFilterProtocol{
 
 extension SearchCTL: UIScrollViewDelegate{
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("scrollView Did end decelaration")
         if(self.tags.count > 0){
             if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 print("move up")
                 if self.scanBtnState == .close{
-                    self.scanBtnState = .opening
+//                    self.scanBtnState = .opening
                     self.openBtnScanAnimationally()
                 }
             }
@@ -1049,12 +1057,21 @@ extension SearchCTL: UIScrollViewDelegate{
                 print("move down")
                 if self.scanBtnState == .open{
                     print("the must be here.")
-                    self.scanBtnState = .closing
+//                    self.scanBtnState = .closing
                     self.closeBtnScanAnimationally()
                 }
             }
             self.lastContentOffset = scrollView.contentOffset.y
         }
+    }
+    
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -1104,6 +1121,7 @@ extension SearchCTL: UIScrollViewDelegate{
     
     
     func closeBtnScanAnimationally(){
+        self.scanBtnState = .close
         self.widthLblScanBtn.constant -= 66
         UIView.animate(withDuration: 0.25, animations: {
             self.viewParentScanBtn.layoutIfNeeded()
@@ -1113,6 +1131,7 @@ extension SearchCTL: UIScrollViewDelegate{
     }
     
     func openBtnScanAnimationally(){
+        self.scanBtnState = .open
         self.widthLblScanBtn.constant += 66
         UIView.animate(withDuration: 0.25, animations: {
             self.viewParentScanBtn.layoutIfNeeded()

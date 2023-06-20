@@ -38,6 +38,9 @@ class SearchFilterCTL: MyViewController , DataSelection{
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.historyTableView.delegate = self
+        self.historyTableView.dataSource = self
+        
         let backTap = UITapGestureRecognizer(target: self, action: #selector(backTap(_:)))
         backView.isUserInteractionEnabled = true
         backView.addGestureRecognizer(backTap)
@@ -72,8 +75,10 @@ class SearchFilterCTL: MyViewController , DataSelection{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.historyTableView.delegate = self
-        self.historyTableView.dataSource = self
+        
+        super.viewDidAppear(animated)
+        
+        print("view did appear")
         
         
         self.areaParentView.isUserInteractionEnabled = true
@@ -93,17 +98,19 @@ class SearchFilterCTL: MyViewController , DataSelection{
         self.historyTableView.rowHeight = 60
         
         
-        self.searchHistories = DBManager().getLastSearchHistories()
-        getProjectAndAreaFromWeb()
+        getProjectAndAreaFromWeb(TRY: 1)
         
     }
     
     
-    func getProjectAndAreaFromWeb(){
+    func getProjectAndAreaFromWeb(TRY: Int){
         
         let alter = ViewPatternMethods.waitingDialog(controller: self)
         
         let header = Dictionary<String, String>()
+        
+        allAreas.removeAll()
+        allProjects.removeAll()
         
         allAreas.append("All")
         allProjects.append("All")
@@ -111,6 +118,7 @@ class SearchFilterCTL: MyViewController , DataSelection{
         HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
+                self.searchHistories = DBManager().getLastSearchHistories()
                 alter.dismiss(animated: true) {
                     let json = try? JSONSerialization.jsonObject(with: data!, options: [])
                     
@@ -148,7 +156,11 @@ class SearchFilterCTL: MyViewController , DataSelection{
         } failure: { data, response, error in
             
             DispatchQueue.main.async {
-                alter.dismiss(animated: true)
+                alter.dismiss(animated: true) {
+                    if TRY < 4{
+                        self.getProjectAndAreaFromWeb(TRY: TRY+1)
+                    }
+                }
             }
             
             print(data)

@@ -122,17 +122,18 @@ extension BatteryAlertCTL: UITableViewDelegate, UITableViewDataSource{
                             if(success == "true"){
                                 self.choosedBatteryRange = range
                                 self.tableView.reloadData()
+                                return
                             }
                         }
                     }
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
         } failure: { data, response, error in
             
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Connection problem!", handler: UIAlertAction(title: "OK", style: .destructive))
+                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Connection problem!", handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
             

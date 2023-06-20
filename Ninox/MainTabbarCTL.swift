@@ -18,10 +18,16 @@ class MainTabbarCTL: UITabBarController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         if check{
             self.selectedIndex = 2
             check = false
+        }else{
+            if self.selectedIndex == 2{
+                self.selectedViewController?.viewDidAppear(false)
+            }
         }
+        
     }
 
     /*

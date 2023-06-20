@@ -606,8 +606,8 @@
                                                                             <constraint firstAttribute="width" secondItem="O5g-Au-pEp" secondAttribute="height" multiplier="1:1" id="Q11-xF-k2r"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mll-QO-IzY">
-                                                                        <rect key="frame" x="12" y="8" width="268" height="20"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mll-QO-IzY">
+                                                                        <rect key="frame" x="12" y="0.0" width="268" height="36"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -620,8 +620,8 @@
                                                                     <constraint firstItem="O5g-Au-pEp" firstAttribute="leading" secondItem="mll-QO-IzY" secondAttribute="trailing" constant="12" id="JZk-hG-Lek"/>
                                                                     <constraint firstAttribute="bottom" secondItem="O5g-Au-pEp" secondAttribute="bottom" constant="5" id="ZcV-ud-SdM"/>
                                                                     <constraint firstAttribute="trailing" secondItem="O5g-Au-pEp" secondAttribute="trailing" constant="10" id="nTQ-ht-xMe"/>
-                                                                    <constraint firstItem="mll-QO-IzY" firstAttribute="top" secondItem="JKy-hC-zPW" secondAttribute="top" constant="8" id="puJ-bu-B4G"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="mll-QO-IzY" secondAttribute="bottom" constant="8" id="zgp-u0-yff"/>
+                                                                    <constraint firstItem="mll-QO-IzY" firstAttribute="top" secondItem="JKy-hC-zPW" secondAttribute="top" id="puJ-bu-B4G"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="mll-QO-IzY" secondAttribute="bottom" id="zgp-u0-yff"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -972,6 +972,7 @@
                 <outlet property="customInfoTitleHeight" destination="AMh-TQ-CC9" id="yuM-DH-Cd8"/>
                 <outlet property="customInfoTopBorder" destination="OMa-iU-Xh7" id="vZv-n6-hYD"/>
                 <outlet property="customInfoTopBorderHeight" destination="bNy-e1-nbx" id="DHc-0h-l7C"/>
+                <outlet property="imgViewEdtFlagNote" destination="O5g-Au-pEp" id="PLU-8k-Tld"/>
                 <outlet property="imgViewExpand" destination="N5w-9M-SHf" id="YcR-KO-FEF"/>
                 <outlet property="imgViewFlagType" destination="fCe-3x-tGd" id="kPd-4a-aRN"/>
                 <outlet property="imgViewIconType" destination="5od-C7-bMB" id="ywk-EV-Le0"/>

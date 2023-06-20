@@ -9,6 +9,16 @@ import UIKit
 
 class ViewPatternMethods {
     
+    class func setBluetoothIconEnable(enable: Bool, imgViewBluetooth: UIImageView){
+        if enable{
+            imgViewBluetooth.isUserInteractionEnabled = true
+            imgViewBluetooth.tintColor = UIColor.gray
+        }else{
+            imgViewBluetooth.isUserInteractionEnabled = false
+            imgViewBluetooth.tintColor = UIColor.white
+        }
+    }
+    
     //get dasboard border to a view
     class func dashBorderView(theView : UIView){
         let yourViewBorder = CAShapeLayer()
