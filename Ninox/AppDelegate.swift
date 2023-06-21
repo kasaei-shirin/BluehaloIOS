@@ -59,7 +59,7 @@ class MyViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
 //        userReachability()
-        getUserInfo()
+        getUserInfo(TRY: 1)
         
         print("VC : \(self)")
     }
@@ -87,7 +87,7 @@ class MyViewController: UIViewController{
 //        }
 //    }
     
-    func getUserInfo(){
+    func getUserInfo(TRY: Int){
         HttpClientApi.instance().makeAPICall(url: URLS.USERINFO, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
@@ -95,6 +95,11 @@ class MyViewController: UIViewController{
             var message = ""
             
             DispatchQueue.main.async {
+                
+                
+                self.monitorNetwork()
+                
+                
                 if let j = json as? [String:Any]{
                     message = j["message"] as? String ?? ""
                     if let success = j["success"] as? String{
@@ -111,6 +116,15 @@ class MyViewController: UIViewController{
             
             
         } failure: { data, response, error in
+            
+            DispatchQueue.main.async {
+                if TRY < 3{
+                    self.getUserInfo(TRY: TRY+1)
+                }else{
+                    self.showNetworkProblemPopup()
+                }
+            }
+            
             print(data)
             print(response)
             print(error)
@@ -129,6 +143,7 @@ class MyViewController: UIViewController{
             switch path.status{
             case .satisfied:
                 print("network satisfied!")
+//                self.getUserInfo(TRY: 1)
             case .requiresConnection:
                 print("network requiresConnection!")
             case .unsatisfied:
@@ -139,15 +154,7 @@ class MyViewController: UIViewController{
                 DispatchQueue.main.async {
                     if self.theAlert == nil{
                         
-                        
-                        self.theAlert = ViewPatternMethods.showAlert(controller: self, title: "Network", message: "Check your network connection!!!", handler: UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-                            let url = URL(string: "App-Prefs:root=General")
-                            let app = UIApplication.shared
-                            app.open(url!, options: [:], completionHandler: nil)
-                        }))
-                        self.theAlert?.dismiss(animated: true, completion: {
-                            self.present(self.theAlert!, animated: true)
-                        })
+                        self.showNetworkProblemPopup()
                     }
                 }
             }
@@ -169,6 +176,17 @@ class MyViewController: UIViewController{
         print("disappear \(self)")
         
         monitor?.cancel()
+    }
+    
+    func showNetworkProblemPopup(){
+        self.theAlert = ViewPatternMethods.showAlert(controller: self, title: "Network", message: "Check your network connection!!!", handler: UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+            let url = URL(string: "App-Prefs:root=General")
+            let app = UIApplication.shared
+            app.open(url!, options: [:], completionHandler: nil)
+        }))
+//        self.theAlert?.dismiss(animated: true, completion: {
+//            self.present(self.theAlert!, animated: true)
+//        })
     }
 
 }
