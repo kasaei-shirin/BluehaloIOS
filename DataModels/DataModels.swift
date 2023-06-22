@@ -309,3 +309,22 @@ class RSSIModel{
     }
     
 }
+
+
+class HomeCollectionModel{
+
+    var imgName: String
+    var title: String
+    var description: String
+    var storyboardID: String
+    var targetJob: String?
+    
+    init(imgName: String, title: String, description: String, storyboardID: String, targetJob: String?) {
+        self.imgName = imgName
+        self.title = title
+        self.description = description
+        self.storyboardID = storyboardID
+        self.targetJob = targetJob
+    }
+    
+}

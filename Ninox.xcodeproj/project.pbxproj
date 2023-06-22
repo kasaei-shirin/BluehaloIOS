@@ -58,6 +58,10 @@
 		3094DBC82A125D5F00ACAFFB /* ServiceDateSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */; };
 		3094DBCD2A125E2200ACAFFB /* CustomInfoSPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */; };
 		3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */; };
+		30A1F4DA2A43CA1B00F4BB7E /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1F4D82A43CA1B00F4BB7E /* HomeCollectionCell.swift */; };
+		30A1F4DB2A43CA1B00F4BB7E /* HomeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A1F4D92A43CA1B00F4BB7E /* HomeCollectionCell.xib */; };
+		30A1F4DD2A43CF3600F4BB7E /* HomeTagCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1F4DC2A43CF3600F4BB7E /* HomeTagCTL.swift */; };
+		30A1F4DF2A43CF5E00F4BB7E /* HomeSettingsCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A1F4DE2A43CF5E00F4BB7E /* HomeSettingsCTL.swift */; };
 		30AE5E7F2A2350A800BA659E /* EditAreaProjectCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E7E2A2350A800BA659E /* EditAreaProjectCTL.swift */; };
 		30AE5E812A23615B00BA659E /* DeleteAreaProjectCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E802A23615B00BA659E /* DeleteAreaProjectCTL.swift */; };
 		30AE5E832A24A3F500BA659E /* DeleteTagCTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */; };
@@ -136,6 +140,10 @@
 		3094DBC62A125D5F00ACAFFB /* ServiceDateSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceDateSPCell.xib; sourceTree = "<group>"; };
 		3094DBCB2A125E2200ACAFFB /* CustomInfoSPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoSPCell.swift; sourceTree = "<group>"; };
 		3094DBCC2A125E2200ACAFFB /* CustomInfoSPCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoSPCell.xib; sourceTree = "<group>"; };
+		30A1F4D82A43CA1B00F4BB7E /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
+		30A1F4D92A43CA1B00F4BB7E /* HomeCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionCell.xib; sourceTree = "<group>"; };
+		30A1F4DC2A43CF3600F4BB7E /* HomeTagCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTagCTL.swift; sourceTree = "<group>"; };
+		30A1F4DE2A43CF5E00F4BB7E /* HomeSettingsCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCTL.swift; sourceTree = "<group>"; };
 		30AE5E7E2A2350A800BA659E /* EditAreaProjectCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAreaProjectCTL.swift; sourceTree = "<group>"; };
 		30AE5E802A23615B00BA659E /* DeleteAreaProjectCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAreaProjectCTL.swift; sourceTree = "<group>"; };
 		30AE5E822A24A3F500BA659E /* DeleteTagCTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTagCTL.swift; sourceTree = "<group>"; };
@@ -239,6 +247,7 @@
 		30418EA92A021746003DD55D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				30A1F4D72A43C9E100F4BB7E /* CollectionCell */,
 				30418EAA2A02176F003DD55D /* SearchItem.swift */,
 				30418EAB2A02176F003DD55D /* SearchItem.xib */,
 				30507B642A0F9413005A7F29 /* CustomInfoCell.swift */,
@@ -300,6 +309,15 @@
 			path = protocols;
 			sourceTree = "<group>";
 		};
+		30A1F4D72A43C9E100F4BB7E /* CollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				30A1F4D82A43CA1B00F4BB7E /* HomeCollectionCell.swift */,
+				30A1F4D92A43CA1B00F4BB7E /* HomeCollectionCell.xib */,
+			);
+			path = CollectionCell;
+			sourceTree = "<group>";
+		};
 		30B7663329F986EA00A86C06 /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +348,8 @@
 				305995232A32521700BD1705 /* UserCTL.swift */,
 				30238BA32A3482DC007B22D8 /* CheckReplaceInfoCTL.swift */,
 				30382D9D2A359A1C001860A1 /* ReportCTL.swift */,
+				30A1F4DC2A43CF3600F4BB7E /* HomeTagCTL.swift */,
+				30A1F4DE2A43CF5E00F4BB7E /* HomeSettingsCTL.swift */,
 			);
 			path = BodyGroup;
 			sourceTree = "<group>";
@@ -462,6 +482,7 @@
 				3094DBCE2A125E2200ACAFFB /* CustomInfoSPCell.xib in Resources */,
 				30139C312A2788A6007E3C98 /* ReplaceStoryboard.storyboard in Resources */,
 				301CED8F29F0FB8700996726 /* LaunchScreen.storyboard in Resources */,
+				30A1F4DB2A43CA1B00F4BB7E /* HomeCollectionCell.xib in Resources */,
 				301CED8C29F0FB8700996726 /* Assets.xcassets in Resources */,
 				3082371D2A0CDFD20054A64A /* dialogStoryboard.storyboard in Resources */,
 				301CED8A29F0FB8500996726 /* Main.storyboard in Resources */,
@@ -561,15 +582,18 @@
 				30418EAC2A02176F003DD55D /* SearchItem.swift in Sources */,
 				30B311B42A1DEEC5003B24F1 /* SearchHistoryCell.swift in Sources */,
 				30E5CEC72A0203C900DB70C4 /* DBManager.swift in Sources */,
+				30A1F4DA2A43CA1B00F4BB7E /* HomeCollectionCell.swift in Sources */,
 				30139C382A2DF6A9007E3C98 /* ViewClasses.swift in Sources */,
 				30382DA02A359E37001860A1 /* BatteryAlertCTL.swift in Sources */,
 				3010D3052A15E49400A68C36 /* FlagNoteController.swift in Sources */,
 				30C59AEA2A0892B600D675A5 /* URLS.swift in Sources */,
+				30A1F4DD2A43CF3600F4BB7E /* HomeTagCTL.swift in Sources */,
 				30B311B62A1E0E67003B24F1 /* FilterCTL.swift in Sources */,
 				308DC7382A0D519300535557 /* DatePickerDialog.swift in Sources */,
 				30EE3FC32A1F969300D78C58 /* AddAreaCTL.swift in Sources */,
 				301CED8329F0FB8500996726 /* AppDelegate.swift in Sources */,
 				30D6B9862A09ECCF0058A91F /* SearchCTL.swift in Sources */,
+				30A1F4DF2A43CF5E00F4BB7E /* HomeSettingsCTL.swift in Sources */,
 				30AE5E812A23615B00BA659E /* DeleteAreaProjectCTL.swift in Sources */,
 				308237222A0D274B0054A64A /* SetupEditCTL.swift in Sources */,
 				30382DA22A359F1C001860A1 /* AlertCellTableViewCell.swift in Sources */,

@@ -67,6 +67,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
                                     <action selector="buttonAction:" destination="7vP-iA-Lxh" eventType="touchUpInside" id="lo4-tD-sfy"/>
+                                    <segue destination="4xR-O9-G8B" kind="show" identifier="openTest" id="ual-Qc-n7f"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -82,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="13" y="-739"/>
         </scene>
-        <!--dialogDataPicker-->
+        <!--homeCTL-->
         <scene sceneID="7aL-jh-zQM">
             <objects>
-                <viewControllerPlaceholder storyboardName="dialogStoryboard" referencedIdentifier="dialogDataPicker" id="4xR-O9-G8B" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="BodyStoryboard" referencedIdentifier="homeCTL" id="4xR-O9-G8B" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="LHt-PT-OPP"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMB-QY-Aqm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

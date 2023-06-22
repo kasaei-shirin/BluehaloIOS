@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homeCollectionCell" id="gTV-IL-0wX" customClass="HomeCollectionCell" customModule="Ninox" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygS-ze-j3R" customClass="RoundedCornerView" customModule="Ninox" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infinity.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Xc-Tp-UeP">
+                                <rect key="frame" x="12" y="13" width="40" height="38.666666666666671"/>
+                                <color key="tintColor" name="pattern_tint"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="B4r-eb-aUQ"/>
+                                    <constraint firstAttribute="height" constant="40" id="BfR-KV-Ygl"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEt-71-KVx" customClass="ContextTitleLabel" customModule="Ninox" customModuleProvider="target">
+                                <rect key="frame" x="12" y="60" width="176" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Control a dynamic multiprotocol application of connected ights and switches" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKc-xD-f9S">
+                                <rect key="frame" x="9" y="81" width="182" height="107"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" name="navy_blue"/>
+                        <constraints>
+                            <constraint firstItem="cKc-xD-f9S" firstAttribute="leading" secondItem="ygS-ze-j3R" secondAttribute="leading" constant="9" id="5gS-9i-sXJ"/>
+                            <constraint firstItem="8Xc-Tp-UeP" firstAttribute="leading" secondItem="ygS-ze-j3R" secondAttribute="leading" constant="12" id="Nnq-Td-wfe"/>
+                            <constraint firstItem="cKc-xD-f9S" firstAttribute="top" secondItem="DEt-71-KVx" secondAttribute="bottom" id="SyA-3M-vei"/>
+                            <constraint firstItem="DEt-71-KVx" firstAttribute="leading" secondItem="ygS-ze-j3R" secondAttribute="leading" constant="12" id="TSv-Ir-FsF"/>
+                            <constraint firstAttribute="bottom" secondItem="cKc-xD-f9S" secondAttribute="bottom" constant="12" id="VcN-sv-9SS"/>
+                            <constraint firstAttribute="trailing" secondItem="DEt-71-KVx" secondAttribute="trailing" constant="12" id="cV3-e5-pjb"/>
+                            <constraint firstAttribute="trailing" secondItem="cKc-xD-f9S" secondAttribute="trailing" constant="9" id="gmQ-Jm-7yD"/>
+                            <constraint firstItem="8Xc-Tp-UeP" firstAttribute="top" secondItem="ygS-ze-j3R" secondAttribute="top" constant="12" id="rlw-IF-NOp"/>
+                            <constraint firstItem="DEt-71-KVx" firstAttribute="top" secondItem="8Xc-Tp-UeP" secondAttribute="bottom" constant="8" id="xms-JQ-lxC"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="9"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ygS-ze-j3R" secondAttribute="trailing" id="7kG-C1-8EW"/>
+                <constraint firstAttribute="bottom" secondItem="ygS-ze-j3R" secondAttribute="bottom" id="ieV-Ft-czM"/>
+                <constraint firstItem="ygS-ze-j3R" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="m1t-0z-DlP"/>
+                <constraint firstItem="ygS-ze-j3R" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="znj-1N-XgV"/>
+            </constraints>
+            <connections>
+                <outlet property="imgView" destination="8Xc-Tp-UeP" id="1Pa-x5-COL"/>
+                <outlet property="lblTitle" destination="DEt-71-KVx" id="2eu-YP-PVL"/>
+                <outlet property="txtViewDesc" destination="cKc-xD-f9S" id="Lnu-WB-dFe"/>
+            </connections>
+            <point key="canvasLocation" x="4.5801526717557248" y="23.943661971830988"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="infinity.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="navy_blue">
+            <color red="0.14100000262260437" green="0.14100000262260437" blue="0.14100000262260437" alpha="0.92199999094009399" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="pattern_tint">
+            <color red="0.98000001907348633" green="0.64300000667572021" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

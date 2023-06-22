@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TestEveryThing: MyViewController, IconTypeSelection, DataSelection {
+class TestEveryThing: UIViewController, IconTypeSelection, DataSelection {
     
     
 
@@ -22,14 +22,16 @@ class TestEveryThing: MyViewController, IconTypeSelection, DataSelection {
     
     @IBAction func buttonAction(_ sender: Any) {
         
-        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
-        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "dialogDataPicker") as! DataPickerDialog
-        dest.targetAction = 1
-        dest.titleOfDialog = "Data Picker"
-        let MyTitles = ["shit", "boz", "messi", "goosale", "gavazn"]
-        dest.datas = MyTitles
-        dest.selectionProtocol = self
-        self.present(dest, animated: true)
+        performSegue(withIdentifier: "openTest", sender: self)
+        
+//        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+//        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "dialogDataPicker") as! DataPickerDialog
+//        dest.targetAction = 1
+//        dest.titleOfDialog = "Data Picker"
+//        let MyTitles = ["shit", "boz", "messi", "goosale", "gavazn"]
+//        dest.datas = MyTitles
+//        dest.selectionProtocol = self
+//        self.present(dest, animated: true)
         
     }
     
