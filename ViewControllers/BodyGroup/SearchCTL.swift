@@ -72,6 +72,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     @IBOutlet weak var imgViewScanBtn: UIImageView!
     
     
+    
     @IBOutlet weak var imgViewShowMore: UIImageView!
     @IBOutlet weak var imgViewShowLess: UIImageView!
     @IBOutlet weak var imgViewBluetooth: UIImageView!
@@ -81,6 +82,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     
     var filterModel: SearchFilterModel?
     @IBOutlet weak var widthLblScanBtn: NSLayoutConstraint!
+    @IBOutlet weak var mainBtnWidthConstraint: NSLayoutConstraint!
     
     
     enum ScanButtonStates{
@@ -109,6 +111,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     
     var allTags = [TagModel]()
     var tags = [TagModel]()
+    var queueOfTags = [TagModel]()
     
     var inScanMode: Bool = false
     
@@ -350,8 +353,8 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
                 if indexP != -1{
                     allTags[indexP].rssi = RSSI.intValue
                     if self.filterModel!.tagAcceptByFilter(tag: allTags[indexP]){
-                        self.tags.append(allTags[indexP])
-                        insertRowIntoList()
+//                        self.tags.append()
+                        insertRowIntoListQueue(tag: allTags[indexP])
                     }
                 }
             }
@@ -429,9 +432,9 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
 //                            self.tags.append(theTag)
                             self.allTags.append(theTag)
                             if self.filterModel!.tagAcceptByFilter(tag: theTag){
-                                self.tags.append(theTag)
+//                                self.tags.append(theTag)
                                 DispatchQueue.main.async {
-                                    self.insertRowIntoList()
+                                    self.insertRowIntoListQueue(tag: theTag)
                                 }
                             }
                             
@@ -452,9 +455,26 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         
     }
     
+    func insertingTagManager(){
+        
+    }
+    
+    func insertRowIntoListQueue(tag: TagModel){
+//        if !self.tableView.updating{
+//            self.tags.append(tag)
+//            insertRowIntoList()
+//        }else{
+//            insertingTagManager()
+        tags.append(tag)
+        self.insertRowIntoList()
+//        }
+    }
+    
     func insertRowIntoList(){
         lblFoundCount.text = getTagsCountText()
+        self.tableView.beginUpdates()
         self.tableView.insertRows(at: [IndexPath(row: self.tags.count-1, section: 0)], with: .none)
+        self.tableView.endUpdates()
     }
     
     func scanBLEDevices() {
@@ -527,6 +547,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         tags[indexPath.row].flagNote = note
         updateTableViewInRow(indexPath.row)
     }
+    
     
     
     
@@ -1042,8 +1063,18 @@ extension SearchCTL: SearchFilterProtocol{
 extension SearchCTL: UIScrollViewDelegate{
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scrollView Did end decelaration")
-        if(self.tags.count > 0){
+//        let offsetValue = self.lastContentOffset-scrollView.contentOffset.y
+//        print("decelerating end")
+//        print("\(offsetValue) change of scrollView")
+//        self.lastContentOffset = scrollView.contentOffset.y
+        if tags.count > 0{
+            let offsetValue = self.lastContentOffset-scrollView.contentOffset.y
+        
+            print("\(offsetValue) offset value!")
+            if abs(offsetValue) < 33{
+                return
+            }
+            
             if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 print("move up")
@@ -1067,14 +1098,73 @@ extension SearchCTL: UIScrollViewDelegate{
     
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        
+//        print("scrollView Did end animation")
+//        let offsetValue = self.lastContentOffset-scrollView.contentOffset.y
+//        print("\(offsetValue) change of scrollView")
+//        if(self.tags.count > 0){
+//            if (self.lastContentOffset > scrollView.contentOffset.y) {
+//                // move up
+//                print("move up")
+//                if self.scanBtnState == .close{
+////                    self.scanBtnState = .opening
+//                    self.openBtnScanAnimationally()
+//                }
+//            }
+//            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+//                // move down
+//                print("move down")
+//                if self.scanBtnState == .open{
+//                    print("the must be here.")
+////                    self.scanBtnState = .closing
+//                    self.closeBtnScanAnimationally()
+//                }
+//            }
+//            self.lastContentOffset = scrollView.contentOffset.y
+//        }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
+//
+//        print("drag end")
+//        print("\(offsetValue) change of scrollView")
+        if(self.tags.count > 0){
+            print("\(decelerate) will decelerate!")
+            if !decelerate{
+                let offsetValue = self.lastContentOffset-scrollView.contentOffset.y
+            
+                print("\(offsetValue) offset value!")
+                if abs(offsetValue) < 33{
+                    return
+                }
+                
+                if (self.lastContentOffset > scrollView.contentOffset.y) {
+                    // move up
+                    print("move up")
+                    if self.scanBtnState == .close{
+    //                    self.scanBtnState = .opening
+                        self.openBtnScanAnimationally()
+                    }
+                }
+                else if (self.lastContentOffset < scrollView.contentOffset.y) {
+                    // move down
+                    print("move down")
+                    if self.scanBtnState == .open{
+                        print("the must be here.")
+    //                    self.scanBtnState = .closing
+                        self.closeBtnScanAnimationally()
+                    }
+                }
+                self.lastContentOffset = scrollView.contentOffset.y
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        
+        
+        
+        
         
 //        if(self.tags.count > 0){
 //            if (self.lastContentOffset > scrollView.contentOffset.y) {
@@ -1122,8 +1212,11 @@ extension SearchCTL: UIScrollViewDelegate{
     
     func closeBtnScanAnimationally(){
         self.scanBtnState = .close
-        self.widthLblScanBtn.constant -= 66
+//        self.widthLblScanBtn.constant -= 66
+        self.mainBtnWidthConstraint.constant -= 66
+        self.viewParentScanBtn.frame.origin.x -= 33
         UIView.animate(withDuration: 0.25, animations: {
+            self.viewParentScanBtn.frame.origin.x += 33
             self.viewParentScanBtn.layoutIfNeeded()
         }) { Bool in
             self.scanBtnState = .close
@@ -1132,8 +1225,11 @@ extension SearchCTL: UIScrollViewDelegate{
     
     func openBtnScanAnimationally(){
         self.scanBtnState = .open
-        self.widthLblScanBtn.constant += 66
+//        self.widthLblScanBtn.constant += 66
+        self.mainBtnWidthConstraint.constant += 66
+        self.viewParentScanBtn.frame.origin.x += 33
         UIView.animate(withDuration: 0.25, animations: {
+            self.viewParentScanBtn.frame.origin.x -= 33
             self.viewParentScanBtn.layoutIfNeeded()
         }) { Bool in
             self.scanBtnState = .open

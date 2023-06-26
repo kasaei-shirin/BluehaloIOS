@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeTagCTL: UIViewController {
+class HomeTagCTL: MyViewController {
 
     var homeItems = [HomeCollectionModel]()
     
