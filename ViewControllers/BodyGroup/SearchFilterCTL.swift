@@ -30,6 +30,8 @@ class SearchFilterCTL: MyViewController , DataSelection{
     
     @IBOutlet weak var historyTableView: UITableView!
     
+    @IBOutlet weak var lblNoRecentItems: UILabel!
+    
     @IBOutlet weak var areaParentView: RoundedCornerView!
     @IBOutlet weak var projectParentView: RoundedCornerView!
     @IBOutlet weak var lblProjects: UILabel!
@@ -230,6 +232,16 @@ class SearchFilterCTL: MyViewController , DataSelection{
 
 extension SearchFilterCTL: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchHistories.count == 0{
+            self.lblNoRecentItems.isHidden = false
+            self.historyTableView.layer.borderWidth = 1
+            self.historyTableView.layer.borderColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 0.25).cgColor
+            self.historyTableView.layer.cornerRadius = 8
+        }else{
+            self.lblNoRecentItems.isHidden = true
+            self.historyTableView.layer.borderWidth = 0
+            self.historyTableView.layer.cornerRadius = 0
+        }
         return searchHistories.count
     }
     
