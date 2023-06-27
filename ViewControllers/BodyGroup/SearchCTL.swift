@@ -594,6 +594,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             
             if let _ = self.serviceDateMoreExpand[tag.publicAddress]{
                 theBottomHeight += 73 + (tag.targetServiceDates.count*35)
+                
             }else{
                 ///main height + one row of service date
                 //73 + 35
@@ -658,6 +659,8 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         cell.btnYellowFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
         cell.btnOrangeFlag.setImage(UIImage(named: "flag_icon"), for: .normal)
         
+        print("\(tag.deviceName) device name with is on going : \(tag.isOnGoing)")
+        
         
         cell.sliderRSSI.isUserInteractionEnabled = false
         
@@ -676,8 +679,10 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             cell.serviceDateTitleHeight.constant = 20
             if let _ = serviceDateMoreExpand[tag.publicAddress]{
                 cell.serviceDateTableHeight.constant = CGFloat(tag.targetServiceDates.count*35)
+                cell.lblMoreServiceDate.text = "< less"
             }else{
                 cell.serviceDateTableHeight.constant = 35
+                cell.lblMoreServiceDate.text = "more >"
             }
             cell.serviceDateMoreHeight.constant = 20
             cell.serviceDateTopBorder.isHidden = false
@@ -694,8 +699,10 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             cell.customInfoTitleHeight.constant = 20
             if let _ = customInfoMoreExpand[tag.publicAddress]{
                 cell.tableViewCustomInfoHeight.constant = CGFloat(tag.targetCustomInfos.count*35)
+                cell.lblMoreCustomInfo.text = "< less"
             }else{
                 cell.tableViewCustomInfoHeight.constant = 35
+                cell.lblMoreCustomInfo.text = "more >"
             }
             cell.tableViewCustomInfo.rowHeight = 35
             cell.tableViewCustomInfo.estimatedRowHeight = 35
@@ -880,6 +887,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     func removeTagAtPosition(_ row: Int){
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+        var indexes = [IndexPath]()
+        var i = row
+        while i < self.tags.count{
+            indexes.append(IndexPath(row: i, section: 0))
+        }
+        self.tableView.reloadRows(at: indexes, with: .none)
         self.tableView.endUpdates()
     }
 
@@ -899,10 +912,13 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     @objc func serviceDateMoreTap(_ sender: UITapGestureRecognizer){
         if let row = sender.view?.tag{
+            let SI = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchItem
             let result = self.serviceDateMoreExpand[self.tags[row].publicAddress]
             if let _ = result{
+                SI.lblMoreServiceDate.text = "more >"
                 closeServiceDatesIn(row)
             }else{
+                SI.lblMoreServiceDate.text = "< less"
                 openServiceDatesIn(row)
             }
         }
@@ -933,10 +949,13 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     @objc func customInfoMoreTap(_ sender: UITapGestureRecognizer){
         if let row = sender.view?.tag{
+            let SI = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchItem
             let result = self.customInfoMoreExpand[self.tags[row].publicAddress]
             if let _ = result{
+                SI.lblMoreCustomInfo.text = "more >"
                 closeCustomInfoIn(row)
             }else{
+                SI.lblMoreCustomInfo.text = "< less"
                 openCustomInfoIn(row)
             }
         }
@@ -1097,36 +1116,8 @@ extension SearchCTL: UIScrollViewDelegate{
     }
     
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        print("scrollView Did end animation")
-//        let offsetValue = self.lastContentOffset-scrollView.contentOffset.y
-//        print("\(offsetValue) change of scrollView")
-//        if(self.tags.count > 0){
-//            if (self.lastContentOffset > scrollView.contentOffset.y) {
-//                // move up
-//                print("move up")
-//                if self.scanBtnState == .close{
-////                    self.scanBtnState = .opening
-//                    self.openBtnScanAnimationally()
-//                }
-//            }
-//            else if (self.lastContentOffset < scrollView.contentOffset.y) {
-//                // move down
-//                print("move down")
-//                if self.scanBtnState == .open{
-//                    print("the must be here.")
-////                    self.scanBtnState = .closing
-//                    self.closeBtnScanAnimationally()
-//                }
-//            }
-//            self.lastContentOffset = scrollView.contentOffset.y
-//        }
-    }
-    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//
-//        print("drag end")
-//        print("\(offsetValue) change of scrollView")
+
         if(self.tags.count > 0){
             print("\(decelerate) will decelerate!")
             if !decelerate{
@@ -1160,9 +1151,6 @@ extension SearchCTL: UIScrollViewDelegate{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        
-        
         
         
         
