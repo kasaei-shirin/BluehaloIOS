@@ -15,6 +15,9 @@ class HomeCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var txtViewDesc: UITextView!
     
+//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+//        return false
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

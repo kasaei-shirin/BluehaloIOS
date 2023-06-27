@@ -46,12 +46,27 @@ extension HomeTagCTL: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeCollectionCell", for: indexPath) as! HomeCollectionCell
         let item = self.homeItems[indexPath.row]
         cell.lblTitle.text = item.title
+        
+        cell.txtViewDesc.isUserInteractionEnabled = true
+        let txtTap = UITapGestureRecognizer(target: self, action: #selector(txtDescTap(_:)))
+        cell.txtViewDesc.addGestureRecognizer(txtTap)
+        txtTap.view?.tag = indexPath.row
+        
         return cell
     }
     
+    @objc func txtDescTap(_ sender: UITapGestureRecognizer){
+        let row = sender.view!.tag
+        going2Page(row: row)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        going2Page(row: indexPath.row)
+    }
+    
+    func going2Page(row: Int){
         let storyboard = UIStoryboard(name: "BodyStoryboard", bundle: nil)
-        let HI = homeItems[indexPath.row]
+        let HI = homeItems[row]
         if HI.storyboardID == "ScanQRCTL"{
             let dest = storyboard.instantiateViewController(identifier: HI.storyboardID) as! ScanQRCTL
             dest.fromWhere = "home"
@@ -61,7 +76,6 @@ extension HomeTagCTL: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             let dest = storyboard.instantiateViewController(identifier: HI.storyboardID)
             self.present(dest, animated: true)
         }
-        
     }
     
 }

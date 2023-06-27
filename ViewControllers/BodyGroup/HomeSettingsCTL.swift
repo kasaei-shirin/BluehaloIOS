@@ -42,8 +42,12 @@ extension HomeSettingsCTL: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        going2Page(row: indexPath.row)
+    }
+    
+    func going2Page(row: Int){
         let storyboard = UIStoryboard(name: "SettingStoryboard", bundle: nil)
-        let SI = self.settingItems[indexPath.row]
+        let SI = self.settingItems[row]
         let dest = storyboard.instantiateViewController(identifier: SI.storyboardID)
         self.present(dest, animated: true)
     }
@@ -52,6 +56,16 @@ extension HomeSettingsCTL: UICollectionViewDelegate, UICollectionViewDataSource,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeCollectionCell", for: indexPath) as! HomeCollectionCell
         let item = self.settingItems[indexPath.row]
         cell.lblTitle.text = item.title
+        cell.txtViewDesc.isUserInteractionEnabled = true
+        let txtTap = UITapGestureRecognizer(target: self, action: #selector(descTap(_:)))
+        cell.txtViewDesc.addGestureRecognizer(txtTap)
+        txtTap.view?.tag = indexPath.row
         return cell
     }
+    
+    @objc func descTap(_ sender: UITapGestureRecognizer){
+        let row = sender.view!.tag
+        going2Page(row: row)
+    }
+    
 }
