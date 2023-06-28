@@ -56,7 +56,7 @@ class BatteryAlertCTL: MyViewController {
                             }
                         }
                     }
-                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+//                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
             
@@ -126,7 +126,7 @@ extension BatteryAlertCTL: UITableViewDelegate, UITableViewDataSource{
                             }
                         }
                     }
-                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+//                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                 }
             }
         } failure: { data, response, error in

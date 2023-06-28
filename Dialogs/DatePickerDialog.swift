@@ -48,9 +48,6 @@ class DatePickerDialog: MyViewController {
     }
     
     @IBAction func selectAction(_ sender: Any) {
-//        MyDateFormatter().getDateFromDatePickerForSend(date: datePicker.date)
-//
-//        print(MyDateFormatter().getDateByCompleteMonthName(date: datePicker.date))
         
         if let strTitle = txtFldTitle.text{
             let title = strTitle.trimmingCharacters(in: .whitespacesAndNewlines)

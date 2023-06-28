@@ -108,7 +108,7 @@ class DeleteTagCTL: MyViewController {
                                 }
                             }
                         }
-                        let _ = ViewPatternMethods.showAlert(controller: self, title: "Info", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+//                        let _ = ViewPatternMethods.showAlert(controller: self, title: "Info", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                     }
                 }
             }

@@ -104,7 +104,7 @@ class AddProjectCTL: MyViewController {
         txtFldAddProject.resignFirstResponder()
         
         if txtFldAddProject.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-            ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Fill area textfield!", handler: UIAlertAction(title: "OK", style: .destructive))
+            ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Fill project textfield!", handler: UIAlertAction(title: "OK", style: .destructive))
             return
         }
         

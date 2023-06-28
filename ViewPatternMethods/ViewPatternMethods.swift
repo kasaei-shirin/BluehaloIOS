@@ -9,12 +9,14 @@ import UIKit
 
 class ViewPatternMethods {
     
-    class func setBluetoothIconEnable(enable: Bool, imgViewBluetooth: UIImageView){
+    class func setBluetoothIconEnable(enable: Bool, imgViewBluetooth: UIImageView, parentImgViewBluetooth: UIView?){
         if enable{
             imgViewBluetooth.isUserInteractionEnabled = true
+            parentImgViewBluetooth?.isUserInteractionEnabled = true
             imgViewBluetooth.tintColor = UIColor.gray
         }else{
             imgViewBluetooth.isUserInteractionEnabled = false
+            parentImgViewBluetooth?.isUserInteractionEnabled = false
             imgViewBluetooth.tintColor = UIColor.white
         }
     }

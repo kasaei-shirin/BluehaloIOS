@@ -386,19 +386,23 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
                             DispatchQueue.main.async {
                                 let message = j["message"] as? String ?? ""
                                 if(success == "true"){
-                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
-                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
-                                        alertCTL.dismiss(animated: true)
-                                    }))
-                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-                                        alertCTL.dismiss(animated: true) {
-                                            self.setPropsInBacktag()
-                                            self.dismiss(animated: true) {
-                                                self.editProtocol?.edited(tag: self.theTag!, indexPath: self.indexPath!)
-                                            }
-                                        }
-                                    }))
-                                    self.present(alertCTL, animated: true)
+                                    self.setPropsInBacktag()
+                                    self.dismiss(animated: true) {
+                                        self.editProtocol?.edited(tag: self.theTag!, indexPath: self.indexPath!)
+                                    }
+//                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+//                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+//                                        alertCTL.dismiss(animated: true)
+//                                    }))
+//                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+//                                        alertCTL.dismiss(animated: true) {
+////                                            self.setPropsInBacktag()
+////                                            self.dismiss(animated: true) {
+////                                                self.editProtocol?.edited(tag: self.theTag!, indexPath: self.indexPath!)
+////                                            }
+//                                        }
+//                                    }))
+//                                    self.present(alertCTL, animated: true)
                                 }else{
                                     let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
                                     alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
@@ -459,16 +463,17 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
                             DispatchQueue.main.async {
                                 let message = j["message"] as? String ?? ""
                                 if(success == "true"){
-                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
-                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
-                                        alertCTL.dismiss(animated: true)
-                                    }))
-                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-                                        alertCTL.dismiss(animated: true) {
-                                            self.dismiss(animated: true)
-                                        } 
-                                    }))
-                                    self.present(alertCTL, animated: true)
+                                    self.dismiss(animated: true)
+//                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
+//                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+//                                        alertCTL.dismiss(animated: true)
+//                                    }))
+//                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
+//                                        alertCTL.dismiss(animated: true) {
+////                                            self.dismiss(animated: true)
+//                                        }
+//                                    }))
+//                                    self.present(alertCTL, animated: true)
                                 }else{
                                     let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
                                     alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in

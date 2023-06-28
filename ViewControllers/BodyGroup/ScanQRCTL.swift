@@ -22,11 +22,11 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
 //        }
         
         if central.state == .poweredOff{
-            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: nil)
             
             
         }else{
-            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: nil)
         }
         
 //        if central.state == .poweredOff{
@@ -421,7 +421,7 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
                 }
             }
         }else{
-            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "It's not our TAG QRCode.", handler: UIAlertAction(title: "OK", style: .destructive))
+            let _ = ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "It's not our company TAG QRCode.", handler: UIAlertAction(title: "OK", style: .destructive))
         }
         
         

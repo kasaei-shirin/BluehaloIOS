@@ -74,7 +74,7 @@ class FlagNoteController: MyViewController {
             
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Back Problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Back Problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
                 }
                 
             }

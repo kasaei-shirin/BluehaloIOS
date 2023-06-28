@@ -17,11 +17,11 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
         print(central)
         
         if central.state == .poweredOff{
-            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: nil)
             
             
         }else{
-            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: nil)
         }
         
 //        if firstBluetooth{
@@ -254,13 +254,7 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
     }
     
     func tagUseSomewhereElseDialog(tag: TagModel){
-//        ViewPatternMethods.showAlert(controller: self, title: "Registered Tag", message: "QR: \()", handler: <#T##UIAlertAction#>)
-        
-//        QR code: 10001255500
-//        Target Name: Manitor 100s
-//        Rigeterd Date: 2022/10/10
-//        Battery life : 70%
-//        1 year. 3 months  & 23 days
+
         var activationDateString = ""
         let myDF = MyDateFormatter()
         let AD = myDF.getDateFromServerDate(dateString: tag.activationDate)

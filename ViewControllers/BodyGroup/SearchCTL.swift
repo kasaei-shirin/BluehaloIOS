@@ -44,11 +44,11 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         
         
         if central.state == .poweredOff{
-            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: true, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: parentImgViewBluetooth)
             
             
         }else{
-            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth)
+            ViewPatternMethods.setBluetoothIconEnable(enable: false, imgViewBluetooth: imgViewBluetooth, parentImgViewBluetooth: parentImgViewBluetooth)
         }
 //        else{
 //
@@ -79,6 +79,14 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
     @IBOutlet weak var imgViewRefresh: UIImageView!
     @IBOutlet weak var imgViewInfo: UIImageView!
     @IBOutlet weak var imgViewSearchFilter: UIImageView!
+    
+    @IBOutlet weak var parentImgViewBluetooth: UIView!
+    @IBOutlet weak var parentImgViewShowLess: UIView!
+    @IBOutlet weak var parentImgViewShowMore: UIView!
+    @IBOutlet weak var parentImgViewRefresh: UIView!
+    @IBOutlet weak var parentImgViewInfo: UIView!
+    @IBOutlet weak var parentImgViewSearchFilter: UIView!
+    
     
     var filterModel: SearchFilterModel?
     @IBOutlet weak var widthLblScanBtn: NSLayoutConstraint!
@@ -184,7 +192,7 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         customView.backgroundColor = UIColor.clear
         
         self.tableView.tableFooterView = customView
@@ -218,24 +226,39 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
         imgViewBluetooth.isUserInteractionEnabled = true
         imgViewSearchFilter.isUserInteractionEnabled = true
         
+        parentImgViewShowLess.isUserInteractionEnabled = true
+        parentImgViewShowMore.isUserInteractionEnabled = true
+        parentImgViewInfo.isUserInteractionEnabled = true
+        parentImgViewRefresh.isUserInteractionEnabled = true
+        parentImgViewBluetooth.isUserInteractionEnabled = true
+        parentImgViewSearchFilter.isUserInteractionEnabled = true
+        
+        
+        
         var tap = UITapGestureRecognizer(target: self, action: #selector(collapseTap(_:)))
         imgViewShowLess.addGestureRecognizer(tap)
+        parentImgViewShowLess.addGestureRecognizer(tap)
         
         
         tap = UITapGestureRecognizer(target: self, action: #selector(expandAllTap(_:)))
         imgViewShowMore.addGestureRecognizer(tap);
+        parentImgViewShowMore.addGestureRecognizer(tap)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(bluetoothTap(_:)))
         imgViewBluetooth.addGestureRecognizer(tap)
+        parentImgViewBluetooth.addGestureRecognizer(tap)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(refreshTap(_:)))
         imgViewRefresh.addGestureRecognizer(tap)
+        parentImgViewRefresh.addGestureRecognizer(tap)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(infoTap(_:)))
         imgViewInfo.addGestureRecognizer(tap)
+        parentImgViewInfo.addGestureRecognizer(tap)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(searchFilter(_:)))
         imgViewSearchFilter.addGestureRecognizer(tap)
+        parentImgViewSearchFilter.addGestureRecognizer(tap)
     }
     
     @objc func searchFilter(_ tap: UITapGestureRecognizer){
@@ -873,7 +896,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
             
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Back Problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Connection Problem!!!", handler: UIAlertAction(title: "OK", style: .destructive))
                 }
                 
             }

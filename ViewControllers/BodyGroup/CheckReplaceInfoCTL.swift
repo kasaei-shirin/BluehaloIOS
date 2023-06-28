@@ -70,9 +70,7 @@ class CheckReplaceInfoCTL: MyViewController {
                         if let success = j["success"] as? String{
                         
                             if(success == "true"){
-//                                ViewPatternMethods.showAlert(controller: self, title: "Info", message: "Tag successfully changed!", handler: UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-//
-//                                }))
+
                                 let actionCTL = UIAlertController(title: "Info", message: "Tag successfully chnaged!", preferredStyle: .alert)
                                 actionCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
                                     actionCTL.dismiss(animated: true) {
