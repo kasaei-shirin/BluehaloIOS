@@ -9,7 +9,7 @@ import Foundation
 
 
 class URLS{
-    static let BASEURL = "https://saaiota.ca/"
+    static let BASEURL = "https://siaxinc.ca/"
     
     static let SIGNIN = BASEURL+"api/login"
     static let REGISTER = BASEURL+"api/register"
