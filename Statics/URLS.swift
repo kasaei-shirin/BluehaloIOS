@@ -26,3 +26,16 @@ class URLS{
     static let deleteTag = BASEURL+"api/tagdelete"
     static let targetInfoDelete = BASEURL+"api/targetinfodelete"
 }
+
+
+class URLSV2{
+    static let BASEURL = "https://saaiota.ca/api"
+    
+    static let SIGNIN = BASEURL+"/auth/sign-in"
+    static let REFRESHTOKEN = BASEURL+"/auth/refreshToken"
+    static let ME = BASEURL+"/users/me"
+    static let COMPANYPROJECT = BASEURL+"/company-projects"
+    static let PROJECTAREAS = BASEURL+"/project-areas"
+    static let TAGS = BASEURL+"/tags"
+    static let MOVETAG = BASEURL+"/moved-tags"
+}
