@@ -88,30 +88,28 @@ class MyViewController: UIViewController{
 //    }
     
     func getUserInfo(TRY: Int){
-        HttpClientApi.instance().makeAPICall(url: URLS.USERINFO, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.ME, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-            
-            var message = ""
             
             DispatchQueue.main.async {
                 
                 
                 self.monitorNetwork()
-                
-                
-                if let j = json as? [String:Any]{
-                    message = j["message"] as? String ?? ""
-                    if let success = j["success"] as? String{
-                        if(success == "true"){
-                            return
-                        }
-                    }
-                }
-                DBManager().deleteUser()
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let dest = mainStoryboard.instantiateInitialViewController()
-                self.present(dest!, animated: true)
+//
+//
+//                if let j = json as? [String:Any]{
+//                    message = j["message"] as? String ?? ""
+//                    if let success = j["success"] as? String{
+//                        if(success == "true"){
+//                            return
+//                        }
+//                    }
+//                }
+//                DBManager().deleteUser()
+//                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let dest = mainStoryboard.instantiateInitialViewController()
+//                self.present(dest!, animated: true)
             }
             
             

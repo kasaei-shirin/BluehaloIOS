@@ -14,6 +14,7 @@ enum HttpMethod : String {
     case  POST
     case  DELETE
     case  PUT
+    case  PATCH
 }
 
 
@@ -34,7 +35,7 @@ class HttpClientApi: NSObject{
     
     
     
-    func makeAPICall(url: String, headers hs: Dictionary<String, String>,params: Dictionary<String, Any>?, method: HttpMethod, success:@escaping ( Data? ,HTTPURLResponse?  , NSError? ) -> Void, failure: @escaping ( Data? ,HTTPURLResponse?  , NSError? )-> Void) {
+    func makeAPICall(viewController: UIViewController, refreshReq: Bool, url: String, headers hs: Dictionary<String, String>,params: Dictionary<String, Any>?, method: HttpMethod, success:@escaping ( Data? ,HTTPURLResponse?  , NSError? ) -> Void, failure: @escaping ( Data? ,HTTPURLResponse?  , NSError? )-> Void) {
         
         
         print(url)
@@ -61,18 +62,15 @@ class HttpClientApi: NSObject{
         print(request?.httpBody)
         
         request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request?.setValue("MOBILE", forHTTPHeaderField: "Targetdevice")
+//        request?.setValue("MOBILE", forHTTPHeaderField: "Targetdevice")
         let db = DBManager()
         let user = db.getUserFromDB()
         var headers = hs
         if let u = user{
-        
             //todo baiad token beshe dobare token na in strigne maskhare azizaam
             print(u.token)
 //                headers["Authorization"] = "Bearer "+token
             headers["Authorization"] = u.token
-
-            
         }
 //        headers["Authorization"] = "Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijg4ZjdlNWY4LWNlNmEtNGI4Ni1iZTdlLWZmYTU5NDEzZTdkMSIsIm5iZiI6MTU4MjM1ODE4MywiZXhwIjoxNTgyMzYxNzgzLCJpYXQiOjE1ODIzNTgxODN9.9SjVzaLZRRw3yhW1n1i2FtHlXmkDwwi-PZ2-NI-G-wk"
 //        print("authorization : ")
@@ -105,15 +103,60 @@ class HttpClientApi: NSObject{
                 if let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode {
                     success(data , response , error as? NSError)
                 } else {
-                    failure(data , response as? HTTPURLResponse, error as? NSError)
+                    let response = response as? HTTPURLResponse
+                    if response?.statusCode == 401{
+                        if refreshReq{
+                            DispatchQueue.main.async {
+                                DBManager().deleteUser()
+                                let SB = UIStoryboard(name: "main", bundle: nil)
+                                let dest = SB.instantiateInitialViewController()
+                                viewController.present(dest!, animated: true)
+//                                performSegue(withIdentifier: "user2spalsh", sender: self)
+                            }
+                        }else{
+                            DispatchQueue.main.async {
+                                self.refreshtToken(viewController: viewController, refreshToken: user!.refreshToken, url: url, headers: hs, params: params, method: method, success: success, failure: failure)
+                            }
+                            
+                        }
+                    }else{
+                        failure(data , response, error as? NSError)
+                    }
                 }
             }else {
-                
-                failure(data , response as? HTTPURLResponse, error as? NSError)
+                let response = response as? HTTPURLResponse
+                failure(data , response, error as? NSError)
                 
             }
             }.resume()
         
+    }
+    
+    
+    func refreshtToken(viewController: UIViewController, refreshToken: String, url: String, headers hs: Dictionary<String, String>, params: Dictionary<String, Any>?, method: HttpMethod, success:@escaping ( Data? ,HTTPURLResponse?  , NSError? ) -> Void, failure: @escaping ( Data? ,HTTPURLResponse?  , NSError? )-> Void){
+        
+        var params = [String:Any]()
+        params["refreshToken"] = refreshToken
+        
+        makeAPICall(viewController: viewController, refreshReq: true, url: URLSV2.REFRESHTOKEN, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+            
+            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+            DispatchQueue.main.async {
+                if let j = json as? [String:Any]{
+                    let user = UserModel(json: j)
+                    DBManager().updateUser(UM: user)
+                    self.makeAPICall(viewController: viewController, refreshReq: false, url: url, headers: hs, params: params, method: method, success: success, failure: failure)
+                }
+            }
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+
+        
+//        makeAPICall(url: url, headers: hs, params: params, method: method, success: success, failure: failure)
     }
     
     /// Create request

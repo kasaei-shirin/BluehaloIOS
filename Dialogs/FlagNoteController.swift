@@ -14,7 +14,7 @@ class FlagNoteController: MyViewController {
     
     var flagType: Int?
     
-    var publicAddress: String?
+    var tag: TagModel?
     
     var flagTxt: String?
     
@@ -58,8 +58,8 @@ class FlagNoteController: MyViewController {
         var params = Dictionary<String,Any>()
         params["flagNote"] = note
         params["flagType"] = flagType
-        params["publicAddress"] = publicAddress
-        HttpClientApi.instance().makeAPICall(url: URLS.FlagURL, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+//        params["publicAddress"] = publicAddress
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS+"/"+self.tag!._id, headers: Dictionary<String, String>(), params: params, method: .PATCH) { data, response, error in
             
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {

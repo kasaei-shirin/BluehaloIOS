@@ -40,11 +40,18 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     func DataSelected(selectedItemIndex: Int, targetAction: Int) {
         if targetAction == 1{
             //area
-            txtFldArea.text = allAreas[selectedItemIndex]
+            self.selectedArea = allAreas[selectedItemIndex]
+            txtFldArea.text = allAreas[selectedItemIndex].name
         }else if targetAction == 2{
-            txtFldProject.text = allProjects[selectedItemIndex]
+            self.selectedProject = allProjects[selectedItemIndex]
+            txtFldProject.text = allProjects[selectedItemIndex].name
+            txtFldArea.isUserInteractionEnabled = true
+            selectedArea = nil
+            getAreaByProjID(theID: self.selectedProject!._id)
         }
     }
+    
+    
     
     
     func IconTypeSelected(item: IconTypeModel) {
@@ -60,8 +67,11 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     var customInfos = [TargetCustomInfo]()
     var iconTypeModel: IconTypeModel?
     
-    var selectedArea: String?
-    var selectedProject: String?
+//    var selectedArea: String?
+//    var selectedProject: String?
+    
+    var selectedArea: AreaModel?
+    var selectedProject: ProjectModel?
     
     
     @IBOutlet weak var datePickerTargetExpireDate: UIDatePicker!
@@ -90,8 +100,8 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     @IBOutlet weak var lblActivationDate: UILabel!
     @IBOutlet weak var lblLastSearch: UILabel!
     
-    var allAreas = [String]()
-    var allProjects = [String]()
+    var allAreas = [AreaModel]()
+    var allProjects = [ProjectModel]()
     
     var targetJob: String?
     var fromWhere: String?
@@ -144,7 +154,7 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
         backParentView.isUserInteractionEnabled = true
         backParentView.addGestureRecognizer(backTap)
         
-        getProjectAndAreaFromWeb()
+        getProjectsFromWeb()
         
         
         //TODO must check to work
@@ -174,11 +184,13 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
             self.iconTypeModel = item
             
             self.imgViewIconType.image = item.getImage()
-            
+            txtFldArea.isUserInteractionEnabled = false
         }
         
         if targetJob == "edit"{
             setPropsIfForEdition()
+            txtFldProject.isUserInteractionEnabled = false
+            txtFldArea.isUserInteractionEnabled = false
         }
         
     }
@@ -187,8 +199,8 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
         if let tag = theTag{
             self.txtFldTargetName.text = tag.deviceName
             self.txtFldAlias.text = tag.alias
-            self.txtFldArea.text = tag.area
-            self.txtFldProject.text = tag.project
+            self.txtFldArea.text = tag.area.name
+            self.txtFldProject.text = tag.project.name
             
             let myDF = MyDateFormatter()
             let AD = myDF.getDateFromServerDate(dateString: tag.activationDate)
@@ -232,11 +244,19 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     
     
     @objc func projectTap(_ sender: UITapGestureRecognizer){
-        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Add Project", selectionProtocol: self, datas: self.allProjects, targetAction: 2)
+        var projs = [String]()
+        for proj in self.allProjects{
+            projs.append(proj.name)
+        }
+        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Add Project", selectionProtocol: self, datas: projs, targetAction: 2)
     }
     
     @objc func areaTap(_ sender: UITapGestureRecognizer){
-        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Add Area", selectionProtocol: self, datas: self.allAreas, targetAction: 1)
+        var aras = [String]()
+        for area in self.allAreas{
+            aras.append(area.name)
+        }
+        DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Add Area", selectionProtocol: self, datas: aras, targetAction: 1)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -270,13 +290,13 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     }
     
     
-    func getProjectAndAreaFromWeb(){
+    func getProjectsFromWeb(){
         
         let alter = ViewPatternMethods.waitingDialog(controller: self)
-        
+        self.allProjects.removeAll()
         let header = Dictionary<String, String>()
         
-        HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
                 alter.dismiss(animated: true) {
@@ -285,27 +305,19 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
                     DispatchQueue.main.async {
                         alter.dismiss(animated: true)
                     }
-                    
                     if let j = json as? [String:Any]{
                         
-                        print(j)
-                        if let success = j["success"] as? String{
+                        let projectOPT = j["items"] as? [[String:Any]]
+                        if let projects = projectOPT{
+                            for project in projects {
+                                self.allProjects.append(ProjectModel(json: project))
+                            }
                             DispatchQueue.main.async {
-                                let areasOPT = j["area"] as? [String]
-                                if let areas = areasOPT{
-                                    for area in areas {
-                                        self.allAreas.append(area)
-                                    }
-                                }
-                                let projectsOPT = j["project"] as? [String]
-                                if let projects = projectsOPT{
-                                    for project in projects {
-                                        self.allProjects.append(project)
-                                    }
-                                }
+                                self.selectedProject = self.allProjects[0]
                             }
                         }
                     }
+                    
                 }
             }
             
@@ -321,6 +333,39 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
             print(response)
             print(error)
         }
+    }
+    
+    func getAreaByProjID(theID: String){
+        allAreas.removeAll()
+        let alter = ViewPatternMethods.waitingDialog(controller: self)
+        let url = URLSV2.PROJECTAREAS+"?filter={\"project\": \"" + theID + "\"}"
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: url, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+            
+            DispatchQueue.main.async {
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    DispatchQueue.main.async {
+                        alter.dismiss(animated: true)
+                    }
+                    if let j = json as? [String:Any]{
+                        let areaOPT = j["items"] as? [[String:Any]]
+                        if let areas = areaOPT{
+                            for area in areas {
+                                self.allAreas.append(AreaModel(json: area))
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+
     }
    
     
@@ -346,34 +391,60 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
         theTag?.iconType = self.iconTypeModel?.code ?? 0
         theTag?.targetExpireDate = MyDateFormatter().getDateFromDatePickerForSend(datee: self.targetExpireDate)
         theTag?.isOnGoing = self.isOnGoingSwitch.isOn
-        theTag?.project = self.txtFldProject.text ?? ""
-        theTag?.area = self.txtFldArea.text ?? ""
+        theTag?.project = self.selectedProject!
+        theTag?.area = self.selectedArea!
     }
     func sendEditDatas2Web(){
         
         let waitingAlert = ViewPatternMethods.waitingDialog(controller: self)
         
         var params = Dictionary<String, Any>()
-        params["publicAddress"] = self.publicAddress
-        params["update"] = true
-        params["productName"] = "" //get from scan qr
+//        params["publicAddress"] = self.publicAddress
+//        params["update"] = true
+//        params["productName"] = "" //get from scan qr
         params["alias"] = txtFldAlias.text
         params["deviceName"] = txtFldTargetName.text
         params["iconType"] = self.iconTypeModel?.code
-        params["isOnGoing"] = self.isOnGoingSwitch.isOn
-        params["advertisementInterval"] = ""//get from scan qr
-        params["txPower"] = "" //get from scan qr
-        params["manufactureId"] = ""//get fro scan qr
-        params["cte"] = false
-        params["batteryReplacementLimit"] = 30
-        params["project"] = self.txtFldProject.text
-        params["area"] = self.txtFldArea.text
-        params["lastBatteryAmount"] = 3
+//        params["isOnGoing"] = self.isOnGoingSwitch.isOn
+//        params["advertisementInterval"] = ""//get from scan qr
+//        params["txPower"] = "" //get from scan qr
+//        params["manufactureId"] = ""//get fro scan qr
+//        params["cte"] = false
+//        params["batteryReplacementLimit"] = 30
+//        params["project"] = self.selectedProject?._id
+//        params["area"] = self.selectedArea?._id
+//        params["lastBatteryAmount"] = 3
         params["targetExpireDate"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.datePickerTargetExpireDate.date)
+        
+        var CIs = [[String:Any]]()
+        for item in customInfos{
+            CIs.append(item.getJSON())
+        }
+        params["targetCustomInfo"] = CIs
+        
+        var SDs = [[String:Any]]()
+        for item in serviceDates{
+            SDs.append(item.getJSON())
+        }
+        params["targetServiceDates"] = SDs
+        
+//        JSONArray serviceDatesJSArr = new JSONArray();
+//        for(int i = 0;i < serviceDates.size();i++){
+//            serviceDatesJSArr.put(serviceDates.get(i).getJSONToSend());
+//        }
+//
+//        json.put("targetServiceDates", serviceDatesJSArr);
+//
+//        JSONArray customInfosJSArr = new JSONArray();
+//        for(int i = 0;i < newCustInfoList.size();i++){
+//            customInfosJSArr.put(newCustInfoList.get(i).getJSONToSend());
+//        }
+//        json.put("targetCustomInfo", customInfosJSArr);
+
         
 //        sendCustInfosAndServiceDates()
         
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS, headers: Dictionary<String,String>(), params: params, method: .PATCH) { data, response, error in
             
             
             DispatchQueue.main.async {
@@ -433,25 +504,41 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
         
         var params = Dictionary<String, Any>()
         params["publicAddress"] = self.publicAddress
-        params["update"] = true
-        params["productName"] = "" //get from scan qr
+        params["productName"] = "AAA" //get from scan qr
         params["alias"] = txtFldAlias.text
         params["deviceName"] = txtFldTargetName.text
         params["iconType"] = self.iconTypeModel?.code
         params["isOnGoing"] = self.isOnGoingSwitch.isOn
-        params["advertisementInterval"] = ""//get from scan qr
-        params["txPower"] = "" //get from scan qr
-        params["manufactureId"] = ""//get fro scan qr
+        params["advertisementInterval"] = "1"//get from scan qr
+        params["txPower"] = "1" //get from scan qr
+        params["manufactureId"] = "123123"//get fro scan qr
         params["cte"] = false
         params["batteryReplacementLimit"] = 30
-        params["project"] = self.txtFldProject.text
-        params["area"] = self.txtFldArea.text
+        params["companyProject"] = selectedProject?._id
+        params["projectArea"] = selectedArea?._id
         params["lastBatteryAmount"] = 3
         params["targetExpireDate"] = MyDateFormatter().getDateFromDatePickerForSend(datee: self.targetExpireDate)
+        params["previousTagAssignments"] = []
+        params["tempratureEachConnection"] = []
+        params["lastBatteryAmount"] = 10
+        params["tagBatteryExpireDate"] = "2025/010/20"
         
-        sendCustInfosAndServiceDates()
         
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
+        var CIs = [[String:Any]]()
+        for item in customInfos{
+            CIs.append(item.getJSON())
+        }
+        params["targetCustomInfo"] = CIs
+        
+        var SDs = [[String:Any]]()
+        for item in serviceDates{
+            SDs.append(item.getJSON())
+        }
+        params["targetServiceDates"] = SDs
+        
+//        sendCustInfosAndServiceDates()
+        
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
             
             DispatchQueue.main.async {
                 waitingAlert.dismiss(animated: true) {
@@ -459,38 +546,43 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
 
                     if let j = json as? [String:Any]{
                         print(j)
-                        if let success = j["success"] as? String{
-                            DispatchQueue.main.async {
-                                let message = j["message"] as? String ?? ""
-                                if(success == "true"){
-                                    self.dismiss(animated: true)
+                        DispatchQueue.main.async {
+                            waitingAlert.dismiss(animated: true) {
+                                self.dismiss(animated: true)
+                            }
+                            
+                        }
+//                        if let success = j["success"] as? String{
+//                            DispatchQueue.main.async {
+//                                let message = j["message"] as? String ?? ""
+//                                if(success == "true"){
+//                                    self.dismiss(animated: true)
+//
+//                                }
+//                                else{
 //                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
 //                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
 //                                        alertCTL.dismiss(animated: true)
 //                                    }))
-//                                    alertCTL.addAction(UIAlertAction(title: "OK", style: .default, handler: { UIAlertAction in
-//                                        alertCTL.dismiss(animated: true) {
-////                                            self.dismiss(animated: true)
-//                                        }
-//                                    }))
+//
 //                                    self.present(alertCTL, animated: true)
-                                }else{
-                                    let alertCTL = UIAlertController(title: "Info", message: message, preferredStyle: .actionSheet)
-                                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
-                                        alertCTL.dismiss(animated: true)
-                                    }))
-        
-                                    self.present(alertCTL, animated: true)
-                                }
-                            }
-                        }
+//                                }
+//                            }
+//                        }
                     }
                 }
             }
             
         } failure: { data, response, error in
             DispatchQueue.main.async {
-                waitingAlert.dismiss(animated: true)
+                waitingAlert.dismiss(animated: true) {
+                    let alertCTL = UIAlertController(title: "Info", message: "Problem in setup!", preferredStyle: .actionSheet)
+                    alertCTL.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { UIAlertAction in
+                        alertCTL.dismiss(animated: true)
+                    }))
+
+                    self.present(alertCTL, animated: true)
+                }
             }
             print(data)
             print(response)
@@ -500,47 +592,47 @@ class SetupEditCTL: MyViewController, UIScrollViewDelegate, IconTypeSelection, D
     
     
     
-    func sendCustInfosAndServiceDates(){
-        for item in self.serviceDates{
-            sendServiceDate2Web(serviceDate: item)
-        }
-        for item in self.customInfos{
-            sendCustInfo2Web(custInfo: item)
-        }
-    }
+//    func sendCustInfosAndServiceDates(){
+//        for item in self.serviceDates{
+//            sendServiceDate2Web(serviceDate: item)
+//        }
+//        for item in self.customInfos{
+//            sendCustInfo2Web(custInfo: item)
+//        }
+//    }
     
-    func sendCustInfo2Web(custInfo: TargetCustomInfo){
-
-        var params = Dictionary<String, Any>()
-        params["publicAddress"] = self.publicAddress
-        params["update"] = true
-        params["targetCustomInfo"] = custInfo.getJSON()
-        
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
-            
-        } failure: { data, response, error in
-            print(data)
-            print(response)
-            print(error)
-        }
-    }
-    
-    func sendServiceDate2Web(serviceDate: TargetServiceDate){
-        var params = Dictionary<String, Any>()
-        params["publicAddress"] = self.publicAddress
-        params["update"] = true
-        params["targetServiceDates"] = serviceDate.getJSON()
-        
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
-            
-        } failure: { data, response, error in
-            
-            print(data)
-            print(response)
-            print(error)
-        }
-    }
-    
+//    func sendCustInfo2Web(custInfo: TargetCustomInfo){
+//
+//        var params = Dictionary<String, Any>()
+//        params["publicAddress"] = self.publicAddress
+//        params["update"] = true
+//        params["targetCustomInfo"] = custInfo.getJSON()
+//
+//        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
+//
+//        } failure: { data, response, error in
+//            print(data)
+//            print(response)
+//            print(error)
+//        }
+//    }
+//
+//    func sendServiceDate2Web(serviceDate: TargetServiceDate){
+//        var params = Dictionary<String, Any>()
+//        params["publicAddress"] = self.publicAddress
+//        params["update"] = true
+//        params["targetServiceDates"] = serviceDate.getJSON()
+//
+//        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: Dictionary<String,String>(), params: params, method: .POST) { data, response, error in
+//
+//        } failure: { data, response, error in
+//
+//            print(data)
+//            print(response)
+//            print(error)
+//        }
+//    }
+//
     
     @IBAction func addTargetCustomInfoAction(_ sender: Any) {
         CustomInfoDialog.presentCustomInfoDialog(ViewController: self, customInfoProtocol: self)

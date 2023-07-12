@@ -9,13 +9,12 @@ import UIKit
 
 class AddAreaCTL: MyViewController {
 
-    var allAreas = [String]()
+    var allAreas = [AreaModel]()
     
     var openAddingState: OpenAddingState = .close
     
     @IBOutlet weak var viewBackParent: UIView!
     
-    @IBOutlet weak var addAreaActionView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var constraintAddAreaHeight: NSLayoutConstraint!
@@ -25,7 +24,12 @@ class AddAreaCTL: MyViewController {
     
     @IBOutlet weak var btnSaveArea: UIButton!
     
+    @IBOutlet weak var lblProject: UILabel!
+    @IBOutlet weak var viewProjectParent: RoundedCornerView!
     
+    var allProjects = [ProjectModel]()
+    
+    var selectedProject: ProjectModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +48,35 @@ class AddAreaCTL: MyViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.addAreaActionView.isUserInteractionEnabled = true
-        let addAreaTap = UITapGestureRecognizer(target: self, action: #selector(addAreaTap(_:)))
+        viewProjectParent.isUserInteractionEnabled = true
+        let projectTap = UITapGestureRecognizer(target: self, action: #selector(projectTap(_:)))
+        viewProjectParent.addGestureRecognizer(projectTap)
         
-        addAreaActionView.addGestureRecognizer(addAreaTap)
+//        self.addAreaActionView.isUserInteractionEnabled = true
+//        let addAreaTap = UITapGestureRecognizer(target: self, action: #selector(addAreaTap(_:)))
+//
+//        addAreaActionView.addGestureRecognizer(addAreaTap)
         
+    }
+    
+    @objc func projectTap(_ sender: UITapGestureRecognizer){
+        if allProjects.count > 0{
+            var projs = [String]()
+            for proj in self.allProjects{
+                projs.append(proj.name)
+            }
+            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Projects", selectionProtocol: self, datas: projs, targetAction: 2)
+        }
+    }
+    
+    
+    
+    @IBAction func addAreaTapAction(_ sender: Any) {
+        if self.openAddingState == .open{
+            closeAnimation()
+        }else if self.openAddingState == .close{
+            openAnimation()
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -66,24 +94,117 @@ class AddAreaCTL: MyViewController {
     }
     
     
+    func getProjectFromWeb(TRY: Int){
+        
+        let alter = ViewPatternMethods.waitingDialog(controller: self)
+        
+        let header = Dictionary<String, String>()
+        
+        allProjects.removeAll()
+        
+        
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.COMPANYPROJECT, headers: header, params: nil, method: .GET) { data, response, error in
+            
+            DispatchQueue.main.async {
+                
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    DispatchQueue.main.async {
+                        alter.dismiss(animated: true)
+                    }
+                    
+                    if let j = json as? [String:Any]{
+                        
+                        let projectOPT = j["items"] as? [[String:Any]]
+                        if let projects = projectOPT{
+                            for project in projects {
+                                self.allProjects.append(ProjectModel(json: project))
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.selectedProject = self.allProjects[0]
+                                self.lblProject.text = self.allProjects[0].name
+                                self.getAllAreasByID(theID: self.allProjects[0]._id)
+                            }
+                            
+                        }
+                    }
+
+                }
+            }
+            
+            
+            
+        } failure: { data, response, error in
+            
+            DispatchQueue.main.async {
+                alter.dismiss(animated: true) {
+                    if TRY < 4{
+                        self.getProjectFromWeb(TRY: TRY+1)
+                    }
+                }
+            }
+            
+            print(data)
+            print(response)
+            print(error)
+        }
+    }
+    
+    func getAllAreasByID(theID: String){
+        
+        allAreas.removeAll()
+        
+        let alter = ViewPatternMethods.waitingDialog(controller: self)
+        let url = URLSV2.PROJECTAREAS+"?filter={\"project\": \"" + theID + "\"}"
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: url, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+            
+            DispatchQueue.main.async {
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    DispatchQueue.main.async {
+                        alter.dismiss(animated: true)
+                    }
+                    if let j = json as? [String:Any]{
+                        let areaOPT = j["items"] as? [[String:Any]]
+                        if let areas = areaOPT{
+                            for area in areas {
+                                self.allAreas.append(AreaModel(json: area))
+                            }
+                        }
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+    }
+    
     @objc func backTap(_ sender: UITapGestureRecognizer){
         self.dismiss(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.constraintAddAreaHeight.constant = 0
-        getAllAreas()
+        getProjectFromWeb(TRY: 1)
     }
     
     
     
-    @objc func addAreaTap(_ sender: UITapGestureRecognizer){
-        if self.openAddingState == .open{
-            closeAnimation()
-        }else if self.openAddingState == .close{
-            openAnimation()
-        }
-    }
+//    @objc func addAreaTap(_ sender: UITapGestureRecognizer){
+//        if self.openAddingState == .open{
+//            closeAnimation()
+//        }else if self.openAddingState == .close{
+//            openAnimation()
+//        }
+//    }
     
     func openAnimation(){
         self.viewAddAreaParent.isHidden = false
@@ -96,7 +217,6 @@ class AddAreaCTL: MyViewController {
     }
     
     func closeAnimation(){
-        
         UIView.animate(withDuration: 0.25, delay: 0.0 ,options: UIView.AnimationOptions.curveLinear ,animations: {
         self.constraintAddAreaHeight.constant = 0
         self.view.layoutIfNeeded()
@@ -111,7 +231,7 @@ class AddAreaCTL: MyViewController {
         
         let header = Dictionary<String, String>()
         
-        HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.PROJECTAREAS, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
                 alter.dismiss(animated: true) {
@@ -123,18 +243,20 @@ class AddAreaCTL: MyViewController {
                     
                     if let j = json as? [String:Any]{
                         
-                        print(j)
-                        if let success = j["success"] as? String{
-                            DispatchQueue.main.async {
-                                let areasOPT = j["area"] as? [String]
-                                if let areas = areasOPT{
-                                    for area in areas {
-                                        self.allAreas.append(area)
-                                    }
+                        DispatchQueue.main.async {
+                            let theAreas = j["items"] as? [[String:Any]]
+//                            let areasOPT = j["area"] as? [String]
+                            if let areas = theAreas{
+                                for area in areas {
+                                    self.allAreas.append(AreaModel(json: area))
                                 }
-                                self.tableView.reloadData()
                             }
+                            self.tableView.reloadData()
                         }
+//                        print(j)
+//                        if let success = j["success"] as? String{
+//
+//                        }
                     }
                 }
             }
@@ -168,9 +290,10 @@ class AddAreaCTL: MyViewController {
             return
         }
         var params = [String:Any]()
-        params["area"] = area
+        params["name"] = area
+        params["projectId"] = selectedProject!._id
         
-        HttpClientApi.instance().makeAPICall(url: URLS.AddArea, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.PROJECTAREAS, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             DispatchQueue.main.async {
                 alter.dismiss(animated: true)
@@ -180,15 +303,12 @@ class AddAreaCTL: MyViewController {
             
             if let j = json as? [String:Any]{
                 //                print(j)
-                if let success = j["success"] as? String{
-                    if(success == "true"){
-                        DispatchQueue.main.async {
-                            self.txtFldArea.text = ""
-                            self.allAreas.append(area)
-                            self.tableView.insertRows(at: [IndexPath(row: self.allAreas.count-1, section: 0)], with: .middle)
-                            self.tableView.scrollToRow(at: IndexPath(row: self.allAreas.count-1, section: 0), at: .none, animated: true)
-                        }
-                    }
+                DispatchQueue.main.async {
+                    //TODO 4 below lines is for adding area
+//                    self.txtFldArea.text = ""
+//                    self.allAreas.append(AreaModel(json: j))
+//                    self.tableView.insertRows(at: [IndexPath(row: self.allAreas.count-1, section: 0)], with: .middle)
+//                    self.tableView.scrollToRow(at: IndexPath(row: self.allAreas.count-1, section: 0), at: .none, animated: true)
                 }
             }
             
@@ -221,7 +341,7 @@ extension AddAreaCTL: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addAreaItem", for: indexPath) as! AddAreaItem
         let item = allAreas[indexPath.row]
-        cell.lblArea.text = item
+        cell.lblArea.text = item.name
         
         cell.viewParentEdit.isUserInteractionEnabled = true
         cell.viewParentDelete.isUserInteractionEnabled = true
@@ -239,23 +359,26 @@ extension AddAreaCTL: UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func editAction(_ sender: UITapGestureRecognizer){
-        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
-        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
-        dest.row = sender.view?.tag
-        dest.prevData = allAreas[sender.view!.tag]
-        dest.targetAction = 1
-        dest.theProtocol = self
-        self.present(dest, animated: true, completion: nil)
+        ///TODO edit area action
+//        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+//        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
+//
+//        dest.row = sender.view?.tag
+//        dest.prevData = allAreas[sender.view!.tag]
+//        dest.targetAction = 1
+//        dest.theProtocol = self
+//        self.present(dest, animated: true, completion: nil)
     }
     
     @objc func deleteAction(_ sender: UITapGestureRecognizer){
-        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
-        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
-        dest.row = sender.view?.tag
-        dest.prevData = allAreas[sender.view!.tag]
-        dest.targetAction = 1
-        dest.theProtocol = self
-        self.present(dest, animated: true, completion: nil)
+        ///TODO delete area action
+//        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+//        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
+//        dest.row = sender.view?.tag
+//        dest.prevData = allAreas[sender.view!.tag]
+//        dest.targetAction = 1
+//        dest.theProtocol = self
+//        self.present(dest, animated: true, completion: nil)
     }
     
     
@@ -269,8 +392,8 @@ extension AddAreaCTL: UITextFieldDelegate, UIScrollViewDelegate, EditAreaProject
     }
     
     func editAreaProject(row: Int, newTitle: String) {
-        self.allAreas[row] = newTitle
-        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+//        self.allAreas[row] = newTitle
+//        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -281,4 +404,13 @@ extension AddAreaCTL: UITextFieldDelegate, UIScrollViewDelegate, EditAreaProject
             self.txtFldArea.resignFirstResponder()
         }
     }
+}
+
+extension AddAreaCTL: DataSelection{
+    func DataSelected(selectedItemIndex: Int, targetAction: Int) {
+        self.lblProject.text = allProjects[selectedItemIndex].name
+        self.selectedProject = allProjects[selectedItemIndex]
+        getAllAreasByID(theID: allProjects[selectedItemIndex]._id)
+    }
+    
 }

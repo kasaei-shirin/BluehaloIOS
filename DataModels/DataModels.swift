@@ -11,12 +11,46 @@ import UIKit
 class UserModel{
     var email: String
     var token: String
-    var userType: Int
+    var refreshToken: String
+    var name: String
+    var lastname: String
+    var phoneNum: String
+    var role: String
     
-    init(email: String, token: String, userType: Int) {
+    init(email: String, token: String, refreshToken: String, name: String, lastname: String, phoneNum: String, role: String) {
         self.email = email
         self.token = token
-        self.userType = userType
+        self.refreshToken = refreshToken
+        self.name = name
+        self.lastname = lastname
+        self.phoneNum = phoneNum
+        self.role = role
+//        if isManager{
+//
+//        }else{
+//            self.role = "Employee"
+//        }
+    }
+    
+    init(json: [String:Any]){
+//        this.email = json.optString("email");
+//        this.token = json.optString("token");
+//        this.refreshToken = json.optString("refreshToken");
+//        this.name = json.optString("name");
+//        this.lastname = json.optString("lastName");
+//        this.phoneNumber = json.optString("phone");
+        self.email = json["email"] as? String ?? ""
+        self.token = json["token"] as? String ?? ""
+        self.refreshToken = json["refreshToken"] as? String ?? ""
+        self.name = json["name"] as? String ?? ""
+        self.lastname = json["lastName"] as? String ?? ""
+        self.phoneNum = json["phone"] as? String ?? ""
+        let isManager = json["isManager"] as? Bool ?? false
+        if isManager{
+            self.role = "Manager"
+        }else{
+            self.role = "Employee"
+        }
     }
     
 }
@@ -43,8 +77,8 @@ class SearchHistoryModel{
 class TagModel{
     var flagType: Int
     var flagNote: String
-    var project: String
-    var area: String
+    var project: ProjectModel
+    var area: AreaModel
     var _id: String
     var decryptionCode: String
     var publicAddress: String
@@ -74,7 +108,7 @@ class TagModel{
     
     var rssi: Int
     
-    init(flagType: Int, flagNote: String, project: String, area: String, _id: String, decryptionCode: String, publicAddress: String, productName: String, deviceName: String, alias: String, email: String, manufactureID: String, tagBatteryExpireDate: String, activationDate: String, targetExpireDate: String, isOnGoing: Bool, cte: Bool, update: Bool, lastBatteryAmount: Float, lastFindingDate: String, advertisementInterval: Int, iconType: Int, batteryReplacementLimit: Int, txPower: Int, previousTagAssignments: [String], tempratureEachConnection: [Temprature], targetServiceDates: [TargetServiceDate], targetCustomInfos: [TargetCustomInfo], uuid: String) {
+    init(flagType: Int, flagNote: String, project: ProjectModel, area: AreaModel, _id: String, decryptionCode: String, publicAddress: String, productName: String, deviceName: String, alias: String, email: String, manufactureID: String, tagBatteryExpireDate: String, activationDate: String, targetExpireDate: String, isOnGoing: Bool, cte: Bool, update: Bool, lastBatteryAmount: Float, lastFindingDate: String, advertisementInterval: Int, iconType: Int, batteryReplacementLimit: Int, txPower: Int, previousTagAssignments: [String], tempratureEachConnection: [Temprature], targetServiceDates: [TargetServiceDate], targetCustomInfos: [TargetCustomInfo], uuid: String) {
         self.flagType = flagType
         self.flagNote = flagNote
         self.project = project
@@ -109,8 +143,9 @@ class TagModel{
     
     
     init(json: [String:Any], rssi: Int, uuidString: String){
-        self.project = json["project"] as? String ?? ""
-        self.area = json["area"] as? String ?? ""
+        
+        self.project = ProjectModel(json: json["project"] as? [String:Any] ?? [String:Any]())
+        self.area = AreaModel(json: json["area"] as? [String:Any] ?? [String:Any]())
         self._id = json["_id"] as? String ?? ""
         self.decryptionCode = json["decryptionCode"] as? String ?? ""
         self.publicAddress = json["publicAddress"] as? String ?? ""
@@ -327,4 +362,36 @@ class HomeCollectionModel{
         self.targetJob = targetJob
     }
     
+}
+
+class AreaModel{
+    
+    var _id, name, project: String
+    
+    init(_id: String, name: String, project: String){
+        self._id = _id
+        self.name = name
+        self.project = project
+    }
+    
+    init(json: [String:Any]){
+        self._id = json["_id"] as? String ?? ""
+        self.name = json["name"] as? String ?? ""
+        self.project = json["project"] as? String ?? ""
+    }
+    
+}
+
+class ProjectModel{
+    var _id, name: String
+    
+    init(_id: String, name: String){
+        self._id = _id
+        self.name = name
+    }
+    
+    init(json: [String:Any]){
+        self._id = json["_id"] as? String ?? ""
+        self.name = json["name"] as? String ?? ""
+    }
 }

@@ -19,13 +19,21 @@ class UserCTL: MyViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViews()
+        
+        setUserProps()
     }
     
-    func setViews(){
+    func setUserProps(){
         let user = DBManager().getUserFromDB()
+        
         lblEmail.text = user?.email
+        lblName.text = user?.name
+        lblLastName.text = user?.lastname
+        lblRole.text = user?.role
+        lblPhone.text = user?.phoneNum
     }
+    
+
     
     @IBAction func logoutAction(_ sender: Any) {
         DBManager().deleteUser()

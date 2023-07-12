@@ -8,14 +8,21 @@
 import UIKit
 
 class SearchFilterCTL: MyViewController , DataSelection{
+    
+    var selectedArea: AreaModel?
+    var selectedProject: ProjectModel?
+    
     func DataSelected(selectedItemIndex: Int, targetAction: Int) {
         if targetAction == 1{
             //area
-            self.lblAreas.text = allAreas[selectedItemIndex]
+            self.lblAreas.text = allAreas[selectedItemIndex].name
+            self.selectedArea = allAreas[selectedItemIndex]
         }
         else{
             //project
-            self.lblProjects.text = allProjects[selectedItemIndex]
+            self.lblProjects.text = allProjects[selectedItemIndex].name
+            self.selectedProject = allProjects[selectedItemIndex]
+            getAllAreasByID(theID: allProjects[selectedItemIndex]._id)
         }
     }
     
@@ -23,8 +30,8 @@ class SearchFilterCTL: MyViewController , DataSelection{
     
     @IBOutlet weak var backView: UIView!
     
-    var allAreas = [String]()
-    var allProjects = [String]()
+    var allAreas = [AreaModel]()
+    var allProjects = [ProjectModel]()
     
     var searchHistories = [SearchHistoryModel]()
     
@@ -66,13 +73,21 @@ class SearchFilterCTL: MyViewController , DataSelection{
     
     @objc func areaTap(_ sender: UITapGestureRecognizer){
         if allAreas.count > 0{
-            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Areas", selectionProtocol: self, datas: allAreas, targetAction: 1)
+            var aras = [String]()
+            for area in self.allAreas{
+                aras.append(area.name)
+            }
+            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Areas", selectionProtocol: self, datas: aras, targetAction: 1)
         }
     }
     
     @objc func projectTap(_ sender: UITapGestureRecognizer){
         if allProjects.count > 0{
-            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Projects", selectionProtocol: self, datas: allProjects, targetAction: 2)
+            var projs = [String]()
+            for proj in self.allProjects{
+                projs.append(proj.name)
+            }
+            DataPickerDialog.PresentDataPickerDialog(ViewController: self, titleOfDialog: "Projects", selectionProtocol: self, datas: projs, targetAction: 2)
         }
     }
     
@@ -100,24 +115,22 @@ class SearchFilterCTL: MyViewController , DataSelection{
         self.historyTableView.rowHeight = 60
         
         
-        getProjectAndAreaFromWeb(TRY: 1)
+        getProjectFromWeb(TRY: 1)
         
     }
     
     
-    func getProjectAndAreaFromWeb(TRY: Int){
+    func getProjectFromWeb(TRY: Int){
         
         let alter = ViewPatternMethods.waitingDialog(controller: self)
         
         let header = Dictionary<String, String>()
         
-        allAreas.removeAll()
         allProjects.removeAll()
         
-        allAreas.append("All")
-        allProjects.append("All")
+        allProjects.append(ProjectModel(_id: "-1", name: "All"))
         
-        HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.COMPANYPROJECT, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
                 self.searchHistories = DBManager().getLastSearchHistories()
@@ -130,26 +143,38 @@ class SearchFilterCTL: MyViewController , DataSelection{
                     
                     if let j = json as? [String:Any]{
                         
-                        print(j)
-                        if let success = j["success"] as? String{
-                            DispatchQueue.main.async {
-                                let areasOPT = j["area"] as? [String]
-                                if let areas = areasOPT{
-                                    for area in areas {
-                                        self.allAreas.append(area)
-                                    }
-                                }
-                                let projectsOPT = j["project"] as? [String]
-                                if let projects = projectsOPT{
-                                    for project in projects {
-                                        self.allProjects.append(project)
-                                    }
-                                }
-                                self.checkAllHistories()
-                                self.historyTableView.reloadData()
+                        let projectOPT = j["items"] as? [[String:Any]]
+                        if let projects = projectOPT{
+                            for project in projects {
+                                self.allProjects.append(ProjectModel(json: project))
                             }
                         }
                     }
+                    DispatchQueue.main.async{
+                        self.getAllAreas()
+                    }
+//                    if let j = json as? [String:Any]{
+//
+//                        print(j)
+//                        if let success = j["success"] as? String{
+//                            DispatchQueue.main.async {
+//                                let areasOPT = j["area"] as? [String]
+//                                if let areas = areasOPT{
+//                                    for area in areas {
+//                                        self.allAreas.append(area)
+//                                    }
+//                                }
+//                                let projectsOPT = j["project"] as? [String]
+//                                if let projects = projectsOPT{
+//                                    for project in projects {
+//                                        self.allProjects.append(project)
+//                                    }
+//                                }
+//                                self.checkAllHistories()
+//                                self.historyTableView.reloadData()
+//                            }
+//                        }
+//                    }
                 }
             }
             
@@ -160,7 +185,7 @@ class SearchFilterCTL: MyViewController , DataSelection{
             DispatchQueue.main.async {
                 alter.dismiss(animated: true) {
                     if TRY < 4{
-                        self.getProjectAndAreaFromWeb(TRY: TRY+1)
+                        self.getProjectFromWeb(TRY: TRY+1)
                     }
                 }
             }
@@ -171,6 +196,75 @@ class SearchFilterCTL: MyViewController , DataSelection{
         }
     }
     
+    func getAllAreasByID(theID: String){
+        
+        allAreas.removeAll()
+        allAreas.append(AreaModel(_id: "-1", name: "All", project: "-1"))
+        
+        let alter = ViewPatternMethods.waitingDialog(controller: self)
+        let url = URLSV2.PROJECTAREAS+"?filter={\"project\": \"" + theID + "\"}"
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: url, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+            
+            DispatchQueue.main.async {
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    DispatchQueue.main.async {
+                        alter.dismiss(animated: true)
+                    }
+                    if let j = json as? [String:Any]{
+                        let areaOPT = j["items"] as? [[String:Any]]
+                        if let areas = areaOPT{
+                            for area in areas {
+                                self.allAreas.append(AreaModel(json: area))
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+    }
+    
+    func getAllAreas(){
+        allAreas.removeAll()
+        allAreas.append(AreaModel(_id: "-1", name: "All", project: "-1"))
+        let alter = ViewPatternMethods.waitingDialog(controller: self)
+        let url = URLSV2.PROJECTAREAS
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: url, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+            
+            DispatchQueue.main.async {
+                alter.dismiss(animated: true) {
+                    let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    
+                    
+                    alter.dismiss(animated: true)
+                    
+                    if let j = json as? [String:Any]{
+                        let areaOPT = j["items"] as? [[String:Any]]
+                        if let areas = areaOPT{
+                            for area in areas {
+                                self.allAreas.append(AreaModel(json: area))
+                            }
+                        }
+                    }
+                    self.checkAllHistories()
+                    self.historyTableView.reloadData()
+                }
+            }
+            
+            
+        } failure: { data, response, error in
+            print(data)
+            print(response)
+            print(error)
+        }
+    }
     
 
     
@@ -185,7 +279,7 @@ class SearchFilterCTL: MyViewController , DataSelection{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "location2search"{
             let dest = segue.destination as! SearchCTL
-            dest.filterModel = SearchFilterModel(area: lblAreas.text ?? "All", project: lblProjects.text ?? "All")
+            dest.filterModel = SearchFilterModel(area: selectedArea ?? AreaModel(_id: "-1", name: "All", project: "-1"), project: selectedProject ?? ProjectModel(_id: "-1", name: "All"))
         }
     }
     
@@ -197,7 +291,7 @@ class SearchFilterCTL: MyViewController , DataSelection{
         }
     }
     
-    func isSHInAreaAndProject(SH: SearchHistoryModel, projects: [String], areas: [String])->Bool{
+    func isSHInAreaAndProject(SH: SearchHistoryModel, projects: [ProjectModel], areas: [AreaModel])->Bool{
 
         let PAs = SH.title.split(separator: "/")
         ///TODO
@@ -208,19 +302,19 @@ class SearchFilterCTL: MyViewController , DataSelection{
         
     }
     
-    func isSHInArea(area: String, areas: [String])->Bool{
+    func isSHInArea(area: String, areas: [AreaModel])->Bool{
 
         for item in areas{
-            if item.trimmingCharacters(in: .whitespacesAndNewlines) == area.trimmingCharacters(in: .whitespacesAndNewlines){
+            if item.name.trimmingCharacters(in: .whitespacesAndNewlines) == area.trimmingCharacters(in: .whitespacesAndNewlines){
                 return true
             }
         }
         return false
     }
     
-    func isSHInProjects(project: String, projects: [String])->Bool{
+    func isSHInProjects(project: String, projects: [ProjectModel])->Bool{
         for item in projects{
-            if item.trimmingCharacters(in: .whitespacesAndNewlines) == project.trimmingCharacters(in: .whitespacesAndNewlines){
+            if item.name.trimmingCharacters(in: .whitespacesAndNewlines) == project.trimmingCharacters(in: .whitespacesAndNewlines){
                 return true
             }
         }

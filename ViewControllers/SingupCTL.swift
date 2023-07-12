@@ -60,7 +60,7 @@ class SingupCTL: UIViewController {
 //        json.put("regToken", token);
 //        json.put("useCase", -1);
         
-        HttpClientApi.instance().makeAPICall(url: URLS.REGISTER, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             DispatchQueue.main.async {
                 if let WA = self.waitingAlert{

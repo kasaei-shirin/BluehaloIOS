@@ -438,32 +438,25 @@ class SearchCTL: MyViewController, CBCentralManagerDelegate {
 //        cell.textLabel?.text = "\(PFH.periPheral.name) + \(dataString)  + \(PFH.rssi)"
         
         var header = Dictionary<String, String>()
-        header["Publicaddress"] = theString
+//        header["Publicaddress"] = theString
         
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS+"?filter={\"publicAddress\":\""+theString+"\"}", headers: header, params: nil, method: .GET) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             
             if let j = json as? [String:Any]{
-//                print(j)
-                if let success = j["success"] as? String{
-                    if(success == "true"){
-                        
-                        if let t = j["tag"] as? [String:Any]{
-                            print("tag : \n\(t)")
-                            let theTag = TagModel(json: t,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString)
+                
+                
+                let theTag = TagModel(json: j,rssi: ppp.rssi, uuidString: ppp.periPheral.identifier.uuidString)
 //                            self.tags.append(theTag)
-                            self.allTags.append(theTag)
-                            if self.filterModel!.tagAcceptByFilter(tag: theTag){
+                self.allTags.append(theTag)
+                if self.filterModel!.tagAcceptByFilter(tag: theTag){
 //                                self.tags.append(theTag)
-                                DispatchQueue.main.async {
-                                    self.insertRowIntoListQueue(tag: theTag)
-                                }
-                            }
-                            
-                        }
+                    DispatchQueue.main.async {
+                        self.insertRowIntoListQueue(tag: theTag)
                     }
                 }
+                
             }
             
         } failure: { data, response, error in
@@ -658,12 +651,12 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
                 return locArea
             }
             if let pro = filter.project{
-                locArea = pro
+                locArea = pro.name
             }else{
                 locArea = "All"
             }
             if let ar = filter.area{
-                locArea += " / \(ar)"
+                locArea += " / \(ar.name)"
             }else{
                 locArea += " / All"
             }
@@ -860,27 +853,27 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
     
     @objc func greenAction(_ sender: UIButton){
         let tag = tags[sender.tag]
-        self.sendFlagNote2Web(note: tag.flagNote, flagType: 1, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 1, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0), tag: tag)
     }
     
     @objc func yellowAction(_ sender: UIButton){
         let tag = tags[sender.tag]
-        self.sendFlagNote2Web(note: tag.flagNote, flagType: 2, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 2, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0), tag: tag)
     }
     
     @objc func orangeAction(_ sender: UIButton){
         let tag = tags[sender.tag]
-        self.sendFlagNote2Web(note: tag.flagNote, flagType: 3, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0))
+        self.sendFlagNote2Web(note: tag.flagNote, flagType: 3, publicAddress: tag.publicAddress, indexPath: IndexPath(row: sender.tag, section: 0), tag: tag)
     }
     
-    func sendFlagNote2Web(note: String, flagType: Int, publicAddress: String, indexPath: IndexPath){
+    func sendFlagNote2Web(note: String, flagType: Int, publicAddress: String, indexPath: IndexPath, tag: TagModel){
         print("flagType for change : \(flagType) and note : \(note) , publicAddress : \(publicAddress)")
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         var params = Dictionary<String,Any>()
         params["flagNote"] = note
         params["flagType"] = flagType
-        params["publicAddress"] = publicAddress
-        HttpClientApi.instance().makeAPICall(url: URLS.FlagURL, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS+"/"+tag._id, headers: Dictionary<String, String>(), params: params, method: .PATCH) { data, response, error in
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
                     self.tags[indexPath.row].flagType = flagType
@@ -925,7 +918,7 @@ extension SearchCTL: UITableViewDelegate, UITableViewDataSource, FlagNoteProtoco
         let flagNoteCTL = storyboard.instantiateViewController(withIdentifier: "FlagNoteCTL") as! FlagNoteController
         flagNoteCTL.flagNoteProtocol = self
         flagNoteCTL.indexPath = IndexPath(row: sender.view!.tag, section: 0)
-        flagNoteCTL.publicAddress = tags[sender.view!.tag].publicAddress
+        flagNoteCTL.tag = tags[sender.view!.tag]
         flagNoteCTL.flagType = tags[sender.view!.tag].flagType
         flagNoteCTL.flagTxt = tags[sender.view!.tag].flagNote
 

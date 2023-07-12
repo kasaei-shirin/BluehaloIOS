@@ -9,8 +9,8 @@ import Foundation
 
 class SearchFilterModel{
 
-    var area: String?
-    var project: String?
+    var area: AreaModel?
+    var project: ProjectModel?
     
     var rssiRange: Int?
     var flagType: Int?
@@ -19,12 +19,12 @@ class SearchFilterModel{
     var batteryWarning: Bool?
     var isOnGoing: Bool?
     
-    init(area: String, project: String){
-        if area.lowercased() != "all"{
+    init(area: AreaModel, project: ProjectModel){
+        if area.name.lowercased() != "all"{
             print("lowerd casesh all nabood")
             self.area = area
         }
-        if project.lowercased() != "all"{
+        if project.name.lowercased() != "all"{
             self.project = project
         }
     }
@@ -46,13 +46,13 @@ class SearchFilterModel{
     func tagAcceptByFilter(tag: TagModel)->Bool{
 
         if let ar = self.area{
-            if tag.area != ar && area != ""{
+            if tag.area.name != ar.name && ar.name != ""{
                 print("areaFalse")
                 return false
             }
         }
         if let pro = self.project{
-            if tag.project == pro && pro != ""{
+            if tag.project.name == pro.name && pro.name != ""{
                 print("project false")
                 return false
             }

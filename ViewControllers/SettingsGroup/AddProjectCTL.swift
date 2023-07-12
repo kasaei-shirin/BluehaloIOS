@@ -13,12 +13,12 @@ enum OpenAddingState{
 
 class AddProjectCTL: MyViewController {
 
-    var allProjects = [String]()
+    var allProjects = [ProjectModel]()
     
     var openAddingState: OpenAddingState = .close
     
     @IBOutlet weak var viewBackParent: UIView!
-    @IBOutlet weak var addProjectActionView: UIView!
+//    @IBOutlet weak var addProjectActionView: UIView!
     
     @IBOutlet weak var btnAddProject: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -44,13 +44,20 @@ class AddProjectCTL: MyViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         
-        self.addProjectActionView.isUserInteractionEnabled = true
-        let addProjectTap = UITapGestureRecognizer(target: self, action: #selector(addProjectTap(_:)))
-        
-        addProjectActionView.addGestureRecognizer(addProjectTap)
+//        self.addProjectActionView.isUserInteractionEnabled = true
+//        let addProjectTap = UITapGestureRecognizer(target: self, action: #selector(addProjectTap(_:)))
+//
+//        addProjectActionView.addGestureRecognizer(addProjectTap)
     }
     
-    @objc func addProjectTap(_ sender: UITapGestureRecognizer){
+//    @objc func addProjectTap(_ sender: UITapGestureRecognizer){
+//        if self.openAddingState == .open{
+//            closeAnimation()
+//        }else if self.openAddingState == .close{
+//            openAnimation()
+//        }
+//    }
+    @IBAction func addProjectActionTap(_ sender: Any) {
         if self.openAddingState == .open{
             closeAnimation()
         }else if self.openAddingState == .close{
@@ -114,9 +121,9 @@ class AddProjectCTL: MyViewController {
             return
         }
         var params = [String:Any]()
-        params["project"] = project
+        params["name"] = project
         
-        HttpClientApi.instance().makeAPICall(url: URLS.AddProject, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self,refreshReq: false, url: URLSV2.COMPANYPROJECT, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             DispatchQueue.main.async {
                 alter.dismiss(animated: true)
@@ -125,17 +132,13 @@ class AddProjectCTL: MyViewController {
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             
             if let j = json as? [String:Any]{
-                //                print(j)
-                if let success = j["success"] as? String{
-                    if(success == "true"){
-                        DispatchQueue.main.async {
-                            self.txtFldAddProject.text = ""
-                            self.allProjects.append(project)
-                            self.tableView.insertRows(at: [IndexPath(row: self.allProjects.count-1, section: 0)], with: .middle)
-                            self.tableView.scrollToRow(at: IndexPath(row: self.allProjects.count-1, section: 0), at: .none, animated: true)
-                        }
-                    }
+                DispatchQueue.main.async {
+                    self.txtFldAddProject.text = ""
+                    self.allProjects.append(ProjectModel(json: j))
+                    self.tableView.insertRows(at: [IndexPath(row: self.allProjects.count-1, section: 0)], with: .middle)
+                    self.tableView.scrollToRow(at: IndexPath(row: self.allProjects.count-1, section: 0), at: .none, animated: true)
                 }
+                
             }
             
             
@@ -167,7 +170,7 @@ class AddProjectCTL: MyViewController {
         
         let header = Dictionary<String, String>()
         
-        HttpClientApi.instance().makeAPICall(url: URLS.PROJAREA, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.COMPANYPROJECT, headers: header, params: nil, method: .GET) { data, response, error in
             
             DispatchQueue.main.async {
                 alter.dismiss(animated: true) {
@@ -179,18 +182,23 @@ class AddProjectCTL: MyViewController {
                     
                     if let j = json as? [String:Any]{
                         
-                        print(j)
-                        if let success = j["success"] as? String{
-                            DispatchQueue.main.async {
-                                let areasOPT = j["project"] as? [String]
-                                if let areas = areasOPT{
-                                    for area in areas {
-                                        self.allProjects.append(area)
-                                    }
-                                }
-                                self.tableView.reloadData()
+                        let projectOPT = j["items"] as? [[String:Any]]
+                        if let projects = projectOPT{
+                            for project in projects {
+                                self.allProjects.append(ProjectModel(json: project))
                             }
                         }
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                        
+                        
+//                        print(j)
+//                        if let success = j["success"] as? String{
+//                            DispatchQueue.main.async {
+//
+//                            }
+//                        }
                     }
                 }
             }
@@ -225,7 +233,7 @@ extension AddProjectCTL: UITableViewDelegate, UITableViewDataSource{
         
         
         let item = allProjects[indexPath.row]
-        cell.lblProject.text = item
+        cell.lblProject.text = item.name
         
         
         cell.viewParentEdit.isUserInteractionEnabled = true
@@ -246,23 +254,25 @@ extension AddProjectCTL: UITableViewDelegate, UITableViewDataSource{
     
     
     @objc func editAction(_ sender: UITapGestureRecognizer){
-        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
-        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
-        dest.row = sender.view?.tag
-        dest.prevData = allProjects[sender.view!.tag]
-        dest.targetAction = 2
-        dest.theProtocol = self
-        self.present(dest, animated: true, completion: nil)
+        ///TODO edit action of project
+//        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+//        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "editAreaProjectCTL") as! EditAreaProjectCTL
+//        dest.row = sender.view?.tag
+//        dest.prevData = allProjects[sender.view!.tag]
+//        dest.targetAction = 2
+//        dest.theProtocol = self
+//        self.present(dest, animated: true, completion: nil)
     }
     
     @objc func deleteAction(_ sender: UITapGestureRecognizer){
-        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
-        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
-        dest.row = sender.view?.tag
-        dest.prevData = allProjects[sender.view!.tag]
-        dest.targetAction = 2
-        dest.theProtocol = self
-        self.present(dest, animated: true, completion: nil)
+        ///TODO delete action project
+//        let dialogStoryboard = UIStoryboard(name: "dialogStoryboard", bundle: nil)
+//        let dest = dialogStoryboard.instantiateViewController(withIdentifier: "deleteAreaProjectCTL") as! DeleteAreaProjectCTL
+//        dest.row = sender.view?.tag
+//        dest.prevData = allProjects[sender.view!.tag]
+//        dest.targetAction = 2
+//        dest.theProtocol = self
+//        self.present(dest, animated: true, completion: nil)
     }
     
 }
@@ -276,8 +286,8 @@ extension AddProjectCTL: UITextFieldDelegate, UIScrollViewDelegate, EditAreaProj
     }
     
     func editAreaProject(row: Int, newTitle: String) {
-        self.allProjects[row] = newTitle
-        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+//        self.allProjects[row] = newTitle
+//        self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

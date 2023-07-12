@@ -81,17 +81,16 @@ class DeleteTagCTL: MyViewController {
     
     func sendDelete2Web(){
         var headers = [String:String]()
-        headers["Publicaddress"] = self.theTag!.publicAddress
         
         var params = [String:Any]()
         if let DReason = self.lblDeleteReason.text{
-            params["deleteReason"] = DReason
+            params["tagId"] = self.theTag!._id
+            params["reason"] = DReason
         }
-        params["update"] = true
         
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
-        HttpClientApi.instance().makeAPICall(url: URLS.deleteTag, headers: headers, params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.MOVETAG, headers: headers, params: params, method: .POST) { data, response, error in
             
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
@@ -151,9 +150,9 @@ class DeleteTagCTL: MyViewController {
     
     func setProps(){
         if let tag = theTag{
-            self.lblProject.text = tag.project
+            self.lblProject.text = tag.project.name
             self.lblTargetName.text = tag.deviceName
-            self.lblArea.text = tag.area
+            self.lblArea.text = tag.area.name
             self.lblAlias.text = tag.alias
             self.lblPublicAddress.text = tag.publicAddress
             let MDF = MyDateFormatter()

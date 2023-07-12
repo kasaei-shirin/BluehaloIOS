@@ -146,7 +146,7 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
         var header = Dictionary<String, String>()
         header["Publicaddress"] = theString
         
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.TAGS+"?filter={\"publicAddress\":\""+theString+"\"}", headers: header, params: nil, method: .GET) { data, response, error in
             
 //            DispatchQueue.main.async {
 //                waitingAlert.dismiss(animated: false)
@@ -155,28 +155,38 @@ class ScanQRCTL: MyViewController, AVCaptureMetadataOutputObjectsDelegate, CBCen
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             
             if let j = json as? [String:Any]{
-                print(j)
-                if let success = j["success"] as? String{
-                    DispatchQueue.main.async {
-                        if(success == "true"){
-                            if let t = j["tag"] as? [String:Any]{
-                                self.theTag = TagModel(json: t, rssi: 0, uuidString: "")
-                                self.chooseActionAfterFetchEveryData(tagExists: true)
-                            }else{
-                                let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
-                            }
-                        }else{
-                            self.chooseActionAfterFetchEveryData(tagExists: false)
-                        }
-                    }
-                    
+                
+                
+                let theTag = TagModel(json: j,rssi: 0, uuidString: "")
+//                            self.tags.append(theTag)
+                DispatchQueue.main.async {
+                    self.chooseActionAfterFetchEveryData(tagExists: true)
                 }
+                
+                print(j)
+//                if let success = j["success"] as? String{
+//                    DispatchQueue.main.async {
+//                        if(success == "true"){
+//                            if let t = j["tag"] as? [String:Any]{
+//                                self.theTag = TagModel(json: t, rssi: 0, uuidString: "")
+//                                self.chooseActionAfterFetchEveryData(tagExists: true)
+//                            }else{
+//                                let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                            }
+//                        }else{
+//                            self.chooseActionAfterFetchEveryData(tagExists: false)
+//                        }
+//                    }
+//
+//                }
             }
             
         } failure: { data, response, error in
             DispatchQueue.main.async {
 //                waitingAlert.dismiss(animated: true)
-                ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "Check your Internet connection!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+                ///TODO check error for handling
+//                ViewPatternMethods.showAlert(controller: self, title: "Warning", message: "Check your Internet connection!!!", handler: UIAlertAction(title: "OK", style: .destructive))
+                self.chooseActionAfterFetchEveryData(tagExists: false)
             }
             print(data)
             print(response)

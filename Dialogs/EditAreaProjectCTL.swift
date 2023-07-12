@@ -90,7 +90,7 @@ class EditAreaProjectCTL: MyViewController , UITextFieldDelegate{
         
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
-        HttpClientApi.instance().makeAPICall(url: URLS.EDITAREA, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
@@ -139,7 +139,7 @@ class EditAreaProjectCTL: MyViewController , UITextFieldDelegate{
         
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
-        HttpClientApi.instance().makeAPICall(url: URLS.EDITPROJECT, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])

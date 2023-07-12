@@ -36,25 +36,34 @@ class BatteryAlertCTL: MyViewController {
     func getCurrentRange(){
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
-        HttpClientApi.instance().makeAPICall(url: URLS.batteryAlert, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLSV2.ME, headers: Dictionary<String, String>(), params: nil, method: .GET) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             
-            var message = ""
+//            var message = ""
             
             DispatchQueue.main.async{
                 waiting.dismiss(animated: true) {
                     if let j = json as? [String:Any]{
-                        message = j["message"] as? String ?? ""
-                        if let success = j["success"] as? String{
-                            if(success == "true"){
-                                self.choosedBatteryRange = j["battreyAlertRange"] as? Int ?? 30
-                                self.tableView.delegate = self
-                                self.tableView.dataSource = self
-                                self.tableView.reloadData()
-                                return
-                            }
+                        let theCompany = j["company"] as? [String:Any]
+                        if let company = theCompany{
+                            self.choosedBatteryRange = company["battreyAlertRange"] as? Int ?? 30
+                            self.tableView.delegate = self
+                            self.tableView.dataSource = self
+                            self.tableView.reloadData()
+                        }else{
+                            self.choosedBatteryRange = 30
+                            self.tableView.delegate = self
+                            self.tableView.dataSource = self
+                            self.tableView.reloadData()
                         }
+                        
+//                        message = j["message"] as? String ?? ""
+//                        if let success = j["success"] as? String{
+//                            if(success == "true"){
+//
+//                            }
+//                        }
                     }
 //                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
                 }
@@ -108,7 +117,7 @@ extension BatteryAlertCTL: UITableViewDelegate, UITableViewDataSource{
         
         let waiting = ViewPatternMethods.waitingDialog(controller: self)
         
-        HttpClientApi.instance().makeAPICall(url: URLS.batteryAlert, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: Dictionary<String, String>(), params: params, method: .POST) { data, response, error in
             
             let json = try? JSONSerialization.jsonObject(with: data!, options: [])
             

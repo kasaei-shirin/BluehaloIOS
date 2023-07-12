@@ -23,7 +23,11 @@ class DBManager:NSObject{
     let UT_ID = Expression<Int>("user_id")
     let UT_EMAIL = Expression<String>("email")
     let UT_TOKEN = Expression<String>("token")
-    let UT_USERTYPE = Expression<Int>("roll")
+    let UT_ROLE = Expression<String>("role")
+    let UT_REFRESHTOKEN = Expression<String>("refreshToken")
+    let UT_NAME = Expression<String>("name")
+    let UT_LASTNAME = Expression<String>("lastname")
+    let UT_PHONE = Expression<String>("Phone")
     
     
 //    String TABLENAME = "lastsearchtable";
@@ -58,11 +62,22 @@ class DBManager:NSObject{
     
     
     func buildTables(){
+        
+        print("\(self.database.userVersion) e rezo")
+        print("\(self.database.sqliteVersion.major) check the major")
+        print("\(self.database.sqliteVersion.minor) check the minor")
+        print("\(self.database.sqliteVersion.point) check the point")
+        print("\(self.database.sqliteVersion) check the versions")
+        
         let createUserTable = self.USERTABLE.create { (table) in
             table.column(self.UT_ID, primaryKey: true)
             table.column(self.UT_EMAIL)
             table.column(self.UT_TOKEN)
-            table.column(self.UT_USERTYPE)
+            table.column(self.UT_ROLE)
+            table.column(self.UT_REFRESHTOKEN)
+            table.column(self.UT_NAME)
+            table.column(self.UT_LASTNAME)
+            table.column(self.UT_PHONE)
         }
         
         let createLastSearchTable = self.LASTSEARCHTABLE.create{(table)in
@@ -73,6 +88,7 @@ class DBManager:NSObject{
         do{
             try self.database.run(createUserTable)
             try self.database.run(createLastSearchTable)
+            print("\(self.database.sqliteVersion) check the versions")
             print("tables table created")
         }catch{
             print("in build user table")
@@ -83,17 +99,25 @@ class DBManager:NSObject{
     func insertOrUpdate(theUser : UserModel) {
        let userModel = self.getUserFromDB()
        if userModel != nil{
-           updateUser(userModel: theUser)
+           updateUser(UM: theUser)
        }else{
            insertUser(userModel: theUser)
        }
     }
     
-    func updateUser(userModel: UserModel) {
+    func updateUser(UM: UserModel) {
      print("update user")
         let result = USERTABLE.filter(UT_ID == 1)
         do{
-         try self.database.run(result.update(self.UT_ID <- 1, self.UT_EMAIL <- userModel.email, self.UT_TOKEN <- userModel.token, self.UT_USERTYPE <- userModel.userType))
+            
+            var userModel = UM
+            if userModel.token.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+                let theUser = getUserFromDB()
+                userModel.token = theUser!.token
+                userModel.refreshToken = theUser!.refreshToken
+            }
+            
+            try self.database.run(result.update(self.UT_ID <- 1, self.UT_EMAIL <- userModel.email, self.UT_TOKEN <- userModel.token, self.UT_ROLE <- userModel.role, self.UT_REFRESHTOKEN <- userModel.refreshToken, self.UT_NAME <- userModel.name, self.UT_LASTNAME <- userModel.lastname, self.UT_PHONE <- userModel.phoneNum))
             print("user updated")
         }catch{
             print(error)
@@ -165,7 +189,7 @@ class DBManager:NSObject{
     
     func insertUser(userModel : UserModel){
         print("insert fucking user")
-        let insUser = self.USERTABLE.insert(self.UT_ID <- 1, self.UT_EMAIL <- userModel.email, self.UT_TOKEN <- userModel.token, self.UT_USERTYPE <- userModel.userType)
+        let insUser = self.USERTABLE.insert(self.UT_ID <- 1, self.UT_EMAIL <- userModel.email, self.UT_TOKEN <- userModel.token, self.UT_ROLE <- userModel.role, self.UT_REFRESHTOKEN <- userModel.refreshToken, self.UT_NAME <- userModel.name, self.UT_LASTNAME <- userModel.lastname, self.UT_PHONE <- userModel.phoneNum)
         do{
             try self.database.run(insUser)
             print("datas inserted")
@@ -182,9 +206,13 @@ class DBManager:NSObject{
              for u in user{
                  let email = u[self.UT_EMAIL]
                  let token = u[self.UT_TOKEN]
-                 let roll = u[self.UT_USERTYPE]
+                 let role = u[self.UT_ROLE]
+                 let refreshToken = u[self.UT_REFRESHTOKEN]
+                 let name = u[self.UT_NAME]
+                 let lastname = u[self.UT_LASTNAME]
+                 let phone = u[self.UT_PHONE]
                  
-                return UserModel(email: email, token: token, userType: roll)
+                 return UserModel(email: email, token: token, refreshToken: refreshToken, name: name, lastname: lastname, phoneNum: phone, role: role)
                 
             }
         }catch{

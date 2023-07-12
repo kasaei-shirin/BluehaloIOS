@@ -20,14 +20,7 @@ class ViewController: UIViewController {
             let dbManager = DBManager()
             let user = dbManager.getUserFromDB()
             if(user != nil){
-                if(user?.userType != -1)
-                {
-                    self.performSegue(withIdentifier: "splash2main", sender: self)
-                }
-                else
-                {
-                    self.performSegue(withIdentifier: "splash2select", sender: self)
-                }
+                self.performSegue(withIdentifier: "splash2main", sender: self)
             }
             else{
                 self.performSegue(withIdentifier: "splash2signin", sender: self)

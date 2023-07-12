@@ -203,7 +203,7 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
         var header = Dictionary<String, String>()
         header["Publicaddress"] = publicAddress
         
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: header, params: nil, method: .GET) { data, response, error in
+        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: header, params: nil, method: .GET) { data, response, error in
             
 //            DispatchQueue.main.async {
 //                waitingAlert.dismiss(animated: false)
@@ -214,21 +214,23 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
             DispatchQueue.main.async {
                 waiting.dismiss(animated: true) {
                     if let j = json as? [String:Any]{
-                        print(j)
-                        let message = j["message"] as? String ?? ""
-                        if let success = j["success"] as? String{
-                            if(success == "true"){
-                                if let t = j["tag"] as? [String:Any]{
-                                    let theTag = TagModel(json: t, rssi: 0, uuidString: "")
-                                    self.handleTagByLevel(tag: theTag)
-                                }else{
-                                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
-                                }
-                            }else{
-                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
-                            }
-                            
-                        }
+                        let theTag = TagModel(json: j, rssi: 0, uuidString: "")
+                        self.handleTagByLevel(tag: theTag)
+//                        print(j)
+//                        let message = j["message"] as? String ?? ""
+//                        if let success = j["success"] as? String{
+//                            if(success == "true"){
+//                                if let t = j["tag"] as? [String:Any]{
+//                                    let theTag = TagModel(json: t, rssi: 0, uuidString: "")
+//                                    self.handleTagByLevel(tag: theTag)
+//                                }else{
+//                                    let _ = ViewPatternMethods.showAlert(controller: self, title: "Error", message: "This is not your tag!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                                }
+//                            }else{
+//                                ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+//                            }
+//
+//                        }
                     }
                 }
             }
@@ -332,56 +334,56 @@ class ReplaceTagCTL: MyViewController, CBCentralManagerDelegate {
         
     }
     
-    func sendChange2Web(PA1: String, targetPA: String){
-        
-        let waiting = ViewPatternMethods.waitingDialog(controller: self)
-        
-        var params = [String:Any]()
-        params["publicAddress"] = targetPA
-        params["update"] = true
-        
-        var headers = [String:String]()
-        headers["Publicaddress"] = PA1
-        
-        HttpClientApi.instance().makeAPICall(url: URLS.SETUPTAG, headers: headers, params: params, method: .POST) { data, response, error in
-            
-            
-            
-            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-            DispatchQueue.main.async {
-                waiting.dismiss(animated: true) {
-                    if let j = json as? [String:Any]{
-                        print(j)
-                        let message = j["message"] as? String ?? ""
-                        if let success = j["success"] as? String{
-                        
-                            if(success == "true"){
-                                ViewPatternMethods.showAlert(controller: self, title: "Info", message: "Tag successfully changed!", handler: UIAlertAction(title: "OK", style: .destructive))
-                                return
-                            }
-                        
-                        }
-                        ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
-                    }
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Problem in connection after response!", handler: UIAlertAction(title: "OK", style: .destructive))
-                }
-            }
-            
-            
-            
-            
-        } failure: { data, response, error in
-            DispatchQueue.main.async {
-                waiting.dismiss(animated: true) {
-                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Problem in connection!", handler: UIAlertAction(title: "OK", style: .destructive))
-                }
-            }
-            print(data)
-            print(response)
-            print(error)
-        }
-
-    }
+//    func sendChange2Web(PA1: String, targetPA: String){
+//
+//        let waiting = ViewPatternMethods.waitingDialog(controller: self)
+//
+//        var params = [String:Any]()
+//        params["publicAddress"] = targetPA
+//        params["update"] = true
+//
+//        var headers = [String:String]()
+//        headers["Publicaddress"] = PA1
+//
+//        HttpClientApi.instance().makeAPICall(viewController: self, refreshReq: false, url: URLS.test, headers: headers, params: params, method: .POST) { data, response, error in
+//
+//
+//
+//            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+//            DispatchQueue.main.async {
+//                waiting.dismiss(animated: true) {
+//                    if let j = json as? [String:Any]{
+//                        print(j)
+//                        let message = j["message"] as? String ?? ""
+//                        if let success = j["success"] as? String{
+//
+//                            if(success == "true"){
+//                                ViewPatternMethods.showAlert(controller: self, title: "Info", message: "Tag successfully changed!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                                return
+//                            }
+//
+//                        }
+//                        ViewPatternMethods.showAlert(controller: self, title: "Error", message: message, handler: UIAlertAction(title: "OK", style: .destructive))
+//                    }
+//                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Problem in connection after response!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                }
+//            }
+//
+//
+//
+//
+//        } failure: { data, response, error in
+//            DispatchQueue.main.async {
+//                waiting.dismiss(animated: true) {
+//                    ViewPatternMethods.showAlert(controller: self, title: "Error", message: "Problem in connection!", handler: UIAlertAction(title: "OK", style: .destructive))
+//                }
+//            }
+//            print(data)
+//            print(response)
+//            print(error)
+//        }
+//
+//    }
     
 }
 
